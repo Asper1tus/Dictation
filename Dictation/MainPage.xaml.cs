@@ -16,13 +16,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
 
 namespace Dictation
 {
-    /// <summary>
-    /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         private SpeechRecognizer speechRecognizer;
@@ -49,7 +45,7 @@ namespace Dictation
             {
                 if (speechRecognizer.State != SpeechRecognizerState.Idle)
                 {
-                    await speechRecognizer.ContinuousRecognitionSession.CancelAsync();
+                    await speechRecognizer.ContinuousRecognitionSession.StopAsync();
                 }
             }
             isListening = !isListening;
@@ -67,8 +63,6 @@ namespace Dictation
       ContinuousRecognitionSession_Completed;
             speechRecognizer.HypothesisGenerated += 
                 SpeechRecognizer_HypothesisGenerated;
-
-
         }
         private async void ContinuousRecognitionSession_ResultGenerated(
       SpeechContinuousRecognitionSession sender,
@@ -88,6 +82,7 @@ namespace Dictation
             {
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
+
                     editor.Document.SetText(Windows.UI.Text.TextSetOptions.None, dictatedTextBuilder.ToString());
                 });
             }
@@ -126,7 +121,7 @@ namespace Dictation
 
             await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                editor.Document.SetText(Windows.UI.Text.TextSetOptions.None, dictatedTextBuilder.ToString());
+                editor.Document.SetText(Windows.UI.Text.TextSetOptions.None, textboxContent);
             });
         }
     }

@@ -10,19 +10,31 @@
     >
 
     <Grid>
-        
-        <CommandBar  DefaultLabelPosition="Right" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" Click="AppBarToggleButton_Click" ClickMode="Release" />
+        <CommandBar >
+            <CommandBar.Content>
+                <AppBarButton x:Name="HamburgerButton"
+                    FontFamily="Segoe MDL2 Assets"  
+                    Content="&#xE700;" />
+            </CommandBar.Content>
+            <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" Click="AppBarToggleButton_Click" />
             <AppBarButton Icon="Library" Label="Vocabulary Training" />
             <AppBarButton Icon="Font" Label="Formating Tools" />
             <AppBarButton Icon="Rename" Label="Find and Replace" />
             <AppBarButton Icon="Share" Label="Share" />
             <AppBarButton Icon="Edit" Label="Editing Tools" />
         </CommandBar>
-        <NavigationView PaneDisplayMode="LeftMinimal">
-        </NavigationView>
 
-        <RichEditBox x:Name="editor"  Margin="50" Background="White" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <RichEditBox x:Name="editor" Margin="50" Grid.Column="0" IsSpellCheckEnabled ="True"  />
+        </Grid>
     </Grid>
 </Page>
