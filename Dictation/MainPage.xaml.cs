@@ -1,35 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Media.SpeechRecognition;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-
-namespace Dictation
+﻿namespace Dictation
 {
+    using System;
+    using System.Text;
+    using Windows.Media.SpeechRecognition;
+    using Windows.UI.Core;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Navigation;
+
     public sealed partial class MainPage : Page
     {
         private SpeechRecognizer speechRecognizer;
         private CoreDispatcher dispatcher;
         private StringBuilder dictatedTextBuilder;
         private bool isListening = false;
+        private bool isVisible = false;
+
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             isListening = true;
             dictatedTextBuilder = new StringBuilder();
+        }
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
+            speechRecognizer = new SpeechRecognizer();
+            SpeechRecognitionCompilationResult result =
+                await speechRecognizer.CompileConstraintsAsync();
+            speechRecognizer.ContinuousRecognitionSession.ResultGenerated +=
+        ContinuousRecognitionSession_ResultGenerated;
+            speechRecognizer.ContinuousRecognitionSession.Completed +=
+      ContinuousRecognitionSession_Completed;
+            speechRecognizer.HypothesisGenerated +=
+                SpeechRecognizer_HypothesisGenerated;
         }
 
         private async void AppBarToggleButton_Click(object sender, RoutedEventArgs e)
@@ -48,22 +53,10 @@ namespace Dictation
                     await speechRecognizer.ContinuousRecognitionSession.StopAsync();
                 }
             }
+
             isListening = !isListening;
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            this.dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-            this.speechRecognizer = new SpeechRecognizer();
-            SpeechRecognitionCompilationResult result =
-                await speechRecognizer.CompileConstraintsAsync();
-            speechRecognizer.ContinuousRecognitionSession.ResultGenerated +=
-        ContinuousRecognitionSession_ResultGenerated;
-            speechRecognizer.ContinuousRecognitionSession.Completed +=
-      ContinuousRecognitionSession_Completed;
-            speechRecognizer.HypothesisGenerated += 
-                SpeechRecognizer_HypothesisGenerated;
-        }
         private async void ContinuousRecognitionSession_ResultGenerated(
       SpeechContinuousRecognitionSession sender,
       SpeechContinuousRecognitionResultGeneratedEventArgs args)
@@ -82,12 +75,10 @@ namespace Dictation
             {
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-
                     editor.Document.SetText(Windows.UI.Text.TextSetOptions.None, dictatedTextBuilder.ToString());
                 });
             }
         }
-
 
         private async void ContinuousRecognitionSession_Completed(
       SpeechContinuousRecognitionSession sender,
@@ -124,7 +115,19 @@ namespace Dictation
                 editor.Document.SetText(Windows.UI.Text.TextSetOptions.None, textboxContent);
             });
         }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (isVisible)
+            {
+                FindAndReplaceBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                FindAndReplaceBox.Visibility = Visibility.Collapsed;
+            }
+
+            isVisible = !isVisible;
+        }
     }
-
-
 }

@@ -1,0 +1,28 @@
+﻿[*.cs]
+
+# SA1601: Partial elements should be documented
+dotnet_diagnostic.SA1601.severity = silent
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = silent
+
+# IDE0003: Удалить квалификацию
+dotnet_style_qualification_for_method = false:silent
+
+# IDE0003: Удалить квалификацию
+dotnet_style_qualification_for_field = false:silent
+
+# IDE0003: Удалить квалификацию
+dotnet_style_qualification_for_event = false:silent
+
+# IDE0003: Удалить квалификацию
+dotnet_style_qualification_for_property = false:silent
+
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = silent
+
+# IDE0065: Неправильно расположенная директива using
+csharp_using_directive_placement = inside_namespace:silent
+
+# SA1633: File should have header
+dotnet_diagnostic.SA1633.severity = silent

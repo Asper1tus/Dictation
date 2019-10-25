@@ -6,16 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="Gray"
+    RequestedTheme="Default"
     >
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <CommandBar >
+        <CommandBar DefaultLabelPosition="Right" >
             <CommandBar.Content>
                 <AppBarButton x:Name="HamburgerButton"
                     FontFamily="Segoe MDL2 Assets"  
@@ -23,9 +23,9 @@
             </CommandBar.Content>
             <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" Click="AppBarToggleButton_Click" />
             <AppBarButton Icon="Library" Label="Vocabulary Training" />
-            <AppBarButton Icon="Font" Label="Formating Tools" />
-            <AppBarButton Icon="Rename" Label="Find and Replace" />
-            <AppBarButton Icon="Share" Label="Share" />
+            <AppBarButton Icon="Font" Label="Formating Tools"/>
+            <AppBarButton Icon="Rename" Label="Find and Replace" Click="AppBarButton_Click" />
+            <AppBarButton Icon="Share" Label="Share"/>
             <AppBarButton Icon="Edit" Label="Editing Tools" />
         </CommandBar>
 
@@ -34,7 +34,16 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <RichEditBox x:Name="editor" Margin="50" Grid.Column="0" IsSpellCheckEnabled ="True"  />
+
+            <ScrollViewer>
+                <RichEditBox x:Name="editor" Margin="50" Grid.Column="0" IsSpellCheckEnabled ="True" Background="White" />
+            </ScrollViewer>
+            
+            <ListBox Grid.Column="1" Visibility="Collapsed" Width="150" x:Name="FindAndReplaceBox">
+                <TextBlock Text="Arial" FontFamily="Arial"/>
+                <TextBlock Text="Courier New" FontFamily="Courier New"/>
+                <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
+            </ListBox>
         </Grid>
     </Grid>
 </Page>
