@@ -19,12 +19,13 @@
             <CommandBar.Content>
                 <AppBarButton x:Name="HamburgerButton"
                     FontFamily="Segoe MDL2 Assets"  
-                    Content="&#xE700;" />
+                    Content="&#xE700;" Click="HamburgerButton_Click"
+                              />
             </CommandBar.Content>
-            <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" Click="AppBarToggleButton_Click" />
+            <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" Click="{x:Bind Logic.Listening}" />
             <AppBarButton Icon="Library" Label="Vocabulary Training" />
             <AppBarButton Icon="Font" Label="Formating Tools"/>
-            <AppBarButton Icon="Rename" Label="Find and Replace" Click="AppBarButton_Click" />
+            <AppBarButton Icon="Rename" Label="Find and Replace"/>
             <AppBarButton Icon="Share" Label="Share"/>
             <AppBarButton Icon="Edit" Label="Editing Tools" />
         </CommandBar>
@@ -36,9 +37,13 @@
             </Grid.ColumnDefinitions>
 
             <ScrollViewer>
-                <RichEditBox x:Name="editor" Margin="50" Grid.Column="0" IsSpellCheckEnabled ="True" Background="White" />
+                <TextBox x:Name="editor" Margin="50" Grid.Column="0" IsSpellCheckEnabled ="True" Background="White" 
+            AcceptsReturn="True"
+            TextWrapping="Wrap"
+                         IsReadOnly="{x:Bind Logic.IsListening, Mode=OneWay}"
+                         Text="{x:Bind Logic.EditorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </ScrollViewer>
-            
+
             <ListBox Grid.Column="1" Visibility="Collapsed" Width="150" x:Name="FindAndReplaceBox">
                 <TextBlock Text="Arial" FontFamily="Arial"/>
                 <TextBlock Text="Courier New" FontFamily="Courier New"/>
