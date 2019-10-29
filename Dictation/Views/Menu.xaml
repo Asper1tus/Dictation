@@ -13,22 +13,24 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <NavigationView Grid.Column="0" IsBackButtonVisible="Collapsed" IsPaneToggleButtonVisible="False" PaneDisplayMode="Left"  Width="200">
+        <NavigationView x:Name="NavView" Grid.Column="0" IsBackButtonVisible="Collapsed" IsPaneToggleButtonVisible="False" PaneDisplayMode="Left"  Width="200" 
+                         ItemInvoked="NvTopLevelNav_ItemInvoked" Loaded="NvTopLevelNav_Loaded">
             <NavigationView.MenuItems>
-                <NavigationViewItem x:Uid="BackNavItem" Icon="Back" Content="Back" Tag="back" Tapped="NavigationViewItem_Tapped" />
+                <NavigationViewItem x:Uid="BackNavItem" Icon="Back" Content="Back" Tag="back" />
                 <NavigationViewItemSeparator/>
                 <NavigationViewItem x:Uid="NewNavItem" Icon="Page2" Content="New" Tag="new"/>
-                <NavigationViewItem x:Uid="OpenGamesNavItem" Icon="OpenFile" Content="Open" Tag="open"/>
+                <NavigationViewItem x:Uid="OpenGamesNavItem" Icon="OpenFile" Content="Open" Tag="open" />
                 <NavigationViewItem x:Uid="SaveNavItem" Icon="Save" Content="Save" Tag="save"/>
                 <NavigationViewItem x:Uid="SaveAsNavItem" Icon="SaveLocal" Content="Save as" Tag="saveas"/>
                 <NavigationViewItemSeparator/>
                 <NavigationViewItem x:Uid="PrintNavItem" Icon="Print" Content="Print" Tag="print"/>
                 <NavigationViewItem x:Uid="CloseNavItem" Icon="Clear" Content="Close document" Tag="close"/>
+                <NavigationViewItemSeparator/>
+                <NavigationViewItem x:Uid="HelpNavItem" Icon="Help" Content="Help" Tag="help" />
             </NavigationView.MenuItems>
-            
-            <NavigationView.PaneFooter >
-                <NavigationViewItem x:Uid="HelpNavItem" Icon="Help" Content="Help" Tag="help"/>
-            </NavigationView.PaneFooter>
         </NavigationView>
+        
+        <Frame x:Name="ContentFrame" Grid.Column="1"></Frame>
+
     </Grid>
 </Page>

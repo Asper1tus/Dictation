@@ -1,39 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
-
-// Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
-
-namespace Dictation.Views
+﻿namespace Dictation.Views
 {
-    /// <summary>
-    /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
-    /// </summary>
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Media.Animation;
+
     public sealed partial class Menu : Page
     {
-        Frame rootFrame;
+        private readonly Frame rootFrame;
+        private readonly List<(string Tag, Type Page)> pages = new List<(string Tag, Type Page)>
+{
+    ("back", typeof(MainPage)),
+    ("saveas", typeof(SaveAs)),
+    ("open", typeof(Open)),
+    ("help", typeof(Help)),
+    ("settings", typeof(Setting)),
+};
+
         public Menu()
         {
             this.InitializeComponent();
             rootFrame = Window.Current.Content as Frame;
         }
 
-        private void NavigationViewItem_Tapped(object sender, RoutedEventArgs e)
+        private void NvTopLevelNav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-
-            rootFrame.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+            if (args.IsSettingsInvoked == true)
+            {
+                NavView_Navigate("settings", args.RecommendedNavigationTransitionInfo);
+            }
+            else if (args.InvokedItemContainer != null)
+            {
+                var navItemTag = args.InvokedItemContainer.Tag.ToString();
+                NavView_Navigate(navItemTag, args.RecommendedNavigationTransitionInfo);
+            }
         }
+
+        private void NavView_Navigate(string navItemTag, NavigationTransitionInfo transitionInfo)
+        {
+            Type page = null;
+            switch (navItemTag)
+            {
+                case "back": 
+                    rootFrame.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+                    break;
+                case "new":
+                    break;
+                case "save":
+                    break;
+                case "print":
+                    break;
+                case "close":
+                    break;
+                default:
+                    var item = pages.FirstOrDefault(p => p.Tag.Equals(navItemTag));
+                    page = item.Page;
+                    break;
+            }
+
+            var preNavPageType = ContentFrame.CurrentSourcePageType;
+
+            if (!(page is null) && !Equals(preNavPageType, page))
+            {
+                ContentFrame.Navigate(page, null, transitionInfo);
+            }
+        }
+
+        private void NvTopLevelNav_Loaded(object sender, RoutedEventArgs e)
+        {
+            foreach (NavigationViewItemBase item in NavView.MenuItems)
+            {
+                if (item is NavigationViewItem && item.Tag.ToString() == "open")
+                {
+                    NavView.SelectedItem = item;
+                    break;
+                }
+            }
+
+            ContentFrame.Navigate(typeof(Open));
+        }
+
     }
 }
