@@ -9,7 +9,8 @@
 
     public sealed partial class MainPage : Page
     {
-        Frame rootFrame;
+        private Frame rootFrame;
+
         public MainPageViewModel Logic { get; } = new MainPageViewModel();
 
         public MainPage()

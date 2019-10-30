@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dictation.ViewModels
+﻿namespace Dictation.ViewModels
 {
-    class MenuViewModel
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Dictate.Helpers;
+    using Dictation.Views;
+    using Windows.UI.Xaml.Media.Animation;
+
+    internal class MenuViewModel : Observable
     {
+
     }
 }

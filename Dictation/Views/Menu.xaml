@@ -29,8 +29,8 @@
                 <NavigationViewItem x:Uid="HelpNavItem" Icon="Help" Content="Help" Tag="help" />
             </NavigationView.MenuItems>
         </NavigationView>
-        
-        <Frame x:Name="ContentFrame" Grid.Column="1"></Frame>
 
+        <Frame x:Name="ContentFrame" Grid.Column="1"></Frame>
+        
     </Grid>
 </Page>

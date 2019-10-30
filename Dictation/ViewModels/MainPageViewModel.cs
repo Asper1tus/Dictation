@@ -1,27 +1,74 @@
 ﻿namespace Dictation.ViewModels
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Dictate.Helpers;
+    using Dictation.Views.Content;
     using Windows.Media.SpeechRecognition;
     using Windows.UI.Core;
+    using Windows.UI.Xaml.Controls;
 
     public class MainPageViewModel : Observable
     {
         private SpeechRecognizer speechRecognizer;
         private CoreDispatcher dispatcher;
         private StringBuilder dictatedTextBuilder;
+        private Page currentPage;
+        private bool isPanelVisible;
+
+        private readonly List<(string tag, Page page)> pages = new List<(string tag, Page page)>
+{
+    ("findReplace",  new FindReplace()),
+    ("share", new Share()),
+    ("tools", new Tools()),
+    ("vocabulary", new Vocabulary()),
+};
 
         public MainPageViewModel()
         {
             IsListening = false;
             dictatedTextBuilder = new StringBuilder();
             InitializeRecognition();
+            IsPanelVisible = false;
         }
 
         public bool IsListening { get; set; }
 
+        public Page CurrentPage
+        {
+            get { return currentPage; }
+            set { Set(ref this.currentPage, value); }
+        }
+
+        public bool IsPanelVisible
+        {
+            get { return isPanelVisible; }
+            set { Set(ref this.isPanelVisible, value); }
+        }
+
         public string EditorText { get; set; }
+
+        public void DisplayFindReplace()
+        {
+            ChoosePage("findReplace");
+        }
+
+        public void DisplayShare()
+        {
+            ChoosePage("share");
+        }
+
+        public void DisplayTools()
+        {
+            ChoosePage("tools");
+        }
+
+        public void DisplayVocabulary()
+        {
+            ChoosePage("vocabulary");
+        }
 
         public async void InitializeRecognition()
         {
@@ -127,5 +174,21 @@
             });
         }
 
+        private void ChoosePage(string tag)
+        {
+            var item = pages.FirstOrDefault(p => p.tag.Equals(tag));
+            var page = item.page;
+            if (CurrentPage == page)
+            {
+                IsPanelVisible = false;
+                CurrentPage = null;
+            }
+            else
+            {
+
+                CurrentPage = page;
+                IsPanelVisible = true;
+            }
+        }
     }
 }
