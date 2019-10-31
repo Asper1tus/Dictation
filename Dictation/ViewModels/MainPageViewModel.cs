@@ -17,13 +17,14 @@
         private StringBuilder dictatedTextBuilder;
         private Page currentPage;
         private bool isPanelVisible;
+        private string title;
 
-        private readonly List<(string tag, Page page)> pages = new List<(string tag, Page page)>
+        private readonly List<(string tag, Page page, string title)> pages = new List<(string tag, Page page, string title)>
 {
-    ("findReplace",  new FindReplace()),
-    ("share", new Share()),
-    ("tools", new Tools()),
-    ("vocabulary", new Vocabulary()),
+    ("findReplace",  new FindReplace(), "Find and Replace"),
+    ("share", new Share(), "Share"),
+    ("tools", new Tools(), "Formating Tools"),
+    ("vocabulary", new Vocabulary(), "Vocabulary Training"),
 };
 
         public MainPageViewModel()
@@ -32,6 +33,7 @@
             dictatedTextBuilder = new StringBuilder();
             InitializeRecognition();
             IsPanelVisible = false;
+            EditorText = string.Empty;
         }
 
         public bool IsListening { get; set; }
@@ -49,6 +51,12 @@
         }
 
         public string EditorText { get; set; }
+
+        public string Title
+        {
+            get { return title; }
+            set { Set(ref this.title, value); }
+        }
 
         public void DisplayFindReplace()
         {
@@ -68,6 +76,12 @@
         public void DisplayVocabulary()
         {
             ChoosePage("vocabulary");
+        }
+
+        public void Close()
+        {
+            IsPanelVisible = false;
+            CurrentPage = null;
         }
 
         public async void InitializeRecognition()
@@ -185,8 +199,8 @@
             }
             else
             {
-
                 CurrentPage = page;
+                Title = item.title;
                 IsPanelVisible = true;
             }
         }

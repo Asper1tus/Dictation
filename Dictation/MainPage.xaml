@@ -27,7 +27,7 @@
             <AppBarButton Icon="Font" Label="Formating Tools" Tag="tools" Click="{x:Bind Logic.DisplayTools}" />
             <AppBarButton Icon="Rename" Label="Find and Replace" Tag="findreplace" Click="{x:Bind Logic.DisplayFindReplace}"/>
             <AppBarButton Icon="Share" Label="Share" Tag="share" Click="{x:Bind Logic.DisplayShare}" />
-                    <AppBarButton Icon="Edit" Label="Editing Tools" />
+            <AppBarButton Icon="Edit" Label="Editing Tools" />
         </CommandBar>
 
 
@@ -36,17 +36,23 @@
             <SplitView.Content>
                 <Grid>
                     <ScrollViewer>
-                        <TextBox x:Name="editor" Margin="50" IsSpellCheckEnabled ="True" Background="White" 
-            AcceptsReturn="True"
-            TextWrapping="Wrap"
-                         IsReadOnly="{x:Bind Logic.IsListening, Mode=OneWay}"
-                         Text="{x:Bind Logic.EditorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <RichEditBox Margin="50" IsSpellCheckEnabled ="True" Background="White" 
+                         IsReadOnly="{x:Bind Logic.IsListening, Mode=OneWay}" local:RtfText.RichText="{x:Bind Logic.EditorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></RichEditBox>
                     </ScrollViewer>
                 </Grid>
             </SplitView.Content>
 
             <SplitView.Pane>
-                <Frame x:Name="ContentFrame" Content="{x:Bind Logic.CurrentPage, Mode=OneWay}" Grid.Column="1"></Frame>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock VerticalAlignment="Center" Margin="5" FontSize="20" Text="{x:Bind Logic.Title, Mode=OneWay}"></TextBlock>
+                    <Button HorizontalAlignment="Right"  Margin="5" Click="{x:Bind Logic.Close}"
+                             FontFamily="Segoe MDL2 Assets" Content="&#xE711;"></Button>
+                    <Frame x:Name="ContentFrame" Content="{x:Bind Logic.CurrentPage, Mode=OneWay}" Grid.Row="1"></Frame>
+                </Grid>
             </SplitView.Pane>
         </SplitView>
     </Grid>
