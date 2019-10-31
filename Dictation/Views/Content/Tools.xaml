@@ -8,50 +8,74 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
      Width="300">
-
+    <Page.Resources>
+        <Style TargetType="ToggleButton">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="10"/>
+        </Style> 
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+    </Page.Resources>
 
     <StackPanel Margin="10">
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Select font style</TextBlock>
         <StackPanel Orientation="Horizontal" Height="40">
             <ComboBox Margin="5" Width="150"></ComboBox>
             <ComboBox Margin="10 5 5 5"></ComboBox>
+            
         </StackPanel>
         <VariableSizedWrapGrid MaximumRowsOrColumns="5" Orientation="Horizontal">
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE8DD; &#xEB51;"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE8DB;"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE8DC;"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE8DB;"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE8DB;"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE8DB;"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE8DB;"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE8DB;"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DD; &#xEB51;"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DB;"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DC;"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8D3;"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE006;"></ToggleButton>
+            <ToggleButton>
+                <Grid>
+                    <FontIcon FontSize="10"  FontFamily="Segoe MDL2 Assets" Glyph="&#xE8E9;" />
+                    <FontIcon FontSize="10" FontFamily="Segoe MDL2 Assets" Glyph="&#xE921;" />
+                </Grid>
+            </ToggleButton>
+            <ToggleButton Content="X&#x2082;"></ToggleButton>
+            <ToggleButton Content="X²"></ToggleButton>
             <ComboBox  Width="70" Margin="5" VariableSizedWrapGrid.ColumnSpan="2"></ComboBox>
         </VariableSizedWrapGrid>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Set alignment</TextBlock>
         <StackPanel Orientation="Horizontal">
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE8E4;"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE8E3;"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE8E2;"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5" FontSize="10" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E4;"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E3;"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E2;"></ToggleButton>
+            <ToggleButton>
+                <Grid>
+                    <FontIcon FontSize="10"  FontFamily="Segoe MDL2 Assets" Glyph="&#xE8E4;" />
+                    <FontIcon FontSize="10" FontFamily="Segoe MDL2 Assets" Glyph="&#xE8E2;" />
+                </Grid>
+            </ToggleButton>
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Bullets and Numbering</TextBlock>
         <StackPanel Orientation="Horizontal">
-            <ToggleButton Width="30" Height="30" Margin="5"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8FD;"></ToggleButton>
+            <ToggleButton></ToggleButton>
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Line spacing</TextBlock>
         <StackPanel Orientation="Horizontal">
-            <ToggleButton Width="30" Height="30" Margin="5"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5"></ToggleButton>
-            <ToggleButton Width="30" Height="30" Margin="5"></ToggleButton>
+            <ToggleButton></ToggleButton>
+            <ToggleButton></ToggleButton>
+            <ToggleButton></ToggleButton>
+            <ToggleButton></ToggleButton>
+            <ToggleButton></ToggleButton>
+            <ToggleButton></ToggleButton>
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Insert</TextBlock>
         <StackPanel Orientation="Horizontal">
-            <Button Width="30" Height="30" Margin="5"></Button>
-            <Button Width="30" Height="30" Margin="5"></Button>
+            <Button></Button>
+            <Button></Button>
         </StackPanel>
     </StackPanel>
 </Page>

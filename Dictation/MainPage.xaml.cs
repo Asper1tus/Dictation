@@ -15,13 +15,13 @@
 
         public MainPage()
         {
-            InitializeComponent();
-            rootFrame = Window.Current.Content as Frame;
+            InitializeComponent(); 
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof(Menu), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
+            Frame.Navigate(typeof(Menu), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
         }
 
     }
