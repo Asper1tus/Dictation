@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows.Input;
     using Dictate.Helpers;
+    using Dictation.Commands;
     using Dictation.Views.Content;
     using Windows.UI.Xaml.Controls;
 
@@ -14,7 +16,7 @@
 
         private readonly List<(string tag, Page page, string title)> pages = new List<(string tag, Page page, string title)>
 {
-    ("findReplace",  new FindReplace(), "Find and Replace"),
+    ("findreplace",  new FindReplace(), "Find and Replace"),
     ("share", new Share(), "Share"),
     ("tools", new Tools(), "Formating Tools"),
     ("vocabulary", new Vocabulary(), "Vocabulary Training"),
@@ -23,6 +25,7 @@
         public MainPageViewModel()
         {
             IsPanelVisible = false;
+            DispalyContent = new RelayCommand(ChoosePage);
         }
 
         public Page CurrentPage
@@ -43,25 +46,7 @@
             set { Set(ref this.title, value); }
         }
 
-        public void DisplayFindReplace()
-        {
-            ChoosePage("findReplace");
-        }
-
-        public void DisplayShare()
-        {
-            ChoosePage("share");
-        }
-
-        public void DisplayTools()
-        {
-            ChoosePage("tools");
-        }
-
-        public void DisplayVocabulary()
-        {
-            ChoosePage("vocabulary");
-        }
+        public RelayCommand DispalyContent { get; }
 
         public void Close()
         {
@@ -69,9 +54,9 @@
             CurrentPage = null;
         }
 
-        private void ChoosePage(string tag)
+        private void ChoosePage(object tag)
         {
-            var item = pages.FirstOrDefault(p => p.tag.Equals(tag));
+            var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag));
             var page = item.page;
             if (CurrentPage == page)
             {

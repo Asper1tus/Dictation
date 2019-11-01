@@ -1,8 +1,9 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace Dictate.Helpers
+﻿namespace Dictate.Helpers
 {
+    using Dictation.Models;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+
     public class Observable : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

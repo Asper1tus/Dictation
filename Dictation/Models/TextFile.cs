@@ -1,6 +1,6 @@
 ﻿namespace Dictation.Models
 {
-    internal class TextFile
+    public class TextFile
     {
         public string Text { get; set; }
 

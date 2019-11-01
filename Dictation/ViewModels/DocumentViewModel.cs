@@ -5,12 +5,15 @@
     using Dictate.Helpers;
     using Windows.Media.SpeechRecognition;
     using Windows.UI.Core;
+    using Windows.UI.Text;
+    using Windows.UI.Xaml.Controls;
 
     public class DocumentViewModel : Observable
     {
         private SpeechRecognizer speechRecognizer;
         private CoreDispatcher dispatcher;
         private StringBuilder dictatedTextBuilder;
+        private string editorText;
 
         public DocumentViewModel()
         {
@@ -20,9 +23,15 @@
             InitializeRecognition();
         }
 
-        public string EditorText { get; set; }
+        public string EditorText
+        {
+            get { return editorText; }
+            set { Set(ref editorText, value); }
+        }
 
         public bool IsListening { get; set; }
+
+        public string SelectedText { get; set; }
 
         public async void InitializeRecognition()
         {
@@ -38,6 +47,7 @@
       ContinuousRecognitionSession_Completed;
             speechRecognizer.HypothesisGenerated +=
                 SpeechRecognizer_HypothesisGenerated;
+
         }
 
         public async void Listening()
@@ -76,7 +86,6 @@
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     EditorText = dictatedTextBuilder.ToString();
-                    OnPropertyChanged(nameof(EditorText));
                 });
             }
             else
@@ -84,7 +93,6 @@
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     EditorText = dictatedTextBuilder.ToString();
-                    OnPropertyChanged(nameof(EditorText));
                 });
             }
         }
@@ -100,7 +108,6 @@
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         EditorText = dictatedTextBuilder.ToString();
-                        OnPropertyChanged(nameof(EditorText));
                     });
                 }
                 else
@@ -108,7 +115,6 @@
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         EditorText = dictatedTextBuilder.ToString();
-                        OnPropertyChanged(nameof(EditorText));
                     });
                 }
             }
@@ -124,7 +130,6 @@
             await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 EditorText = textboxContent;
-                OnPropertyChanged(nameof(EditorText));
             });
         }
     }

@@ -23,10 +23,10 @@
                               />
             </CommandBar.Content>
             <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" Click="{x:Bind DocumentLogic.Listening}" />
-            <AppBarButton Icon="Library" Label="Vocabulary Training" Tag="vocabulary" Click="{x:Bind Logic.DisplayVocabulary}" />
-            <AppBarButton Icon="Font" Label="Formating Tools" Tag="tools" Click="{x:Bind Logic.DisplayTools}" />
-            <AppBarButton Icon="Rename" Label="Find and Replace" Tag="findreplace" Click="{x:Bind Logic.DisplayFindReplace}"/>
-            <AppBarButton Icon="Share" Label="Share" Tag="share" Click="{x:Bind Logic.DisplayShare}" />
+            <AppBarButton Icon="Library" Label="Vocabulary Training" Tag="vocabulary" Command="{x:Bind Logic.DispalyContent}" CommandParameter="vocabulary"/>
+            <AppBarButton Icon="Font" Label="Formating Tools" Tag="tools" Command="{x:Bind Logic.DispalyContent}" CommandParameter="tools"/>
+            <AppBarButton Icon="Rename" Label="Find and Replace" Tag="findreplace" Command="{x:Bind Logic.DispalyContent}" CommandParameter="findreplace"/>
+            <AppBarButton Icon="Share" Label="Share" Tag="share" Command="{x:Bind Logic.DispalyContent}" CommandParameter="share"/>
             <AppBarButton Icon="Edit" Label="Editing Tools" />
         </CommandBar>
 
@@ -37,7 +37,8 @@
                 <Grid>
                     <ScrollViewer>
                         <RichEditBox Margin="50" IsSpellCheckEnabled ="True" Background="White" 
-                         IsReadOnly="{x:Bind DocumentLogic.IsListening, Mode=OneWay}" local:RtfText.RichText="{x:Bind DocumentLogic.EditorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></RichEditBox>
+                          local:RtfText.RichText="{x:Bind DocumentLogic.EditorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                               ></RichEditBox>
                     </ScrollViewer>
                 </Grid>
             </SplitView.Content>
