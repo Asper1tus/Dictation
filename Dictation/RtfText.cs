@@ -6,7 +6,6 @@
 
     public class RtfText
     {
-
         public static readonly DependencyProperty RichTextProperty =
             DependencyProperty.RegisterAttached("RichText", typeof(string), typeof(RtfText), new PropertyMetadata(string.Empty, Callback));
 

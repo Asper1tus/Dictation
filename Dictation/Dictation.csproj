@@ -121,8 +121,10 @@
     </Compile>
     <Compile Include="Helpers\AudioCapturePermissions.cs" />
     <Compile Include="Helpers\Observable.cs" />
+    <Compile Include="Models\TextFile.cs" />
     <Compile Include="RtfText.cs" />
     <Compile Include="ViewModels\Content\FindReplaceViewModel.cs" />
+    <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

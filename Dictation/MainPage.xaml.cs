@@ -9,14 +9,15 @@
 
     public sealed partial class MainPage : Page
     {
-        private Frame rootFrame;
 
         public MainPageViewModel Logic { get; } = new MainPageViewModel();
+
+        public DocumentViewModel DocumentLogic { get; } = new DocumentViewModel();
 
         public MainPage()
         {
             InitializeComponent(); 
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
