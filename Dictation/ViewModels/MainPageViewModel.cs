@@ -25,7 +25,7 @@
         public MainPageViewModel()
         {
             IsPanelVisible = false;
-            DispalyContent = new RelayCommand(ChoosePage);
+            DispalyContent = new ParametersCommand(ChoosePage);
         }
 
         public Page CurrentPage
@@ -46,7 +46,7 @@
             set { Set(ref this.title, value); }
         }
 
-        public RelayCommand DispalyContent { get; }
+        public ICommand DispalyContent { get; }
 
         public void Close()
         {

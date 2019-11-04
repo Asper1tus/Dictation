@@ -1,6 +1,5 @@
 ﻿namespace Dictation.Views.Content
 {
-    using Dictation.ViewModels.Content;
     using Windows.UI.Xaml.Controls;
 
     /// <summary>
@@ -8,7 +7,6 @@
     /// </summary>
     public sealed partial class FindReplace : Page
     {
-        private FindReplaceViewModel FindReplaceLogic { get; } = new FindReplaceViewModel();
 
         public FindReplace()
         {

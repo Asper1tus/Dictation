@@ -3,17 +3,17 @@
     using System;
     using System.Windows.Input;
 
-    public class RelayCommand : ICommand
+    public class ParametersCommand : ICommand
     {
-        private readonly Action execute;
+        private readonly Action<object> execute;
         private readonly Func<bool> canExecute;
 
-        public RelayCommand(Action execute)
+        public ParametersCommand(Action<object> execute)
             : this(execute, null)
         {
         }
 
-        public RelayCommand(Action execute, Func<bool> canExecute)
+        public ParametersCommand(Action<object> execute, Func<bool> canExecute)
         {
             this.execute = execute ?? throw new ArgumentNullException("execute");
             this.canExecute = canExecute;
@@ -28,7 +28,7 @@
 
         public void Execute(object parameter)
         {
-            execute();
+            execute(parameter);
         }
 
         public void RaiseCanExecuteChanged()

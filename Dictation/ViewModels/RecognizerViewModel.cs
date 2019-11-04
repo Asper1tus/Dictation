@@ -2,40 +2,38 @@
 {
     using System;
     using System.Text;
-    using Dictate.Helpers;
+    using System.Windows.Input;
+    using Dictation.Commands;
+    using Dictation.Models;
     using Windows.Media.SpeechRecognition;
     using Windows.UI.Core;
-    using Windows.UI.Text;
-    using Windows.UI.Xaml.Controls;
 
-    public class DocumentViewModel : Observable
+    public class RecognizerViewModel
     {
+
+        private readonly StringBuilder dictatedTextBuilder;
         private SpeechRecognizer speechRecognizer;
         private CoreDispatcher dispatcher;
-        private StringBuilder dictatedTextBuilder;
-        private string editorText;
 
-        public DocumentViewModel()
+        public RecognizerViewModel(DocumentModel document)
         {
-            EditorText = string.Empty;
+            Document = document;
+            Document.Text = string.Empty;
             IsListening = false;
             dictatedTextBuilder = new StringBuilder();
+            ListeningCommand = new RelayCommand(Listening);
+            dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             InitializeRecognition();
         }
 
-        public string EditorText
-        {
-            get { return editorText; }
-            set { Set(ref editorText, value); }
-        }
+        public ICommand ListeningCommand { get; }
+
+        public DocumentModel Document { get; set; }
 
         public bool IsListening { get; set; }
 
-        public string SelectedText { get; set; }
-
         public async void InitializeRecognition()
         {
-            dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             speechRecognizer = new SpeechRecognizer();
 
             SpeechRecognitionCompilationResult result =
@@ -47,19 +45,17 @@
       ContinuousRecognitionSession_Completed;
             speechRecognizer.HypothesisGenerated +=
                 SpeechRecognizer_HypothesisGenerated;
-
         }
 
         public async void Listening()
         {
             IsListening = !IsListening;
-            OnPropertyChanged(nameof(IsListening));
 
             if (IsListening)
             {
                 if (speechRecognizer.State == SpeechRecognizerState.Idle)
                 {
-                    dictatedTextBuilder.Append(EditorText);
+                    dictatedTextBuilder.Append(Document.Text);
                     await speechRecognizer.ContinuousRecognitionSession.StartAsync();
                 }
             }
@@ -85,14 +81,14 @@
 
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    EditorText = dictatedTextBuilder.ToString();
+                    Document.Text = dictatedTextBuilder.ToString();
                 });
             }
             else
             {
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    EditorText = dictatedTextBuilder.ToString();
+                    Document.Text = dictatedTextBuilder.ToString();
                 });
             }
         }
@@ -107,14 +103,14 @@
                 {
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        EditorText = dictatedTextBuilder.ToString();
+                        Document.Text = dictatedTextBuilder.ToString();
                     });
                 }
                 else
                 {
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        EditorText = dictatedTextBuilder.ToString();
+                        Document.Text = dictatedTextBuilder.ToString();
                     });
                 }
             }
@@ -129,7 +125,7 @@
 
             await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                EditorText = textboxContent;
+                Document.Text = textboxContent;
             });
         }
     }

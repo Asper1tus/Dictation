@@ -9,10 +9,7 @@
 
     public sealed partial class MainPage : Page
     {
-
-        public MainPageViewModel Logic { get; } = new MainPageViewModel();
-
-        public DocumentViewModel DocumentLogic { get; } = new DocumentViewModel();
+        public MainViewModel Logic = new MainViewModel();
 
         public MainPage()
         {

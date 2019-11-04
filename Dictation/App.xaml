@@ -2,6 +2,10 @@
     x:Class="Dictation.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Dictation">
-
+    xmlns:local="using:Dictation"
+    xmlns:viewmodels="using:Dictation.ViewModels">
+    
+    <Application.Resources>
+        <viewmodels:MainViewModel x:Key="sharedViewModel" />
+    </Application.Resources>
 </Application>
