@@ -7,8 +7,13 @@
         public MainViewModel()
         {
             Document = new DocumentModel();
-            File = new FileViewModel(Document);
             MainPage = new MainPageViewModel();
+            File = new FileViewModel(Document);
+        }
+
+        public void RecognizerInit()
+        {
+            Recognizer = new RecognizerViewModel(Document);
         }
 
         public DocumentModel Document { get; set; }

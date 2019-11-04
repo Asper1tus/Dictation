@@ -35,7 +35,7 @@
                 <Grid>
                     <ScrollViewer>
                         <RichEditBox x:Name="editor" Margin="50" IsSpellCheckEnabled ="True" Background="White" 
-                          local:RtfText.RichText="{x:Bind Logic.Document, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></RichEditBox>
+                          local:RtfText.RichText="{x:Bind Logic.Document.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></RichEditBox>
                     </ScrollViewer>
                 </Grid>
             </SplitView.Content>

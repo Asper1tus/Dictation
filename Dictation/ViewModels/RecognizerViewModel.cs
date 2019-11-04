@@ -2,6 +2,7 @@
 {
     using System;
     using System.Text;
+    using System.Threading;
     using System.Windows.Input;
     using Dictation.Commands;
     using Dictation.Models;
@@ -22,7 +23,6 @@
             IsListening = false;
             dictatedTextBuilder = new StringBuilder();
             ListeningCommand = new RelayCommand(Listening);
-            dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             InitializeRecognition();
         }
 
@@ -34,6 +34,7 @@
 
         public async void InitializeRecognition()
         {
+            dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             speechRecognizer = new SpeechRecognizer();
 
             SpeechRecognitionCompilationResult result =
