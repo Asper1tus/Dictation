@@ -14,11 +14,12 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <NavigationView x:Name="NavView" Grid.Column="0" IsBackButtonVisible="Collapsed" IsPaneToggleButtonVisible="False" PaneDisplayMode="Left"  Width="200" 
-                         ItemInvoked="NvTopLevelNav_ItemInvoked" Loaded="NvTopLevelNav_Loaded">
+                         ItemInvoked="NvTopLevelNav_ItemInvoked" 
+                        Loaded="NvTopLevelNav_Loaded">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Uid="BackNavItem" Icon="Back" Content="Back" Tag="back" />
                 <NavigationViewItemSeparator/>
-                <NavigationViewItem x:Uid="NewNavItem" Icon="Page2" Content="New" Tag="new" Tapped="{x:Bind fileViewModel.NewFile, Mode=OneWay}"></NavigationViewItem>
+                <NavigationViewItem x:Uid="NewNavItem" Icon="Page2" Content="New" Tag="new" Tapped="{x:Bind fileViewModel.NewFile}"></NavigationViewItem>
                 <NavigationViewItem x:Uid="OpenGamesNavItem" Icon="OpenFile" Content="Open" Tag="open" />
                 <NavigationViewItem x:Uid="SaveNavItem" Icon="Save" Content="Save" Tag="save"/>
                 <NavigationViewItem x:Uid="SaveAsNavItem" Icon="SaveLocal" Content="Save as" Tag="saveas"/>

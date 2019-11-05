@@ -1,14 +1,23 @@
 ﻿namespace Dictation.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Dictate.Helpers;
-    using Dictation.Views;
-    using Windows.UI.Xaml.Media.Animation;
+    using Windows.UI.Xaml.Controls;
 
-    internal class MenuViewModel : Observable
+    public class MenuViewModel : Observable
     {
+        private Frame frame;
+        private NavigationViewItem selected;
+
+        public MenuViewModel(Frame frame)
+        {
+            this.frame = frame;
+        }
+
+        public NavigationViewItem Selected
+        {
+            get { return selected; }
+            set { Set(ref selected, value); }
+        }
 
     }
 }

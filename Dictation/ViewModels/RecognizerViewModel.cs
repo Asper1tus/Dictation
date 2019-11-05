@@ -7,13 +7,13 @@
     using Windows.Media.SpeechRecognition;
     using Windows.UI.Core;
 
-    public class DocumentViewModel : Observable
+    public class RecognizerViewModel : Observable
     {
         private SpeechRecognizer speechRecognizer;
         private CoreDispatcher dispatcher;
-        private StringBuilder dictatedTextBuilder;
+        private StringBuilder dictatedTextBuilder; 
 
-        public DocumentViewModel()
+        public RecognizerViewModel()
         {
             Document = DocumentModel.GetDocument();
             Document.Text = string.Empty;
@@ -25,8 +25,6 @@
         public DocumentModel Document;
 
         public bool IsListening { get; set; }
-
-        public string SelectedText { get; set; }
 
         public async void InitializeRecognition()
         {
