@@ -18,7 +18,7 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Uid="BackNavItem" Icon="Back" Content="Back" Tag="back" />
                 <NavigationViewItemSeparator/>
-                <NavigationViewItem x:Uid="NewNavItem" Icon="Page2" Content="New" Tag="new"/>
+                <NavigationViewItem x:Uid="NewNavItem" Icon="Page2" Content="New" Tag="new" Tapped="{x:Bind fileViewModel.NewFile, Mode=OneWay}"></NavigationViewItem>
                 <NavigationViewItem x:Uid="OpenGamesNavItem" Icon="OpenFile" Content="Open" Tag="open" />
                 <NavigationViewItem x:Uid="SaveNavItem" Icon="Save" Content="Save" Tag="save"/>
                 <NavigationViewItem x:Uid="SaveAsNavItem" Icon="SaveLocal" Content="Save as" Tag="saveas"/>

@@ -1,5 +1,6 @@
 ﻿namespace Dictation.Views
 {
+    using Dictation.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -9,6 +10,7 @@
 
     public sealed partial class Menu : Page
     {
+        public FileViewModel fileViewModel;
         private readonly Frame rootFrame;
         private readonly List<(string Tag, Type Page)> pages = new List<(string Tag, Type Page)>
 {
@@ -22,6 +24,7 @@
         public Menu()
         {
             this.InitializeComponent();
+            fileViewModel = new FileViewModel();
             rootFrame = Window.Current.Content as Frame;
         }
 

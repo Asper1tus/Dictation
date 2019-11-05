@@ -10,7 +10,7 @@
      Width="300">
 
     <StackPanel Margin="10">
-        <TextBlock TextWrapping="Wrap" Margin="0 0 30 10">Find every instance of a word in your document and replace it with another word.</TextBlock>
+        <!--<TextBlock TextWrapping="Wrap" Margin="0 0 30 10">Find every instance of a word in your document and replace it with another word.</TextBlock>
         <TextBlock FontSize="20" FontWeight="SemiBold">Find what:</TextBlock>
         <TextBox Margin="5" Text="{x:Bind FindReplaceLogic.SearchedWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <CheckBox Margin="5 0 0 0" IsChecked="{x:Bind FindReplaceLogic.IsMatchCase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Match case</CheckBox>
@@ -21,7 +21,7 @@
         <StackPanel Orientation="Horizontal">
             <Button Height="30" Click="{x:Bind FindReplaceLogic.Replace}">Replace</Button>
             <Button Height="30" Margin="20 0 0 0" Click="{x:Bind FindReplaceLogic.ReplaceAll}">Replace All</Button>
-        </StackPanel>
+        </StackPanel>-->
     </StackPanel>
 
 </Page>

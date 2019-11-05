@@ -37,7 +37,7 @@
                 <Grid>
                     <ScrollViewer>
                         <RichEditBox Margin="50" IsSpellCheckEnabled ="True" Background="White" 
-                          local:RtfText.RichText="{x:Bind DocumentLogic.EditorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          local:RtfText.RichText="{x:Bind DocumentLogic.Document.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                ></RichEditBox>
                     </ScrollViewer>
                 </Grid>

@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Windows.Input;
     using Dictate.Helpers;
     using Dictation.Commands;
     using Dictation.Views.Content;
@@ -25,7 +24,7 @@
         public MainPageViewModel()
         {
             IsPanelVisible = false;
-            DispalyContent = new RelayCommand(ChoosePage);
+            DispalyContent = new ParametersCommand (ChoosePage);
         }
 
         public Page CurrentPage
@@ -46,7 +45,7 @@
             set { Set(ref this.title, value); }
         }
 
-        public RelayCommand DispalyContent { get; }
+        public ParametersCommand DispalyContent { get; }
 
         public void Close()
         {
