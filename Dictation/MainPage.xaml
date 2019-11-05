@@ -19,14 +19,14 @@
             <CommandBar.Content>
                 <AppBarButton x:Name="HamburgerButton"
                     FontFamily="Segoe MDL2 Assets"  
-                    Content="&#xE700;" Click="HamburgerButton_Click"
+                    Content="&#xE700;" Command="{x:Bind Logic.HamburgerCommand}"
                               />
             </CommandBar.Content>
-            <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" Click="{x:Bind Logic.Listening}" />
-            <AppBarButton Icon="Library" Label="Vocabulary Training" Tag="vocabulary" Click="{x:Bind Logic.DisplayVocabulary}" />
-            <AppBarButton Icon="Font" Label="Formating Tools" Tag="tools" Click="{x:Bind Logic.DisplayTools}" />
-            <AppBarButton Icon="Rename" Label="Find and Replace" Tag="findreplace" Click="{x:Bind Logic.DisplayFindReplace}"/>
-            <AppBarButton Icon="Share" Label="Share" Tag="share" Click="{x:Bind Logic.DisplayShare}" />
+            <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" Click="{x:Bind DocumentLogic.Listening}" />
+            <AppBarButton Icon="Library" Label="Vocabulary Training" Tag="vocabulary" Command="{x:Bind Logic.DispalyContent}" CommandParameter="vocabulary"/>
+            <AppBarButton Icon="Font" Label="Formating Tools" Tag="tools" Command="{x:Bind Logic.DispalyContent}" CommandParameter="tools"/>
+            <AppBarButton Icon="Rename" Label="Find and Replace" Tag="findreplace" Command="{x:Bind Logic.DispalyContent}" CommandParameter="findreplace"/>
+            <AppBarButton Icon="Share" Label="Share" Tag="share" Command="{x:Bind Logic.DispalyContent}" CommandParameter="share"/>
             <AppBarButton Icon="Edit" Label="Editing Tools" />
         </CommandBar>
 
@@ -36,8 +36,11 @@
             <SplitView.Content>
                 <Grid>
                     <ScrollViewer>
-                        <RichEditBox Margin="50" IsSpellCheckEnabled ="True" Background="White" 
-                         IsReadOnly="{x:Bind Logic.IsListening, Mode=OneWay}" local:RtfText.RichText="{x:Bind Logic.EditorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></RichEditBox>
+                        <!--<RichEditBox Margin="50" IsSpellCheckEnabled ="True" Background="White" 
+                          local:RtfText.RichText="{x:Bind DocumentLogic.EditorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                               ></RichEditBox>-->
+                        <TextBox TextWrapping="Wrap" Margin="50" IsSpellCheckEnabled ="True" Background="White"  
+                                 Text="{x:Bind DocumentLogic.Document.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </ScrollViewer>
                 </Grid>
             </SplitView.Content>

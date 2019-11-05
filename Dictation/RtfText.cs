@@ -6,24 +6,23 @@
 
     public class RtfText
     {
-
         public static readonly DependencyProperty RichTextProperty =
             DependencyProperty.RegisterAttached("RichText", typeof(string), typeof(RtfText), new PropertyMetadata(string.Empty, Callback));
 
-        public static string GetRichText(DependencyObject obj)
+        public static string GetRichText(RichEditBox richEditBox)
         {
-            return (string)obj.GetValue(RichTextProperty);
+            return (string)richEditBox.GetValue(RichTextProperty);
         }
 
-        public static void SetRichText(DependencyObject obj, string value)
+        public static void SetRichText(RichEditBox richEditBox, string value)
         {
-            obj.SetValue(RichTextProperty, value);
+            richEditBox.SetValue(RichTextProperty, value);
         }
 
-        private static void Callback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void Callback(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            var reb = (RichEditBox)d;
-            reb.Document.SetText(TextSetOptions.FormatRtf, (string)e.NewValue);
+            var reb = (RichEditBox)sender;
+            reb.Document.SetText(TextSetOptions.FormatRtf, (string)args.NewValue);
         }
     }
 }

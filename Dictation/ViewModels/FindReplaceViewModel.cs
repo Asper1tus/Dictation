@@ -1,4 +1,6 @@
-﻿namespace Dictation.ViewModels.Content
+﻿using System;
+
+namespace Dictation.ViewModels.Content
 {
     internal class FindReplaceViewModel
     {
@@ -12,16 +14,17 @@
 
         public void FindNext()
         {
-
+            throw new NotImplementedException();
         }
 
         public void Replace()
         {
+            throw new NotImplementedException();
         }
 
         public void ReplaceAll()
         {
-            EditorText = EditorText.Replace(SearchedWord, ReplaceWord);
+            throw new NotImplementedException();
         }
     }
 }
