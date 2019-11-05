@@ -14,13 +14,13 @@
             set { Set(ref text, value); }
         }
 
-        public string FilePath
+        public string Path
         {
             get { return filePath; }
             set { Set(ref filePath, value); }
         }
 
-        public string FileName
+        public string Name
         {
             get { return fileName; }
             set { Set(ref fileName, value); }
@@ -30,7 +30,7 @@
         {
             get
             {
-                if (string.IsNullOrEmpty(FileName) || string.IsNullOrEmpty(FilePath))
+                if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Path))
                 {
                     return true;
                 }

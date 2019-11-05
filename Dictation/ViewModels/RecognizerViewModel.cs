@@ -16,9 +16,8 @@
         private SpeechRecognizer speechRecognizer;
         private CoreDispatcher dispatcher;
 
-        public RecognizerViewModel(DocumentModel document)
+        public RecognizerViewModel()
         {
-            Document = document;
             Document.Text = string.Empty;
             IsListening = false;
             dictatedTextBuilder = new StringBuilder();

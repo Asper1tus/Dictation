@@ -9,14 +9,14 @@
 
     public sealed partial class MainPage : Page
     {
-        public MainViewModel Logic;
+        public MainPageViewModel Logic;
         public RecognizerViewModel Recognizer;
 
         public MainPage()
         {
             InitializeComponent();
-            Logic = new MainViewModel();
-            Logic.RecognizerInit();
+            Logic = new MainPageViewModel();
+            Recognizer = new RecognizerViewModel();
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
