@@ -9,11 +9,10 @@
 
     public sealed partial class MainPage : Page
     {
-        public MainViewModel Logic = new MainViewModel();
-
         public MainPage()
         {
-            InitializeComponent(); 
+            this.DataContext = App.Locator.MainViewModel;
+            InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 

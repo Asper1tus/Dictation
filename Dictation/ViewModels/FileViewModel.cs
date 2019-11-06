@@ -3,12 +3,14 @@
     using System;
     using System.IO;
     using System.Windows.Input;
+    using Dictation.Commands;
     using Dictation.Models;
 
     public class FileViewModel
     {
         public FileViewModel(DocumentModel document)
         {
+            NewCommand = new RelayCommand(NewFile);
             Document = document;
         }
 

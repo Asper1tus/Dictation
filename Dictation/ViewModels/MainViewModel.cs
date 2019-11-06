@@ -8,14 +8,12 @@
         {
             Document = new DocumentModel();
             File = new FileViewModel(Document);
-            MainPage = new MainPageViewModel();
+            MainPage = new MainPageViewModel(Document);
         }
 
         public DocumentModel Document { get; set; }
 
         public FileViewModel File { get; set; }
-
-        public RecognizerViewModel Recognizer { get; set; }
 
         public MainPageViewModel MainPage { get; set; }
     }

@@ -5,11 +5,14 @@
     using System.Windows.Input;
     using Dictate.Helpers;
     using Dictation.Commands;
+    using Dictation.Helpers;
+    using Dictation.Models;
     using Dictation.Views.Content;
     using Windows.UI.Xaml.Controls;
 
     public class MainPageViewModel : Observable
     {
+        private Recognizer recognizer;
         private Page currentPage;
         private bool isPanelVisible;
         private string title;
@@ -22,16 +25,28 @@
     ("vocabulary", new Vocabulary(), "Vocabulary Training"),
 };
 
-        public MainPageViewModel()
+        public MainPageViewModel(DocumentModel document)
         {
+            Document = document;
+            IsListening = false;
             IsPanelVisible = false;
             DispalyContent = new ParametersCommand(ChoosePage);
+            ListeningCommand = new RelayCommand(Listening);
         }
+
+        public ICommand ListeningCommand { get; }
 
         public Page CurrentPage
         {
             get { return currentPage; }
             set { Set(ref this.currentPage, value); }
+        }
+
+        public DocumentModel Document { get; set; }
+        public bool IsListening
+        {
+            get { return isPanelVisible; }
+            set { Set(ref this.isPanelVisible, value); }
         }
 
         public bool IsPanelVisible
@@ -52,6 +67,17 @@
         {
             IsPanelVisible = false;
             CurrentPage = null;
+        }
+
+        public void Listening()
+        {
+            if (recognizer == null)
+            {
+                recognizer = new Recognizer(Document);
+            }
+
+            IsListening = !IsListening;
+            recognizer.Listening(IsListening);
         }
 
         private void ChoosePage(object tag)

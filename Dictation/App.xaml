@@ -6,6 +6,6 @@
     xmlns:viewmodels="using:Dictation.ViewModels">
     
     <Application.Resources>
-        <viewmodels:MainViewModel x:Key="sharedViewModel" />
+        <viewmodels:MainViewModel x:Key="ViewModel" />
     </Application.Resources>
 </Application>

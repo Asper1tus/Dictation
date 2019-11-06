@@ -1,5 +1,6 @@
 ﻿namespace Dictation
 {
+    using Dictation.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -22,6 +23,8 @@
     /// </summary>
     sealed partial class App : Application
     {
+        private static Locator _locator;
+        public static Locator Locator => _locator ?? (_locator = new Locator());
         /// <summary>
         /// Инициализирует одноэлементный объект приложения. Это первая выполняемая строка разрабатываемого
         /// кода, поэтому она является логическим эквивалентом main() или WinMain().
