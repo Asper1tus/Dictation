@@ -30,11 +30,16 @@
             Document = document;
             IsListening = false;
             IsPanelVisible = false;
-            DispalyContent = new ParametersCommand(ChoosePage);
+            DispalyContent = new RelayCommand<string>(ChoosePage);
             ListeningCommand = new RelayCommand(Listening);
+            CloseCommand = new RelayCommand(Close);
         }
 
         public ICommand ListeningCommand { get; }
+     
+        public ICommand DispalyContent { get; }
+     
+        public ICommand CloseCommand { get; }
 
         public Page CurrentPage
         {
@@ -43,6 +48,7 @@
         }
 
         public DocumentModel Document { get; set; }
+   
         public bool IsListening
         {
             get { return isPanelVisible; }
@@ -60,8 +66,6 @@
             get { return title; }
             set { Set(ref this.title, value); }
         }
-
-        public ICommand DispalyContent { get; }
 
         public void Close()
         {

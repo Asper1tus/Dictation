@@ -11,8 +11,8 @@
     {
         public MainPage()
         {
-            this.DataContext = App.Locator.MainViewModel;
             InitializeComponent();
+            this.DataContext = App.Locator.MainViewModel;
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 

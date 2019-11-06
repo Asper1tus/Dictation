@@ -7,11 +7,9 @@
     /// </summary>
     public sealed partial class FindReplace : Page
     {
-
         public FindReplace()
         {
             this.InitializeComponent();
-            MainPage mainPage = new MainPage();
         }
     }
 }

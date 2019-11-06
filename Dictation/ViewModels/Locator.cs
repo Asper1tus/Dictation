@@ -1,6 +1,7 @@
 ﻿namespace Dictation.ViewModels
 {
     using Dictation.Views;
+    using Dictation.Views.Content;
     using GalaSoft.MvvmLight.Ioc;
     using GalaSoft.MvvmLight.Views;
 
@@ -9,7 +10,6 @@
         public Locator()
         {
             Register<MainViewModel, Menu>();
-            Register<MainViewModel, MainPage>();
         }
 
         public MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();

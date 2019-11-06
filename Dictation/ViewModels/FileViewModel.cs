@@ -24,16 +24,16 @@
 
         public ICommand OpenCommand { get; }
 
-        private void NewFile()
+        public void NewFile()
         {
             Document.Text = string.Empty;
-            Document.FileName = string.Empty;
-            Document.FilePath = string.Empty;
+            Document.Name = string.Empty;
+            Document.Path = string.Empty;
         }
 
         private void SaveFile()
         {
-            File.WriteAllText(Document.FilePath, Document.Text);
+            File.WriteAllText(Document.Path, Document.Text);
         }
 
         private void SaveAsFile()
