@@ -11,6 +11,7 @@
         public FindReplace()
         {
             this.InitializeComponent();
+            MainPage mainPage = new MainPage();
         }
     }
 }
