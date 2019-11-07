@@ -2,7 +2,7 @@
 {
     using System;
     using System.Windows.Input;
-    using Dictate.Helpers;
+    using Dictation.Helpers;
     using Dictation.Commands;
     using Dictation.Models;
 
@@ -11,11 +11,11 @@
         private string searchedWord;
         private string replaceWord;
         private bool isFocused;
-        public FindReplaceViewModel()
+        public FindReplaceViewModel(DocumentModel document)
         {
             IsFocused = true;
             SearchedWord = string.Empty;
-            Document = new DocumentModel();
+            Document = document;
             FindNextCommand = new RelayCommand(FindNext);
             ReplaceAllCommand = new RelayCommand(Replace);
             ReplaceAllCommand = new RelayCommand(ReplaceAll);

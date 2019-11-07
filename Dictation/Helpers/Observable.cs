@@ -1,6 +1,5 @@
-﻿namespace Dictate.Helpers
+﻿namespace Dictation.Helpers
 {
-    using Dictation.Models;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 

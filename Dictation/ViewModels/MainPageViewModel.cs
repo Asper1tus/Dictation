@@ -1,54 +1,59 @@
 ﻿namespace Dictation.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Input;
-    using Dictate.Helpers;
+    using Dictation.Helpers;
     using Dictation.Commands;
     using Dictation.Helpers;
     using Dictation.Models;
+    using Dictation.Views;
     using Dictation.Views.Content;
+    using Dictation.Services;
     using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Media.Animation;
 
     public class MainPageViewModel : Observable
     {
         private Recognizer recognizer;
-        private Page currentPage;
         private bool isPanelVisible;
         private string title;
+        private ICommand listeningCommand;
+        private ICommand dispalyContent;
+        private ICommand closeCommand;
+        private ICommand goToMenuCommand;
 
-        private readonly List<(string tag, Page page, string title)> pages = new List<(string tag, Page page, string title)>
+        private readonly List<(string tag, Type page, string title)> pages = new List<(string tag, Type page, string title)>
 {
-    ("findreplace",  new FindReplace(), "Find and Replace"),
-    ("share", new Share(), "Share"),
-    ("tools", new Tools(), "Formating Tools"),
-    ("vocabulary", new Vocabulary(), "Vocabulary Training"),
+    ("findreplace",  typeof(FindReplacePage), "Find and Replace"),
+    ("share", typeof(SharePage), "Share"),
+    ("tools", typeof(ToolsPage), "Formating Tools"),
+    ("vocabulary", typeof(VocabularyPage), "Vocabulary Training"),
 };
 
-        public MainPageViewModel()
+        public MainPageViewModel(DocumentModel document)
         {
-            Document = new DocumentModel();
+            Document = document;
             IsListening = false;
             IsPanelVisible = false;
-            DispalyContent = new RelayCommand<string>(ChoosePage);
-            ListeningCommand = new RelayCommand(Listening);
-            CloseCommand = new RelayCommand(Close);
         }
 
-        public ICommand ListeningCommand { get; }
-     
-        public ICommand DispalyContent { get; }
-     
-        public ICommand CloseCommand { get; }
+        public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
 
-        public Page CurrentPage
-        {
-            get { return currentPage; }
-            set { Set(ref this.currentPage, value); }
-        }
+        public ICommand DispalyContent => dispalyContent ?? (dispalyContent = new RelayCommand<string>(ChoosePage));
+
+        public ICommand CloseCommand => closeCommand ?? (closeCommand = new RelayCommand(Close));
+
+        public ICommand GoToMenuCommand => goToMenuCommand ?? (goToMenuCommand = new RelayCommand(GoToMenu));
 
         public DocumentModel Document { get; set; }
-   
+
+        public void Initialize(Frame contentframe)
+        {
+            NavigationService.ContentFrame = contentframe;
+        }
+
         public bool IsListening
         {
             get { return isPanelVisible; }
@@ -70,7 +75,6 @@
         public void Close()
         {
             IsPanelVisible = false;
-            CurrentPage = null;
         }
 
         public void Listening()
@@ -86,19 +90,16 @@
 
         private void ChoosePage(object tag)
         {
+            IsPanelVisible = true;
             var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag));
             var page = item.page;
-            if (CurrentPage == page)
-            {
-                IsPanelVisible = false;
-                CurrentPage = null;
-            }
-            else
-            {
-                CurrentPage = page;
-                Title = item.title;
-                IsPanelVisible = true;
-            }
+            NavigationService.NavigateContent(page, null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
+            Title = item.title;
+        }
+
+        private void GoToMenu()
+        {
+            NavigationService.Navigate(typeof(Menu), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft});
         }
     }
 }

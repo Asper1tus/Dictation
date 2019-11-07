@@ -15,22 +15,22 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <CommandBar DefaultLabelPosition="Right" >
+        <CommandBar DefaultLabelPosition="Right" x:Name="commandBar">
             <CommandBar.Content>
                 <AppBarButton x:Name="HamburgerButton"
                     FontFamily="Segoe MDL2 Assets"  
-                    Content="&#xE700;" Click="HamburgerButton_Click"/>
+                    Content="&#xE700;" Command="{x:Bind ViewModel.GoToMenuCommand }"/>
             </CommandBar.Content>
-            <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" Command="{Binding MainPage.ListeningCommand}"/>
-            <AppBarButton Icon="Library" Label="Vocabulary Training" Tag="vocabulary" Command="{Binding MainPage.DispalyContent}" CommandParameter="vocabulary"/>
-            <AppBarButton Icon="Font" Label="Formating Tools" Tag="tools" Command="{Binding MainPage.DispalyContent}" CommandParameter="tools"/>
-            <AppBarButton Icon="Rename" Label="Find and Replace" Tag="findreplace" Command="{Binding MainPage.DispalyContent}" CommandParameter="findreplace"/>
-            <AppBarButton Icon="Share" Label="Share" Tag="share" Command="{Binding MainPage.DispalyContent}" CommandParameter="share"/>
+            <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" Command="{x:Bind ViewModel.ListeningCommand}"/>
+            <AppBarButton Icon="Library" Label="Vocabulary Training" Tag="vocabulary" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="vocabulary"/>
+            <AppBarButton Icon="Font" Label="Formating Tools" Tag="tools" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="tools"/>
+            <AppBarButton Icon="Rename" Label="Find and Replace" Tag="findreplace" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="findreplace"/>
+            <AppBarButton Icon="Share" Label="Share" Tag="share" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="share"/>
             <AppBarButton Icon="Edit" Label="Editing Tools" />
         </CommandBar>
 
 
-        <SplitView x:Name="splitView" PanePlacement="Right" Grid.Row="1" DisplayMode="Inline" IsPaneOpen="{Binding MainPage.IsPanelVisible, Mode=TwoWay}" OpenPaneLength="300">
+        <SplitView x:Name="splitView" PanePlacement="Right" Grid.Row="1" DisplayMode="Inline" IsPaneOpen="{x:Bind ViewModel.IsPanelVisible, Mode=TwoWay}" OpenPaneLength="300">
 
             <SplitView.Content>
                 <Grid>
@@ -39,11 +39,7 @@
                           local:RtfText.RichText="{Binding Document.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></RichEditBox>-->
                         <TextBox TextWrapping="Wrap" Margin="50" 
                                 SelectionHighlightColor="Red"
-                                 SelectionStart="{Binding SelectedStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 SelectionLength="{Binding SelectedLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 DataContext="{Binding Document}"
-                                 Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 SelectedText="{Binding SelectedText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                 Text="{x:Bind ViewModel.Document.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </ScrollViewer>
                 </Grid>
             </SplitView.Content>
@@ -54,11 +50,11 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock VerticalAlignment="Center" Margin="5" FontSize="20" Text="{Binding MainPage.Title, Mode=OneWay}"></TextBlock>
+                    <TextBlock VerticalAlignment="Center" Margin="5" FontSize="20" Text="{x:Bind ViewModel.Title, Mode=OneWay}"></TextBlock>
 
-                    <Button HorizontalAlignment="Right" Margin="5" Command="{Binding MainPage.CloseCommand}"
+                    <Button HorizontalAlignment="Right" Margin="5" Command="{x:Bind ViewModel.CloseCommand}"
                              FontFamily="Segoe MDL2 Assets" Content="&#xE711;"></Button>
-                    <Frame x:Name="ContentFrame" Content="{Binding MainPage.CurrentPage, Mode=OneWay}" Grid.Row="1"></Frame>
+                    <Frame x:Name="ContentFrame" Grid.Row="1"></Frame>
                 </Grid>
             </SplitView.Pane>
         </SplitView>
