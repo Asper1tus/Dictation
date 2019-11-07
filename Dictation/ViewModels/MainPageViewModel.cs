@@ -25,9 +25,9 @@
     ("vocabulary", new Vocabulary(), "Vocabulary Training"),
 };
 
-        public MainPageViewModel(DocumentModel document)
+        public MainPageViewModel()
         {
-            Document = document;
+            Document = new DocumentModel();
             IsListening = false;
             IsPanelVisible = false;
             DispalyContent = new RelayCommand<string>(ChoosePage);

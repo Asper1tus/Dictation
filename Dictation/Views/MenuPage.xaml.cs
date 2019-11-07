@@ -13,10 +13,10 @@
         private readonly List<(string Tag, Type Page)> pages = new List<(string Tag, Type Page)>
 {
     ("back", typeof(MainPage)),
-    ("saveas", typeof(SaveAs)),
+    ("saveas", typeof(SaveAsPage)),
     ("open", typeof(Open)),
-    ("help", typeof(Help)),
-    ("settings", typeof(Setting)),
+    ("help", typeof(HelpPage)),
+    ("settings", typeof(SettingsPage)),
 };
 
         public Menu()

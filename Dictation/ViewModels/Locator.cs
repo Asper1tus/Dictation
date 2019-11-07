@@ -1,7 +1,7 @@
 ﻿namespace Dictation.ViewModels
 {
+    using Dictation.Models;
     using Dictation.Views;
-    using Dictation.Views.Content;
     using GalaSoft.MvvmLight.Ioc;
     using GalaSoft.MvvmLight.Views;
 
@@ -9,10 +9,18 @@
     {
         public Locator()
         {
-            Register<MainViewModel, Menu>();
+            Register<MenuViewModel, Menu>();
+            Register<MainPageViewModel, MainPage>();
+            Register<HelpViewModel, HelpPage>();
+            Register<OpenViewModel, Open>();
+            Register <SaveAsViewModel, SaveAsPage>();
+            Register<SettingsViewModel, SettingsPage>();
+
         }
 
         public MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();
+
+        public DocumentModel Document => SimpleIoc.Default.GetInstance<DocumentModel>();
 
         public void Register<VM, V>()
             where VM : class

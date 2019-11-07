@@ -8,10 +8,10 @@
 
     public class FileViewModel
     {
-        public FileViewModel(DocumentModel document)
+        public FileViewModel()
         {
             NewCommand = new RelayCommand(NewFile);
-            Document = document;
+            Document = new DocumentModel();
         }
 
         public DocumentModel Document { get; set; }

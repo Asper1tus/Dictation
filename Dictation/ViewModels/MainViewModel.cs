@@ -6,14 +6,12 @@
     {
         public MainViewModel()
         {
-            Document = new DocumentModel();
-            File = new FileViewModel(Document);
-            MainPage = new MainPageViewModel(Document);
-            Find = new FindReplaceViewModel(Document);
+            File = new FileViewModel();
+            MainPage = new MainPageViewModel();
+            Find = new FindReplaceViewModel();
             File.NewFile();
         }
 
-        public DocumentModel Document { get; set; }
 
         public FileViewModel File { get; set; }
 

@@ -11,11 +11,11 @@
         private string searchedWord;
         private string replaceWord;
         private bool isFocused;
-        public FindReplaceViewModel(DocumentModel document)
+        public FindReplaceViewModel()
         {
             IsFocused = true;
             SearchedWord = string.Empty;
-            Document = document;
+            Document = new DocumentModel();
             FindNextCommand = new RelayCommand(FindNext);
             ReplaceAllCommand = new RelayCommand(Replace);
             ReplaceAllCommand = new RelayCommand(ReplaceAll);
