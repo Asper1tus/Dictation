@@ -1,13 +1,13 @@
-﻿namespace Dictation
+﻿namespace Dictation.Helpers
 {
     using Windows.UI.Text;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
 
-    public class RtfText
+    public class RtfTextHelper
     {
         public static readonly DependencyProperty RichTextProperty =
-            DependencyProperty.RegisterAttached("RichText", typeof(string), typeof(RtfText), new PropertyMetadata(string.Empty, Callback));
+            DependencyProperty.RegisterAttached("RichText", typeof(string), typeof(RtfTextHelper), new PropertyMetadata(string.Empty, Callback));
 
         public static string GetRichText(RichEditBox richEditBox)
         {

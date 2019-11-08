@@ -22,6 +22,7 @@
         private ICommand dispalyContent;
         private ICommand closeCommand;
         private ICommand goToMenuCommand;
+        private Frame contentFrame;
 
         private readonly List<(string tag, Type page, string title)> pages = new List<(string tag, Type page, string title)>
 {
@@ -37,6 +38,7 @@
             RecognizerService.Document = document;
             RecognizerService.InitializeRecognition();
             IsPanelVisible = false;
+            Document.Text = string.Empty;
         }
 
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
@@ -67,9 +69,9 @@
             set { Set(ref this.title, value); }
         }
 
-        public void Initialize(Frame contentframe)
+        public void Initialize(Frame contentFrame)
         {
-            NavigationService.ContentFrame = contentframe;
+            this.contentFrame = contentFrame;
         }
 
         private void Close()
@@ -89,6 +91,7 @@
 
         private void ChoosePage(object tag)
         {
+            NavigationService.ContentFrame = contentFrame;
             IsPanelVisible = true;
             var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag));
             var page = item.page;

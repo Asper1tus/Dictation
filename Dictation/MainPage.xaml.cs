@@ -7,6 +7,7 @@
     public sealed partial class MainPage : Page
     {
         MainPageViewModel ViewModel;
+
         public MainPage()
         {
             InitializeComponent();

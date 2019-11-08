@@ -25,6 +25,8 @@
 
         public FindReplaceViewModel FindReplaceViewModel => SimpleIoc.Default.GetInstance<FindReplaceViewModel>();
 
+        public OpenViewModel OpenViewModel => SimpleIoc.Default.GetInstance<OpenViewModel>();
+
         public MenuViewModel MenuViewModel => SimpleIoc.Default.GetInstance<MenuViewModel>();
 
         public DocumentModel Document => SimpleIoc.Default.GetInstance<DocumentModel>();

@@ -125,7 +125,7 @@
     <Compile Include="Helpers\Observable.cs" />
     <Compile Include="Services\RecognizerService.cs" />
     <Compile Include="Models\DocumentModel.cs" />
-    <Compile Include="RtfText.cs" />
+    <Compile Include="Helpers\RtfTextHelper.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModels\Content\FindReplaceViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />

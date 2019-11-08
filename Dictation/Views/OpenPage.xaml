@@ -13,7 +13,7 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Button x:Name="BrowseDoc" Content="Browse Document" HorizontalAlignment="Center" FontSize="20"></Button>
+        <Button x:Name="BrowseDoc" Content="Browse Document" HorizontalAlignment="Center" FontSize="20" Command="{x:Bind ViewModel.OpenFileCommand}"></Button>
 
         <StackPanel Grid.Row="1" >
             <TextBlock Text="Recent Documents"  HorizontalAlignment="Center" FontSize="30" Margin="10"></TextBlock>
