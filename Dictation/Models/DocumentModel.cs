@@ -1,6 +1,6 @@
 ﻿namespace Dictation.Models
 {
-    using Dictate.Helpers;
+    using Dictation.Helpers;
 
     public class DocumentModel : Observable
     {

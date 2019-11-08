@@ -1,15 +1,16 @@
-﻿using System;
-using System.Threading.Tasks;
-using Windows.Media.Capture;
-
-namespace Dictation.Helpers
+﻿namespace Dictation.Services
 {
-    public class AudioCapturePermissions
+    using System;
+    using System.Threading.Tasks;
+    using Windows.Media.Capture;
+
+    public class AudioCapturePermissionsService
     {
         // If no recording device is attached, attempting to get access to audio capture devices will throw 
         // a System.Exception object, with this HResult set.
         private static readonly int NoCaptureDevicesHResult = -1072845856;
-        public async static Task<bool> RequestMicrophonePermission()
+
+        public static async Task<bool> RequestMicrophonePermission()
         {
             try
             {
@@ -52,6 +53,7 @@ namespace Dictation.Helpers
                     throw;
                 }
             }
+
             return true;
         }
     }
