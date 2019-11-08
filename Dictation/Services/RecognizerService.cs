@@ -1,54 +1,38 @@
-﻿namespace Dictation.ViewModels
+﻿namespace Dictation.Services
 {
     using System;
     using System.Text;
-    using Dictate.Helpers;
     using Dictation.Models;
     using Windows.Media.SpeechRecognition;
     using Windows.UI.Core;
 
-    public class RecognizerViewModel : Observable
+    internal static class RecognizerService
     {
-        private SpeechRecognizer speechRecognizer;
-        private CoreDispatcher dispatcher;
-        private StringBuilder dictatedTextBuilder; 
 
-        public RecognizerViewModel()
+        private static StringBuilder dictatedTextBuilder;
+        private static SpeechRecognizer speechRecognizer;
+        private static CoreDispatcher dispatcher;
+
+        public static DocumentModel Document { get; set; }
+
+        public static async void InitializeRecognition()
         {
-            Document = DocumentModel.GetDocument();
-            Document.Text = string.Empty;
-            IsListening = false;
             dictatedTextBuilder = new StringBuilder();
-            InitializeRecognition();
-        }
-
-        public DocumentModel Document;
-
-        public bool IsListening { get; set; }
-
-        public async void InitializeRecognition()
-        {
             dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             speechRecognizer = new SpeechRecognizer();
-
             SpeechRecognitionCompilationResult result =
                 await speechRecognizer.CompileConstraintsAsync();
-
             speechRecognizer.ContinuousRecognitionSession.ResultGenerated +=
         ContinuousRecognitionSession_ResultGenerated;
             speechRecognizer.ContinuousRecognitionSession.Completed +=
       ContinuousRecognitionSession_Completed;
             speechRecognizer.HypothesisGenerated +=
                 SpeechRecognizer_HypothesisGenerated;
-
         }
 
-        public async void Listening()
+        public static async void Listening(bool isListening)
         {
-            IsListening = !IsListening;
-            OnPropertyChanged(nameof(IsListening));
-
-            if (IsListening)
+            if (isListening)
             {
                 if (speechRecognizer.State == SpeechRecognizerState.Idle)
                 {
@@ -67,7 +51,7 @@
 
         }
 
-        private async void ContinuousRecognitionSession_ResultGenerated(
+        private static async void ContinuousRecognitionSession_ResultGenerated(
       SpeechContinuousRecognitionSession sender,
       SpeechContinuousRecognitionResultGeneratedEventArgs args)
         {
@@ -90,7 +74,7 @@
             }
         }
 
-        private async void ContinuousRecognitionSession_Completed(
+        private static async void ContinuousRecognitionSession_Completed(
       SpeechContinuousRecognitionSession sender,
       SpeechContinuousRecognitionCompletedEventArgs args)
         {
@@ -113,7 +97,7 @@
             }
         }
 
-        private async void SpeechRecognizer_HypothesisGenerated(
+        private static async void SpeechRecognizer_HypothesisGenerated(
   SpeechRecognizer sender,
   SpeechRecognitionHypothesisGeneratedEventArgs args)
         {

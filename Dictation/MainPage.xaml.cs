@@ -1,21 +1,18 @@
 ﻿namespace Dictation
 {
     using Dictation.ViewModels;
-    using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Navigation;
 
     public sealed partial class MainPage : Page
     {
-
-        public MainPageViewModel Logic { get; } = new MainPageViewModel(Window.Current.Content as Frame);
-
-        public RecognizerViewModel DocumentLogic { get; } = new RecognizerViewModel();
-
+        MainPageViewModel ViewModel;
         public MainPage()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+            ViewModel = App.Locator.MainPageViewModel;
             NavigationCacheMode = NavigationCacheMode.Enabled;
+            ViewModel.Initialize(ContentFrame);
         }
     }
 }

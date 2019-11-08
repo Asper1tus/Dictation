@@ -1,13 +1,15 @@
 ﻿namespace Dictation.Models
 {
-    using Dictate.Helpers;
+    using Dictation.Helpers;
 
     public class DocumentModel : Observable
     {
-        private static DocumentModel documentModel;
         private string text;
         private string filePath;
         private string fileName;
+        private string selectedText;
+        private int selectionStart;
+        private int selectionLenght;
 
         public string Text
         {
@@ -27,6 +29,24 @@
             set { Set(ref fileName, value); }
         }
 
+        public string SelectedText
+        {
+            get { return selectedText; }
+            set { Set(ref selectedText, value); }
+        }
+
+        public int SelectionStart
+        {
+            get { return selectionStart; }
+            set { Set(ref selectionStart, value); }
+        }
+
+        public int SelectionLenght
+        {
+            get { return selectionLenght; }
+            set { Set(ref selectionLenght, value); }
+        }
+
         public bool IsEmpty
         {
             get
@@ -40,16 +60,6 @@
                     return false;
                 }
             }
-        }
-
-        public static DocumentModel GetDocument()
-        {
-            if (documentModel == null)
-            {
-                documentModel = new DocumentModel();
-            }
-
-            return documentModel;
         }
     }
 }

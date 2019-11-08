@@ -20,9 +20,9 @@ namespace Dictation.Views
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class Open : Page
+    public sealed partial class OpenPage : Page
     {
-        public Open()
+        public OpenPage()
         {
             this.InitializeComponent();
         }
