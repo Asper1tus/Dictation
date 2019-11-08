@@ -11,7 +11,7 @@
     >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -21,15 +21,14 @@
                     FontFamily="Segoe MDL2 Assets"  
                     Content="&#xE700;" Command="{x:Bind ViewModel.GoToMenuCommand }"/>
             </CommandBar.Content>
-            <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" Command="{x:Bind ViewModel.ListeningCommand}"/>
+            <AppBarToggleButton x:Name="Microphone" Icon="Microphone" Label="Start Dictation" IsChecked="{x:Bind ViewModel.IsListening, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{x:Bind ViewModel.ListeningCommand}"/>
             <AppBarButton Icon="Library" Label="Vocabulary Training" Tag="vocabulary" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="vocabulary"/>
             <AppBarButton Icon="Font" Label="Formating Tools" Tag="tools" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="tools"/>
             <AppBarButton Icon="Rename" Label="Find and Replace" Tag="findreplace" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="findreplace"/>
             <AppBarButton Icon="Share" Label="Share" Tag="share" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="share"/>
             <AppBarButton Icon="Edit" Label="Editing Tools" />
         </CommandBar>
-
-
+   
         <SplitView x:Name="splitView" PanePlacement="Right" Grid.Row="1" DisplayMode="Inline" IsPaneOpen="{x:Bind ViewModel.IsPanelVisible, Mode=TwoWay}" OpenPaneLength="300">
 
             <SplitView.Content>

@@ -2,8 +2,8 @@
 {
     using System;
     using System.Windows.Input;
-    using Dictation.Helpers;
     using Dictation.Commands;
+    using Dictation.Helpers;
     using Dictation.Models;
 
     public class FindReplaceViewModel : Observable
@@ -11,6 +11,7 @@
         private string searchedWord;
         private string replaceWord;
         private bool isFocused;
+
         public FindReplaceViewModel(DocumentModel document)
         {
             IsFocused = true;
@@ -34,11 +35,13 @@
             get { return replaceWord; }
             set { Set(ref replaceWord, value); }
         }
+
         public bool IsFocused
         {
             get { return isFocused; }
             set { Set(ref isFocused, value); }
         }
+
         public bool IsMatchCase { get; set; }
 
         public ICommand FindNextCommand { get; }

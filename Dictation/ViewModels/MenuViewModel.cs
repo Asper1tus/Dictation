@@ -5,9 +5,11 @@
     using System.Windows.Input;
     using Dictation.Commands;
     using Dictation.Helpers;
+    using Dictation.Models;
     using Dictation.Services;
     using Dictation.Views;
     using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Media.Animation;
     using Windows.UI.Xaml.Navigation;
 
     public class MenuViewModel : Observable
@@ -16,11 +18,18 @@
         private NavigationViewItem selected;
         private ICommand itemInvokedCommand;
 
+        public MenuViewModel(DocumentModel document)
+        {
+            Document = document;
+        }
+
         public NavigationViewItem Selected
         {
             get { return selected; }
             set { Set(ref selected, value); }
         }
+
+        public DocumentModel Document { get; set; }
 
         public ICommand ItemInvokedCommand => itemInvokedCommand ?? (itemInvokedCommand = new RelayCommand<NavigationViewItemInvokedEventArgs>(OnItemInvoked));
 
@@ -49,12 +58,7 @@
             if (item.Tag != null)
             {
                 var tag = item.Tag.ToString();
-
-                if (item.Tag.ToString() == "back")
-                {
-                    NavigationService.Navigate(typeof(MainPage));
-                }
-
+                ChooseItem(tag);
                 return;
             }
 
@@ -69,15 +73,59 @@
 
         private void Frame_Navigated(object sender, NavigationEventArgs e)
         {
+            var sourcePageType = e.SourcePageType;
+            if (sourcePageType == typeof(Menu))
+            {
+                sourcePageType = typeof(OpenPage);
+            }
+
             Selected = navigationView.MenuItems
                             .OfType<NavigationViewItem>()
-                            .FirstOrDefault(menuItem => IsMenuItemForPageType(menuItem, e.SourcePageType));
+                            .FirstOrDefault(menuItem => IsMenuItemForPageType(menuItem, sourcePageType));
         }
 
         private bool IsMenuItemForPageType(NavigationViewItem menuItem, Type sourcePageType)
         {
             var pageType = menuItem.GetValue(NavHelper.NavigateToProperty) as Type;
             return pageType == sourcePageType;
+        }
+
+        private void ChooseItem(string tag)
+        {
+            switch (tag)
+            {
+                case "back":
+                    NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight});
+                    break;
+                case "new":
+                    NewFile();
+                    break;
+                case "save":
+                    SaveFile();
+                    break;
+                case "close":
+                    CloseFile();
+                    break;
+            }
+        }
+
+        private void NewFile()
+        {
+            Document.Text = string.Empty;
+            Document.Name = string.Empty;
+            Document.Path = string.Empty;
+        }
+
+        private void SaveFile()
+        {
+            //TODO: add Save File
+            throw new NotImplementedException();
+        }
+
+        private void CloseFile()
+        {
+            //TODO: add Close File
+            throw new NotImplementedException();
         }
     }
 }

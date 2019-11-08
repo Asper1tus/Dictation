@@ -26,8 +26,8 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Back" Content="Back" Tag="back" helpers:NavHelper.NavigateTo="local:MainPage" />
                 <NavigationViewItemSeparator/>
-                <NavigationViewItem Icon="Page2" Content="New" Tag="new"/>
-                <NavigationViewItem Icon="OpenFile" Content="Open" helpers:NavHelper.NavigateTo="views:OpenPage"/>
+                <NavigationViewItem Icon="Page2" Content="New" Tag="new"  ></NavigationViewItem>
+                <NavigationViewItem Icon="OpenFile" IsSelected="True" Content="Open" helpers:NavHelper.NavigateTo="views:OpenPage"/>
                 <NavigationViewItem Icon="Save" Content="Save" Tag="save"/>
                 <NavigationViewItem Icon="SaveLocal" Content="Save as" helpers:NavHelper.NavigateTo="views:SaveAsPage" />
                 <NavigationViewItemSeparator/>
@@ -36,7 +36,7 @@
                 <NavigationViewItemSeparator/>
                 <NavigationViewItem Icon="Help" Content="Help"  helpers:NavHelper.NavigateTo="views:HelpPage" />
             </NavigationView.MenuItems>
-            
+
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="ItemInvoked">
                     <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
@@ -45,6 +45,6 @@
         </NavigationView>
 
         <Frame x:Name="ContentFrame" Grid.Column="1"></Frame>
-        
+
     </Grid>
 </Page>

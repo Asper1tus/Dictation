@@ -4,20 +4,19 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Input;
-    using Dictation.Helpers;
     using Dictation.Commands;
     using Dictation.Helpers;
     using Dictation.Models;
+    using Dictation.Services;
     using Dictation.Views;
     using Dictation.Views.Content;
-    using Dictation.Services;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Media.Animation;
 
     public class MainPageViewModel : Observable
     {
-        private Recognizer recognizer;
         private bool isPanelVisible;
+        private bool isListeningVisible;
         private string title;
         private ICommand listeningCommand;
         private ICommand dispalyContent;
@@ -35,7 +34,8 @@
         public MainPageViewModel(DocumentModel document)
         {
             Document = document;
-            IsListening = false;
+            RecognizerService.Document = document;
+            RecognizerService.InitializeRecognition();
             IsPanelVisible = false;
         }
 
@@ -49,15 +49,10 @@
 
         public DocumentModel Document { get; set; }
 
-        public void Initialize(Frame contentframe)
-        {
-            NavigationService.ContentFrame = contentframe;
-        }
-
         public bool IsListening
         {
-            get { return isPanelVisible; }
-            set { Set(ref this.isPanelVisible, value); }
+            get { return isListeningVisible; }
+            set { Set(ref this.isListeningVisible, value); }
         }
 
         public bool IsPanelVisible
@@ -72,20 +67,24 @@
             set { Set(ref this.title, value); }
         }
 
-        public void Close()
+        public void Initialize(Frame contentframe)
+        {
+            NavigationService.ContentFrame = contentframe;
+        }
+
+        private void Close()
         {
             IsPanelVisible = false;
         }
 
-        public void Listening()
+        private async void Listening()
         {
-            if (recognizer == null)
+            if (!await AudioCapturePermissionsService.RequestMicrophonePermission())
             {
-                recognizer = new Recognizer(Document);
+                IsListening = false;
             }
 
-            IsListening = !IsListening;
-            recognizer.Listening(IsListening);
+            RecognizerService.Listening(IsListening);
         }
 
         private void ChoosePage(object tag)
@@ -99,7 +98,7 @@
 
         private void GoToMenu()
         {
-            NavigationService.Navigate(typeof(Menu), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft});
+            NavigationService.Navigate(typeof(Menu), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
         }
     }
 }

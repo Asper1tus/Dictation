@@ -1,4 +1,4 @@
-﻿namespace Dictation.Helpers
+﻿namespace Dictation.Services
 {
     using System;
     using System.Text;
@@ -6,30 +6,22 @@
     using Windows.Media.SpeechRecognition;
     using Windows.UI.Core;
 
-    class Recognizer
+    internal static class RecognizerService
     {
 
-        private readonly StringBuilder dictatedTextBuilder;
-        private SpeechRecognizer speechRecognizer;
-        private CoreDispatcher dispatcher;
+        private static StringBuilder dictatedTextBuilder;
+        private static SpeechRecognizer speechRecognizer;
+        private static CoreDispatcher dispatcher;
 
-        public Recognizer(DocumentModel document)
+        public static DocumentModel Document { get; set; }
+
+        public static async void InitializeRecognition()
         {
-            Document = document;
-            Document.Text = string.Empty;
             dictatedTextBuilder = new StringBuilder();
-            InitializeRecognition();
-        }
-
-        public DocumentModel Document { get; set; }
-
-        public async void InitializeRecognition()
-        {
             dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             speechRecognizer = new SpeechRecognizer();
             SpeechRecognitionCompilationResult result =
                 await speechRecognizer.CompileConstraintsAsync();
-
             speechRecognizer.ContinuousRecognitionSession.ResultGenerated +=
         ContinuousRecognitionSession_ResultGenerated;
             speechRecognizer.ContinuousRecognitionSession.Completed +=
@@ -38,7 +30,7 @@
                 SpeechRecognizer_HypothesisGenerated;
         }
 
-        public async void Listening(bool isListening)
+        public static async void Listening(bool isListening)
         {
             if (isListening)
             {
@@ -59,7 +51,7 @@
 
         }
 
-        private async void ContinuousRecognitionSession_ResultGenerated(
+        private static async void ContinuousRecognitionSession_ResultGenerated(
       SpeechContinuousRecognitionSession sender,
       SpeechContinuousRecognitionResultGeneratedEventArgs args)
         {
@@ -82,7 +74,7 @@
             }
         }
 
-        private async void ContinuousRecognitionSession_Completed(
+        private static async void ContinuousRecognitionSession_Completed(
       SpeechContinuousRecognitionSession sender,
       SpeechContinuousRecognitionCompletedEventArgs args)
         {
@@ -105,7 +97,7 @@
             }
         }
 
-        private async void SpeechRecognizer_HypothesisGenerated(
+        private static async void SpeechRecognizer_HypothesisGenerated(
   SpeechRecognizer sender,
   SpeechRecognitionHypothesisGeneratedEventArgs args)
         {
