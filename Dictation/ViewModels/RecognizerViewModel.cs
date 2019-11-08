@@ -1,32 +1,36 @@
-﻿namespace Dictation.Helpers
+﻿namespace Dictation.ViewModels
 {
     using System;
     using System.Text;
+    using Dictate.Helpers;
     using Dictation.Models;
     using Windows.Media.SpeechRecognition;
     using Windows.UI.Core;
 
-    class Recognizer
+    public class RecognizerViewModel : Observable
     {
-
-        private readonly StringBuilder dictatedTextBuilder;
         private SpeechRecognizer speechRecognizer;
         private CoreDispatcher dispatcher;
+        private StringBuilder dictatedTextBuilder; 
 
-        public Recognizer(DocumentModel document)
+        public RecognizerViewModel()
         {
-            Document = document;
+            Document = DocumentModel.GetDocument();
             Document.Text = string.Empty;
+            IsListening = false;
             dictatedTextBuilder = new StringBuilder();
             InitializeRecognition();
         }
 
-        public DocumentModel Document { get; set; }
+        public DocumentModel Document;
+
+        public bool IsListening { get; set; }
 
         public async void InitializeRecognition()
         {
             dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             speechRecognizer = new SpeechRecognizer();
+
             SpeechRecognitionCompilationResult result =
                 await speechRecognizer.CompileConstraintsAsync();
 
@@ -36,11 +40,15 @@
       ContinuousRecognitionSession_Completed;
             speechRecognizer.HypothesisGenerated +=
                 SpeechRecognizer_HypothesisGenerated;
+
         }
 
-        public async void Listening(bool isListening)
+        public async void Listening()
         {
-            if (isListening)
+            IsListening = !IsListening;
+            OnPropertyChanged(nameof(IsListening));
+
+            if (IsListening)
             {
                 if (speechRecognizer.State == SpeechRecognizerState.Idle)
                 {

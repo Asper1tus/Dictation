@@ -4,7 +4,7 @@
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
 
-    public class RtfText : TextBox
+    public class RtfText
     {
         public static readonly DependencyProperty RichTextProperty =
             DependencyProperty.RegisterAttached("RichText", typeof(string), typeof(RtfText), new PropertyMetadata(string.Empty, Callback));
