@@ -120,14 +120,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Helpers\AudioCapturePermissions.cs" />
+    <Compile Include="Services\AudioCapturePermissionsService.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\Observable.cs" />
-    <Compile Include="Helpers\Recognizer.cs" />
+    <Compile Include="Services\RecognizerService.cs" />
     <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="RtfText.cs" />
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="ViewModels\FileViewModel.cs" />
     <Compile Include="ViewModels\Content\FindReplaceViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="ViewModels\Locator.cs" />
