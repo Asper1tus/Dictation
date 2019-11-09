@@ -2,6 +2,7 @@
 {
     using Dictation.Models;
     using GalaSoft.MvvmLight.Ioc;
+    using Windows.UI.Xaml.Controls;
 
     public class Locator
     {

@@ -10,6 +10,7 @@
     using Dictation.Services;
     using Dictation.Views;
     using Dictation.Views.Content;
+    using Windows.UI.Text;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Media.Animation;
 

@@ -34,10 +34,9 @@
             <SplitView.Content>
                 <Grid>
                     <ScrollViewer>
-                        <RichEditBox Margin="50" IsSpellCheckEnabled ="True" Background="White" 
+                        <RichEditBox x:Name="RichEditBox"  Margin="50" IsSpellCheckEnabled ="True" Background="White" 
                                      SelectionHighlightColor="Red"
-                                     helpers:RtfTextHelper.RichText ="{x:Bind ViewModel.Document.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     helpers:RtfTextHelper.SelectedText="{x:Bind ViewModel.Document.SelectedText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"></RichEditBox>
+                                     helpers:RtfTextHelper.RichText ="{x:Bind ViewModel.Document.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></RichEditBox>
                     </ScrollViewer>
                 </Grid>
             </SplitView.Content>
