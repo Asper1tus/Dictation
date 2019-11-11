@@ -1,6 +1,7 @@
 ﻿namespace Dictation.ViewModels
 {
     using Dictation.Models;
+    using Dictation.ViewModels.Content;
     using GalaSoft.MvvmLight.Ioc;
     using Windows.UI.Xaml.Controls;
 
@@ -20,9 +21,11 @@
             SimpleIoc.Default.Register<SaveAsViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
             SimpleIoc.Default.Register<FindReplaceViewModel>();
+            SimpleIoc.Default.Register<ToolsViewModel>();
         }
 
         public MainPageViewModel MainPageViewModel => SimpleIoc.Default.GetInstance<MainPageViewModel>();
+        public ToolsViewModel ToolsViewModel => SimpleIoc.Default.GetInstance<ToolsViewModel>();
 
         public FindReplaceViewModel FindReplaceViewModel => SimpleIoc.Default.GetInstance<FindReplaceViewModel>();
 

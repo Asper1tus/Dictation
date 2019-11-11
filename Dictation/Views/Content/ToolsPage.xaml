@@ -31,9 +31,10 @@
             
         </StackPanel>
         <VariableSizedWrapGrid MaximumRowsOrColumns="5" Orientation="Horizontal">
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DD; &#xEB51;"></ToggleButton>
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DB;"></ToggleButton>
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DC;"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DD;" IsChecked="{x:Bind viewModel.IsBold, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Bold" ></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DB;" IsChecked="{x:Bind viewModel.IsItalic, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Italic"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DC;" IsChecked="{x:Bind viewModel.IsUnderline, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Underline"></ToggleButton>
+            
             <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8D3;"></ToggleButton>
             <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE006;"></ToggleButton>
             <ToggleButton>
@@ -48,10 +49,10 @@
         </VariableSizedWrapGrid>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Set alignment</TextBlock>
         <StackPanel Orientation="Horizontal">
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E4;"></ToggleButton>
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E3;"></ToggleButton>
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E2;"></ToggleButton>
-            <ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E4;" IsChecked="{x:Bind viewModel.IsAlignLeft, Mode=OneWay}"  Command="{x:Bind viewModel.StyleCommand}" CommandParameter="AlignLeft"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E3;" IsChecked="{x:Bind viewModel.IsAlignCenter, Mode=OneWay}"  Command="{x:Bind viewModel.StyleCommand}" CommandParameter="AlignCenter"></ToggleButton>
+            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E2;" IsChecked="{x:Bind viewModel.IsAlignRight, Mode=OneWay}"  Command="{x:Bind viewModel.StyleCommand}" CommandParameter="AlignRight"></ToggleButton>
+            <ToggleButton IsChecked="{x:Bind viewModel.IsJustify, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Justify">
                 <Grid>
                     <FontIcon FontSize="10"  FontFamily="Segoe MDL2 Assets" Glyph="&#xE8E4;" />
                     <FontIcon FontSize="10" FontFamily="Segoe MDL2 Assets" Glyph="&#xE8E2;" />
@@ -60,8 +61,8 @@
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Bullets and Numbering</TextBlock>
         <StackPanel Orientation="Horizontal">
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8FD;"></ToggleButton>
-            <ToggleButton></ToggleButton>
+            <ToggleButton IsChecked="{x:Bind viewModel.HasBullets, Mode=OneWay}" FontFamily="Segoe MDL2 Assets" Content="&#xE8FD;" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Bullets"></ToggleButton>
+            <ToggleButton IsChecked="{x:Bind viewModel.HasNumbers, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Numbers"></ToggleButton>
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Line spacing</TextBlock>
         <StackPanel Orientation="Horizontal">

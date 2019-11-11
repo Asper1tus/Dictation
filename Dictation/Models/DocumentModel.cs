@@ -29,24 +29,6 @@
             set { Set(ref fileName, value); }
         }
 
-        public string SelectedText
-        {
-            get { return selectedText; }
-            set { Set(ref selectedText, value); }
-        }
-
-        public int SelectionStart
-        {
-            get { return selectionStart; }
-            set { Set(ref selectionStart, value); }
-        }
-
-        public int SelectionLenght
-        {
-            get { return selectionLenght; }
-            set { Set(ref selectionLenght, value); }
-        }
-
         public bool IsEmpty
         {
             get

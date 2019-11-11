@@ -5,8 +5,6 @@
     using Dictation.Commands;
     using Dictation.Helpers;
     using Dictation.Models;
-    using Windows.UI.Text;
-    using Windows.UI.Xaml.Controls;
 
     public class FindReplaceViewModel : Observable
     {
@@ -54,17 +52,12 @@
 
         public void FindNext()
         {
-            if (Document.Text.Contains(SearchedWord))
-            {
-                int index = Document.Text.IndexOf(SearchedWord);
-
-                Document.SelectionStart = index;
-                Document.SelectionLenght = SearchedWord.Length;
-            }
+            throw new NotImplementedException();
         }
 
         public void Replace()
-        { 
+        {
+            throw new NotImplementedException();
         }
 
         public void ReplaceAll()
