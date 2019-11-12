@@ -4,15 +4,29 @@
     {
         public delegate void UpdateDelegate();
 
-        public delegate void MethodContainer(string style);
+        public delegate void MethodContainer<T>(T fontFormat);
 
         public static event UpdateDelegate NotifyEvent;
 
-        public static event MethodContainer MessageRecived;
+        public static event MethodContainer<string> StlyeChanged;
 
-        public static void Send(string style)
+        public static event MethodContainer<string> FontChanged;
+
+        public static event MethodContainer<int> SizeChanged;
+
+        public static void SendStyle(string style)
         {
-            MessageRecived(style);
+            StlyeChanged(style);
+        }
+
+        public static void SendFont(string font)
+        {
+            FontChanged(font);
+        }
+
+        public static void SendSize(int size)
+        {
+            SizeChanged(size);
         }
 
         public static void Notify()
@@ -24,7 +38,6 @@
             }
             catch
             {
-
             }
         }
     }
