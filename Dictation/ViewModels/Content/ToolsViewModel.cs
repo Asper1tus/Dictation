@@ -30,7 +30,6 @@
         {
             MessageService.NotifyEvent += Update;
             Font = "Segoe UI";
-            Size = 10;
         }
 
         public ICommand StyleCommand => styleCommand ?? (styleCommand = new RelayCommand<string>(MessageService.SendStyle));

@@ -23,6 +23,7 @@
         private ICommand dispalyContent;
         private ICommand closeCommand;
         private ICommand goToMenuCommand;
+        private ICommand operationCommand;
         private Frame contentFrame;
 
         private readonly List<(string tag, Type page, string title)> pages = new List<(string tag, Type page, string title)>
@@ -49,6 +50,8 @@
         public ICommand CloseCommand => closeCommand ?? (closeCommand = new RelayCommand(Close));
 
         public ICommand GoToMenuCommand => goToMenuCommand ?? (goToMenuCommand = new RelayCommand(GoToMenu));
+
+        public ICommand OperationCommand => operationCommand ?? (operationCommand = new RelayCommand<string>(MessageService.SendOperation));
 
         public DocumentModel Document { get; set; }
 

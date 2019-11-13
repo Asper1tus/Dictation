@@ -24,10 +24,12 @@
 
         private async void OpenFile()
         {
-            FileOpenPicker openPicker = new FileOpenPicker();
-            openPicker.ViewMode = PickerViewMode.Thumbnail;
-            openPicker.SuggestedStartLocation = PickerLocationId.Desktop;
-            openPicker.CommitButtonText = "Открыть";
+            FileOpenPicker openPicker = new FileOpenPicker
+            {
+                ViewMode = PickerViewMode.Thumbnail,
+                SuggestedStartLocation = PickerLocationId.Desktop,
+                CommitButtonText = "Open",
+            };
             List<string> filters = new List<string>() { ".txt", ".rtf", ".doc", ".docx", ".html", ".htm" };
 
             AddFilters(openPicker, filters);
@@ -36,8 +38,9 @@
             if (file != null)
             {
                 document.Text = await FileIO.ReadTextAsync(file);
-                NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
             }
+
+            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
         private void AddFilters(FileOpenPicker fileOpenPicker, List<string> filters)

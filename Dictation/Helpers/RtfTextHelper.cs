@@ -6,6 +6,7 @@
     using Windows.UI.Text;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Input;
 
     public class RtfTextHelper
     {
@@ -59,14 +60,25 @@
                 MessageService.StlyeChanged += SelectStyle;
                 MessageService.FontChanged += SelectFont;
                 MessageService.SizeChanged += SelectSize;
-                richEditBox.PointerCaptureLost += Notify;
-                richEditBox.KeyUp += Notify;
+                MessageService.OperationSent += SelectOperation;
+                richEditBox.PointerCaptureLost += PointerCaptureLost;
+                //richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
             }
 
             richEditBox.SetValue(RichTextProperty, value);
         }
 
-        private static void Notify(object sender, RoutedEventArgs e)
+        private static void PointerCaptureLost(object sender, PointerRoutedEventArgs e)
+        {
+            Notify();
+        }
+
+        private static void ProcessKeyboardAccelerators(UIElement sender, ProcessKeyboardAcceleratorEventArgs args)
+        {
+            Notify();
+        }
+
+        private static void Notify()
         {
             IsBold = richEditBox.IsBold();
             IsItalic = richEditBox.IsItalic();
@@ -90,7 +102,7 @@
         private static void Callback(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             var reb = (RichEditBox)sender;
-            reb.Document.SetText(TextSetOptions.FormatRtf, (string)args.NewValue);
+            reb.SetRtf((string)args.NewValue);
         }
 
         private static void SelectStyle(string style)
@@ -131,5 +143,18 @@
         {
             richEditBox.SetBackground(color);
         }
+
+        private static void SelectOperation(string operation)
+        {
+            _ = operation switch
+            {
+                "Undo" => richEditBox.Undo(),
+                "Redo" => richEditBox.Redo(),
+                "Copy" => richEditBox.Copy(),
+                "Cut" => richEditBox.Cut(),
+                "Paste" => richEditBox.PasteIn(),
+            };
+        }
+
     }
 }

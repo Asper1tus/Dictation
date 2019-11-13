@@ -1,18 +1,20 @@
-﻿namespace Dictation.Services
+﻿using System;
+
+namespace Dictation.Services
 {
     public static class MessageService
     {
-        public delegate void UpdateDelegate();
+        public static event Action NotifyEvent;
 
-        public delegate void MethodContainer<T>(T fontFormat);
+        public static event Action<string> OpenSaveFIle;
 
-        public static event UpdateDelegate NotifyEvent;
+        public static event Action<string> StlyeChanged;
 
-        public static event MethodContainer<string> StlyeChanged;
+        public static event Action<string> FontChanged;
 
-        public static event MethodContainer<string> FontChanged;
+        public static event Action<int> SizeChanged;
 
-        public static event MethodContainer<int> SizeChanged;
+        public static event Action<string> OperationSent;
 
         public static void SendStyle(string style)
         {
@@ -27,6 +29,16 @@
         public static void SendSize(int size)
         {
             SizeChanged(size);
+        }
+
+        public static void SendOperation(string operation)
+        {
+            OperationSent(operation);
+        }
+
+        public static void SendOpenSaveFile(string openOrRead)
+        {
+            OpenSaveFIle(openOrRead);
         }
 
         public static void Notify()

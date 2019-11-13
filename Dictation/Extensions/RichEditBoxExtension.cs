@@ -54,6 +54,46 @@
             return CanUndo(richEditBox);
         }
 
+        public static bool CanCopy(this RichEditBox richEditBox)
+        {
+            return richEditBox.Document.CanCopy();
+        }
+
+        public static bool Copy(this RichEditBox richEditBox)
+        {
+            if (richEditBox.Document.CanCopy())
+            {
+                richEditBox.Document.Selection.Copy();
+            }
+
+            return CanCopy(richEditBox);
+        }
+
+        public static bool Cut(this RichEditBox richEditBox)
+        {
+            if (richEditBox.Document.CanCopy())
+            {
+                richEditBox.Document.Selection.Cut();
+            }
+
+            return CanCopy(richEditBox);
+        }
+
+        public static bool CanPaste(this RichEditBox richEditBox)
+        {
+            return richEditBox.Document.Selection.CanPaste(0);
+        }
+
+        public static bool PasteIn(this RichEditBox richEditBox)
+        {
+            if (richEditBox.Document.CanPaste())
+            {
+                richEditBox.Document.Selection.Paste(0);
+            }
+
+            return CanPaste(richEditBox);
+        }
+
         public static bool IsBold(this RichEditBox richEditBox)
         {
             return richEditBox.Document.Selection.CharacterFormat.Bold == Windows.UI.Text.FormatEffect.On;
