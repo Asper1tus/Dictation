@@ -147,7 +147,6 @@
         {
             //TODO: add Close File
             throw new NotImplementedException();
-        } 
-
+        }
     }
 }

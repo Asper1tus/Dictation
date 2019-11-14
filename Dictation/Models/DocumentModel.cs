@@ -7,9 +7,6 @@
         private string text;
         private string filePath;
         private string fileName;
-        private string selectedText;
-        private int selectionStart;
-        private int selectionLenght;
 
         public string Text
         {

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Dictation.Services
+﻿namespace Dictation.Services
 {
+    using System;
+
     public static class MessageService
     {
         public static event Action NotifyEvent;

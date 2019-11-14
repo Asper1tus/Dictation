@@ -6,7 +6,7 @@
 
     public class AudioCapturePermissionsService
     {
-        // If no recording device is attached, attempting to get access to audio capture devices will throw 
+        // If no recording device is attached, attempting to get access to audio capture devices will throw
         // a System.Exception object, with this HResult set.
         private static readonly int NoCaptureDevicesHResult = -1072845856;
 
@@ -34,7 +34,7 @@
             catch (UnauthorizedAccessException)
             {
                 // The user has turned off access to the microphone. If this occurs, we should show an error, or disable
-                // functionality within the app to ensure that further exceptions aren't generated when 
+                // functionality within the app to ensure that further exceptions aren't generated when
                 // recognition is attempted.
                 return false;
             }

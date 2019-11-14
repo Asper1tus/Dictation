@@ -3,7 +3,6 @@
     using Dictation.Models;
     using Dictation.ViewModels.Content;
     using GalaSoft.MvvmLight.Ioc;
-    using Windows.UI.Xaml.Controls;
 
     public class Locator
     {
