@@ -2,18 +2,15 @@
 {
     using System;
     using System.Text;
-    using Dictation.Models;
+    using Dictation.Helpers;
     using Windows.Media.SpeechRecognition;
     using Windows.UI.Core;
 
     internal static class RecognizerService
     {
-
         private static StringBuilder dictatedTextBuilder;
         private static SpeechRecognizer speechRecognizer;
         private static CoreDispatcher dispatcher;
-
-        public static DocumentModel Document { get; set; }
 
         public static async void InitializeRecognition()
         {
@@ -36,7 +33,7 @@
             {
                 if (speechRecognizer.State == SpeechRecognizerState.Idle)
                 {
-                    dictatedTextBuilder.Append(Document.Text);
+                    dictatedTextBuilder.Append(RtfTextHelper.Text);
                     await speechRecognizer.ContinuousRecognitionSession.StartAsync();
                 }
             }
@@ -48,7 +45,6 @@
                     await speechRecognizer.ContinuousRecognitionSession.StopAsync();
                 }
             }
-
         }
 
         private static async void ContinuousRecognitionSession_ResultGenerated(
@@ -62,14 +58,14 @@
 
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    Document.Text = dictatedTextBuilder.ToString();
+                    RtfTextHelper.Text = dictatedTextBuilder.ToString();
                 });
             }
             else
             {
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    Document.Text = dictatedTextBuilder.ToString();
+                    RtfTextHelper.Text = dictatedTextBuilder.ToString();
                 });
             }
         }
@@ -84,14 +80,14 @@
                 {
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        Document.Text = dictatedTextBuilder.ToString();
+                        RtfTextHelper.Text = dictatedTextBuilder.ToString();
                     });
                 }
                 else
                 {
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        Document.Text = dictatedTextBuilder.ToString();
+                        RtfTextHelper.Text = dictatedTextBuilder.ToString();
                     });
                 }
             }
@@ -106,7 +102,7 @@
 
             await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                Document.Text = textboxContent;
+                RtfTextHelper.Text = textboxContent;
             });
         }
     }

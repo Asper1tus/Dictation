@@ -1,6 +1,7 @@
 ﻿namespace Dictation.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Input;
     using Dictation.Commands;
@@ -8,6 +9,7 @@
     using Dictation.Models;
     using Dictation.Services;
     using Dictation.Views;
+    using Windows.Storage.Pickers;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Media.Animation;
     using Windows.UI.Xaml.Navigation;
@@ -111,15 +113,34 @@
 
         private void NewFile()
         {
-            Document.Text = string.Empty;
-            Document.Name = string.Empty;
-            Document.Path = string.Empty;
+            //TODO: add New File
+            throw new NotImplementedException();
         }
 
-        private void SaveFile()
+        private async void SaveFile()
         {
-            //TODO: add Save File
-            throw new NotImplementedException();
+            FileSavePicker savePicker = new FileSavePicker
+            {
+                SuggestedStartLocation = PickerLocationId.Desktop,
+                CommitButtonText = "Save",
+            };
+            List<string> filters = new List<string>() { ".txt", ".rtf", ".doc", ".docx", ".html", ".htm" };
+            savePicker.FileTypeChoices.Add(".txt, .rtf, .doc, .docx, .html, .htm", filters); 
+            var file = await savePicker.PickSaveFileAsync();
+            int retryAttempts = 5;
+
+            if (file != null)
+            {
+                // Application now has read/write access to the picked file.
+                while (retryAttempts > 0)
+                {
+                        retryAttempts--;
+                        await Windows.Storage.FileIO.WriteTextAsync(file, Document.Text);
+                        break;
+                }
+            }
+
+            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
         private void CloseFile()

@@ -10,6 +10,7 @@
     using Dictation.Services;
     using Dictation.Views;
     using Dictation.Views.Content;
+    using Windows.UI.Text;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Media.Animation;
 
@@ -22,6 +23,8 @@
         private ICommand dispalyContent;
         private ICommand closeCommand;
         private ICommand goToMenuCommand;
+        private ICommand operationCommand;
+        private Frame contentFrame;
 
         private readonly List<(string tag, Type page, string title)> pages = new List<(string tag, Type page, string title)>
 {
@@ -31,10 +34,8 @@
     ("vocabulary", typeof(VocabularyPage), "Vocabulary Training"),
 };
 
-        public MainPageViewModel(DocumentModel document)
+        public MainPageViewModel()
         {
-            Document = document;
-            RecognizerService.Document = document;
             RecognizerService.InitializeRecognition();
             IsPanelVisible = false;
         }
@@ -47,7 +48,7 @@
 
         public ICommand GoToMenuCommand => goToMenuCommand ?? (goToMenuCommand = new RelayCommand(GoToMenu));
 
-        public DocumentModel Document { get; set; }
+        public ICommand OperationCommand => operationCommand ?? (operationCommand = new RelayCommand<string>(MessageService.SendOperation));
 
         public bool IsListening
         {
@@ -67,9 +68,9 @@
             set { Set(ref this.title, value); }
         }
 
-        public void Initialize(Frame contentframe)
+        public void Initialize(Frame contentFrame)
         {
-            NavigationService.ContentFrame = contentframe;
+            this.contentFrame = contentFrame;
         }
 
         private void Close()
@@ -89,6 +90,7 @@
 
         private void ChoosePage(object tag)
         {
+            NavigationService.ContentFrame = contentFrame;
             IsPanelVisible = true;
             var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag));
             var page = item.page;
