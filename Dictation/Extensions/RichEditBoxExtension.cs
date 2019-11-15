@@ -1,28 +1,32 @@
 ﻿namespace Dictation.Extensions
 {
-    using Windows.ApplicationModel.DataTransfer;
     using Windows.UI;
+    using Windows.UI.Text;
     using Windows.UI.Xaml.Controls;
 
     public static class RichEditBoxExtension
     {
+        public static int GetLenght(this RichEditBox richEditBox)
+        {
+            richEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string value);
+            return value.Length;
+        }
+
         public static void SetRtf(this RichEditBox richEditBox, string rtf)
         {
-            richEditBox.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, rtf);
+            richEditBox.Document.SetText(TextSetOptions.FormatRtf, rtf);
         }
 
         public static string GetRtf(this RichEditBox richEditBox)
         {
-            richEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out string rtf);
+            richEditBox.Document.GetText(TextGetOptions.FormatRtf, out string rtf);
             return rtf;
         }
 
         public static void AddRtf(this RichEditBox richEditBox, string rtf)
         {
-            richEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string value);
-            int lenght = value.Length;
+            int lenght = richEditBox.GetLenght();
             richEditBox.Document.Selection.StartPosition = lenght;
-            richEditBox.Document.Selection.TypeText(rtf);
         }
 
         public static void ClearUndo(this RichEditBox richEditBox)
@@ -353,6 +357,52 @@
         public static bool IsSelection(this RichEditBox richEditBox)
         {
             return richEditBox.Document.Selection != null;
+        }
+
+        public static void FindWord(this RichEditBox richEditBox, string searchedWord, bool isMatchCase)
+        {
+            FindOptions options;
+            if (isMatchCase)
+            {
+                options = FindOptions.Case;
+            }
+            else
+            {
+                options = FindOptions.Word;
+            }
+
+            // To highlight the searched word in turn
+            if (string.Compare(richEditBox.Document.Selection.Text, searchedWord, true) != 0)
+            {
+                // Set selection to start of document
+                richEditBox.Document.Selection.SetRange(0, 0);
+            }
+
+            int lenght = richEditBox.GetLenght();
+            richEditBox.Document.Selection.FindText(searchedWord, lenght, options);
+
+            Focus(richEditBox);
+        }
+
+        public static void ReplaceSelectedWord(this RichEditBox richEditBox, string replacementWord)
+        {
+            if (richEditBox.Document.Selection.Text != string.Empty)
+            {
+                richEditBox.Document.Selection.Text = replacementWord;
+            }
+
+            Focus(richEditBox);
+        }
+
+        public static void ReplaceAllWords(this RichEditBox richEditBox, string replacementWord, string searchedWord, bool isMatchCase)
+        {
+            richEditBox.FindWord(searchedWord, isMatchCase);
+            do
+            {
+                richEditBox.ReplaceSelectedWord(replacementWord);
+                richEditBox.FindWord(searchedWord, isMatchCase);
+            }
+            while (string.Compare(richEditBox.Document.Selection.Text, searchedWord, isMatchCase) == 0);
         }
     }
 }

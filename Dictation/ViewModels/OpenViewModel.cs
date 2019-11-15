@@ -12,33 +12,28 @@
 
     public class OpenViewModel
     {
-        private DocumentModel document;
         private ICommand openFile;
-
-        public OpenViewModel(DocumentModel document)
-        {
-            this.document = document;
-        }
 
         public ICommand OpenFileCommand => openFile ?? (openFile = new RelayCommand(OpenFile));
 
         private async void OpenFile()
         {
-            FileOpenPicker openPicker = new FileOpenPicker
-            {
-                ViewMode = PickerViewMode.Thumbnail,
-                SuggestedStartLocation = PickerLocationId.Desktop,
-                CommitButtonText = "Open",
-            };
-            List<string> filters = new List<string>() { ".txt", ".rtf", ".doc", ".docx", ".html", ".htm" };
+            // TODO: OpenFile
+            //FileOpenPicker openPicker = new FileOpenPicker
+            //{
+            //    ViewMode = PickerViewMode.Thumbnail,
+            //    SuggestedStartLocation = PickerLocationId.Desktop,
+            //    CommitButtonText = "Open",
+            //};
+            //List<string> filters = new List<string>() { ".txt", ".rtf", ".doc", ".docx", ".html", ".htm" };
 
-            AddFilters(openPicker, filters);
-            var file = await openPicker.PickSingleFileAsync();
+            //AddFilters(openPicker, filters);
+            //var file = await openPicker.PickSingleFileAsync();
 
-            if (file != null)
-            {
-                document.Text = await FileIO.ReadTextAsync(file);
-            }
+            //if (file != null)
+            //{
+            //    //document.Text = await FileIO.ReadTextAsync(file);
+            //}
 
             NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }

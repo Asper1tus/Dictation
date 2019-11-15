@@ -5,21 +5,19 @@
     using Dictation.Commands;
     using Dictation.Helpers;
     using Dictation.Models;
+    using Dictation.Services;
 
     public class FindReplaceViewModel : Observable
     {
         private string searchedWord;
-        private string replaceWord;
-        private bool isFocused;
+        private string replacementWord;
         private ICommand findNextCommand;
         private ICommand replaceCommand;
         private ICommand replaceAllCommand;
 
-        public FindReplaceViewModel(DocumentModel document)
+        public FindReplaceViewModel()
         {
-            IsFocused = true;
             SearchedWord = string.Empty;
-            Document = document;
         }
 
         public ICommand FindNextCommand => findNextCommand ?? (findNextCommand = new RelayCommand(FindNext));
@@ -36,33 +34,27 @@
             set { Set(ref searchedWord, value); }
         }
 
-        public string ReplaceWord
+        public string ReplacementWord
         {
-            get { return replaceWord; }
-            set { Set(ref replaceWord, value); }
-        }
-
-        public bool IsFocused
-        {
-            get { return isFocused; }
-            set { Set(ref isFocused, value); }
+            get { return replacementWord; }
+            set { Set(ref replacementWord, value); }
         }
 
         public bool IsMatchCase { get; set; }
 
         public void FindNext()
         {
-            throw new NotImplementedException();
+            MessageService.SendWord(SearchedWord, IsMatchCase);
         }
 
         public void Replace()
         {
-            throw new NotImplementedException();
+            MessageService.SendSelectedWord(ReplacementWord);
         }
 
         public void ReplaceAll()
         {
-            throw new NotImplementedException();
+            MessageService.SendAllWords(ReplacementWord, SearchedWord, IsMatchCase);
         }
     }
 }

@@ -67,7 +67,6 @@
 
         public static Color Highlight => richEditBox.GetBackground();
 
-
         public static string GetRichText(RichEditBox richEditBox)
         {
             return (string)richEditBox.GetValue(RichTextProperty);
@@ -82,6 +81,9 @@
                 MessageService.FontChanged += SelectFont;
                 MessageService.SizeChanged += SelectSize;
                 MessageService.OperationSent += SelectOperation;
+                MessageService.FindWord += FindWord;
+                MessageService.ReplaceSelectedWord += ReplaceSelectedWord;
+                MessageService.ReplaceAllWords += ReplaceAllWords; 
                 richEditBox.PointerCaptureLost += PointerCaptureLost;
 
                 // richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
@@ -90,9 +92,24 @@
             richEditBox.SetValue(RichTextProperty, value);
         }
 
+        private static void ReplaceSelectedWord(string replacementWord)
+        {
+            richEditBox.ReplaceSelectedWord(replacementWord);
+        }
+
+        private static void ReplaceAllWords(string replacementWord, string searchedWord, bool isMatchCase)
+        {
+            richEditBox.ReplaceAllWords(replacementWord, searchedWord, isMatchCase);
+        }
+
         public static void AddRtf(string rtf)
         {
             richEditBox.AddRtf(rtf);
+        }
+
+        private static void FindWord(string word, bool options)
+        {
+            richEditBox.FindWord(word, options);
         }
 
         private static void PointerCaptureLost(object sender, PointerRoutedEventArgs e)
