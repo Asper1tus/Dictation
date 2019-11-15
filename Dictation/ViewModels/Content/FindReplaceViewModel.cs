@@ -1,10 +1,8 @@
 ﻿namespace Dictation.ViewModels
 {
-    using System;
     using System.Windows.Input;
     using Dictation.Commands;
     using Dictation.Helpers;
-    using Dictation.Models;
     using Dictation.Services;
 
     public class FindReplaceViewModel : Observable
@@ -25,8 +23,6 @@
         public ICommand ReplaceCommand => replaceCommand ?? (replaceCommand = new RelayCommand(Replace));
 
         public ICommand ReplaceAllCommand => replaceAllCommand ?? (replaceAllCommand = new RelayCommand(ReplaceAll));
-
-        public DocumentModel Document { get; set; }
 
         public string SearchedWord
         {

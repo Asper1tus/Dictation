@@ -83,13 +83,18 @@
                 MessageService.OperationSent += SelectOperation;
                 MessageService.FindWord += FindWord;
                 MessageService.ReplaceSelectedWord += ReplaceSelectedWord;
-                MessageService.ReplaceAllWords += ReplaceAllWords; 
+                MessageService.ReplaceAllWords += ReplaceAllWords;
                 richEditBox.PointerCaptureLost += PointerCaptureLost;
 
                 // richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
             }
 
             richEditBox.SetValue(RichTextProperty, value);
+        }
+
+        public static void AddRtf(string rtf)
+        {
+            richEditBox.AddRtf(rtf);
         }
 
         private static void ReplaceSelectedWord(string replacementWord)
@@ -100,11 +105,6 @@
         private static void ReplaceAllWords(string replacementWord, string searchedWord, bool isMatchCase)
         {
             richEditBox.ReplaceAllWords(replacementWord, searchedWord, isMatchCase);
-        }
-
-        public static void AddRtf(string rtf)
-        {
-            richEditBox.AddRtf(rtf);
         }
 
         private static void FindWord(string word, bool options)

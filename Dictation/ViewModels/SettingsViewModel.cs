@@ -1,6 +1,6 @@
 ﻿namespace Dictation.ViewModels
 {
-    class SettingsViewModel
+    public class SettingsViewModel
     {
     }
 }

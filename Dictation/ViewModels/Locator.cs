@@ -5,7 +5,6 @@
 
     public class Locator
     {
-
         public Locator()
         {
             SimpleIoc.Default.Register<MenuViewModel>();

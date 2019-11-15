@@ -5,11 +5,11 @@
 
     public sealed partial class OpenPage : Page
     {
-        public OpenViewModel ViewModel;
+        private OpenViewModel viewModel;
 
         public OpenPage()
         {
-            ViewModel = App.Locator.OpenViewModel;
+            viewModel = App.Locator.OpenViewModel;
             this.InitializeComponent();
         }
     }

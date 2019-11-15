@@ -18,6 +18,5 @@
         {
             item.SetValue(NavigateToProperty, value);
         }
-
     }
 }

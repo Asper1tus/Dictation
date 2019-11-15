@@ -1,7 +1,6 @@
 ﻿namespace Dictation.Services
 {
     using System;
-    using Windows.UI.Text;
 
     public static class MessageService
     {

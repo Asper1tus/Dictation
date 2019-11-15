@@ -26,13 +26,13 @@
             <CommandBar.Content>
                 <AppBarButton x:Name="HamburgerButton"
                     FontFamily="Segoe MDL2 Assets"  
-                    Content="&#xE700;" Command="{x:Bind ViewModel.GoToMenuCommand }"/>
+                    Content="&#xE700;" Command="{x:Bind viewModel.GoToMenuCommand }"/>
             </CommandBar.Content>
-            <AppBarToggleButton Icon="Microphone" Label="Start Dictation" IsChecked="{x:Bind ViewModel.IsListening, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{x:Bind ViewModel.ListeningCommand}"/>
-            <AppBarButton Icon="Library" Label="Vocabulary Training" Tag="vocabulary" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="vocabulary"/>
-            <AppBarButton Icon="Font" Label="Formating Tools" Tag="tools" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="tools"/>
-            <AppBarButton Icon="Rename" Label="Find and Replace" Tag="findreplace" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="findreplace"/>
-            <AppBarButton Icon="Share" Label="Share" Tag="share" Command="{x:Bind ViewModel.DispalyContent}" CommandParameter="share"/>
+            <AppBarToggleButton Icon="Microphone" Label="Start Dictation" IsChecked="{x:Bind viewModel.IsListening, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{x:Bind viewModel.ListeningCommand}"/>
+            <AppBarButton Icon="Library" Label="Vocabulary Training" Tag="vocabulary" Command="{x:Bind viewModel.DispalyContent}" CommandParameter="vocabulary"/>
+            <AppBarButton Icon="Font" Label="Formating Tools" Tag="tools" Command="{x:Bind viewModel.DispalyContent}" CommandParameter="tools"/>
+            <AppBarButton Icon="Rename" Label="Find and Replace" Tag="findreplace" Command="{x:Bind viewModel.DispalyContent}" CommandParameter="findreplace"/>
+            <AppBarButton Icon="Share" Label="Share" Tag="share" Command="{x:Bind viewModel.DispalyContent}" CommandParameter="share"/>
             <AppBarElementContainer>
                 <DropDownButton Height="40" >
                     <StackPanel Orientation="Horizontal">
@@ -41,18 +41,18 @@
                     </StackPanel>
                     <DropDownButton.Flyout>
                         <CommandBarFlyout ShowMode="Transient">
-                            <AppBarButton Icon="Undo" Label="Undo" Command="{x:Bind ViewModel.OperationCommand}" CommandParameter="Undo" />
-                            <AppBarButton Icon="Redo" Label="Redo" Command="{x:Bind ViewModel.OperationCommand}" CommandParameter="Redo" />
-                            <AppBarButton Icon="Cut" Label="Cut" Command="{x:Bind ViewModel.OperationCommand}" CommandParameter="Cut" />
-                            <AppBarButton Icon="Copy" Label="Copy" Command="{x:Bind ViewModel.OperationCommand}" CommandParameter="Copy" />
-                            <AppBarButton Icon="Paste" Label="Paste" Command="{x:Bind ViewModel.OperationCommand}" CommandParameter="Paste" />
+                            <AppBarButton Icon="Undo" Label="Undo" Command="{x:Bind viewModel.OperationCommand}" CommandParameter="Undo" />
+                            <AppBarButton Icon="Redo" Label="Redo" Command="{x:Bind viewModel.OperationCommand}" CommandParameter="Redo" />
+                            <AppBarButton Icon="Cut" Label="Cut" Command="{x:Bind viewModel.OperationCommand}" CommandParameter="Cut" />
+                            <AppBarButton Icon="Copy" Label="Copy" Command="{x:Bind viewModel.OperationCommand}" CommandParameter="Copy" />
+                            <AppBarButton Icon="Paste" Label="Paste" Command="{x:Bind viewModel.OperationCommand}" CommandParameter="Paste" />
                         </CommandBarFlyout>
                     </DropDownButton.Flyout>
                 </DropDownButton>
             </AppBarElementContainer>
         </CommandBar>
 
-        <SplitView x:Name="splitView" PanePlacement="Right" Grid.Row="1" DisplayMode="Inline" IsPaneOpen="{x:Bind ViewModel.IsPanelVisible, Mode=TwoWay}" OpenPaneLength="300">
+        <SplitView x:Name="splitView" PanePlacement="Right" Grid.Row="1" DisplayMode="Inline" IsPaneOpen="{x:Bind viewModel.IsPanelVisible, Mode=TwoWay}" OpenPaneLength="300">
 
             <SplitView.Content>
                 <Grid>
@@ -72,9 +72,9 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock VerticalAlignment="Center" Margin="5" FontSize="20" Text="{x:Bind ViewModel.Title, Mode=OneWay}"></TextBlock>
+                    <TextBlock VerticalAlignment="Center" Margin="5" FontSize="20" Text="{x:Bind viewModel.Title, Mode=OneWay}"></TextBlock>
 
-                    <Button HorizontalAlignment="Right" Margin="5" Command="{x:Bind ViewModel.CloseCommand}"
+                    <Button HorizontalAlignment="Right" Margin="5" Command="{x:Bind viewModel.CloseCommand}"
                              FontFamily="Segoe MDL2 Assets" Content="&#xE711;"></Button>
                     <Frame x:Name="ContentFrame" Grid.Row="1"></Frame>
                 </Grid>

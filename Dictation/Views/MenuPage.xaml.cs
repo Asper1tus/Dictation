@@ -5,13 +5,13 @@
 
     public sealed partial class Menu : Page
     {
-        public MenuViewModel ViewModel;
+        private MenuViewModel viewModel;
 
         public Menu()
         {
             InitializeComponent();
-            ViewModel = App.Locator.MenuViewModel;
-            ViewModel.Initialize(ContentFrame, NavView);
+            viewModel = App.Locator.MenuViewModel;
+            viewModel.Initialize(ContentFrame, NavView);
         }
     }
 }
