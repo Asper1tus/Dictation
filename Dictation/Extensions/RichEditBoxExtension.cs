@@ -1,5 +1,6 @@
 ﻿namespace Dictation.Extensions
 {
+    using Windows.ApplicationModel.DataTransfer;
     using Windows.UI;
     using Windows.UI.Xaml.Controls;
 
@@ -14,6 +15,14 @@
         {
             richEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out string rtf);
             return rtf;
+        }
+
+        public static void AddRtf(this RichEditBox richEditBox, string rtf)
+        {
+            richEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string value);
+            int lenght = value.Length;
+            richEditBox.Document.Selection.StartPosition = lenght;
+            richEditBox.Document.Selection.TypeText(rtf);
         }
 
         public static void ClearUndo(this RichEditBox richEditBox)

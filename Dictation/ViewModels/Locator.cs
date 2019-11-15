@@ -24,6 +24,7 @@
         }
 
         public MainPageViewModel MainPageViewModel => SimpleIoc.Default.GetInstance<MainPageViewModel>();
+
         public ToolsViewModel ToolsViewModel => SimpleIoc.Default.GetInstance<ToolsViewModel>();
 
         public FindReplaceViewModel FindReplaceViewModel => SimpleIoc.Default.GetInstance<FindReplaceViewModel>();

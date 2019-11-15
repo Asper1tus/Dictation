@@ -3,6 +3,7 @@
     using Dictation.Extensions;
     using Dictation.Services;
     using Windows.UI;
+    using Windows.UI.Text;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Input;
@@ -13,10 +14,25 @@
             DependencyProperty.RegisterAttached("RichText", typeof(string), typeof(RtfTextHelper), new PropertyMetadata(string.Empty, Callback));
 
         private static RichEditBox richEditBox;
-        public static string Text
+
+        public static string RichText
         {
             get { return richEditBox.GetRtf(); }
             set { richEditBox.SetRtf(value); }
+        }
+
+        public static string Text
+        {
+            get
+            {
+                richEditBox.Document.GetText(TextGetOptions.None, out string text);
+                return text;
+            }
+
+            set
+            {
+                richEditBox.Document.SetText(TextSetOptions.None, value);
+            }
         }
 
         public static bool IsBold => richEditBox.IsBold();
@@ -51,6 +67,7 @@
 
         public static Color Highlight => richEditBox.GetBackground();
 
+
         public static string GetRichText(RichEditBox richEditBox)
         {
             return (string)richEditBox.GetValue(RichTextProperty);
@@ -71,6 +88,11 @@
             }
 
             richEditBox.SetValue(RichTextProperty, value);
+        }
+
+        public static void AddRtf(string rtf)
+        {
+            richEditBox.AddRtf(rtf);
         }
 
         private static void PointerCaptureLost(object sender, PointerRoutedEventArgs e)

@@ -12,6 +12,9 @@
         private static SpeechRecognizer speechRecognizer;
         private static CoreDispatcher dispatcher;
 
+        private static string richText;
+        private static string recognizedText;
+
         public static async void InitializeRecognition()
         {
             dictatedTextBuilder = new StringBuilder();
@@ -33,17 +36,22 @@
             {
                 if (speechRecognizer.State == SpeechRecognizerState.Idle)
                 {
-                    dictatedTextBuilder.Append(RtfTextHelper.Text);
                     await speechRecognizer.ContinuousRecognitionSession.StartAsync();
+                    dictatedTextBuilder.Append(RtfTextHelper.Text);
+                    richText = RtfTextHelper.RichText;
                 }
             }
             else
             {
                 if (speechRecognizer.State != SpeechRecognizerState.Idle)
                 {
-                    dictatedTextBuilder.Clear();
                     await speechRecognizer.ContinuousRecognitionSession.StopAsync();
                 }
+
+                dictatedTextBuilder.Clear();
+                RtfTextHelper.RichText = richText;
+                RtfTextHelper.AddRtf(recognizedText);
+                recognizedText = string.Empty;
             }
         }
 
@@ -55,6 +63,7 @@
               args.Result.Confidence == SpeechRecognitionConfidence.High)
             {
                 dictatedTextBuilder.Append(args.Result.Text + " ");
+                recognizedText += args.Result.Text + " ";
 
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {

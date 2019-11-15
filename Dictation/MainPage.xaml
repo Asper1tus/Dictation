@@ -61,7 +61,7 @@
                                      Height="1122"
                                      Width="794"
                                      Margin="50" IsSpellCheckEnabled ="True"
-                                     helpers:RtfTextHelper.RichText =" "></RichEditBox>
+                                     helpers:RtfTextHelper.RichText =""></RichEditBox>
                     </ScrollViewer>
                 </Grid>
             </SplitView.Content>
