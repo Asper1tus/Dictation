@@ -112,28 +112,14 @@
 
         public string Font
         {
-            get
-            {
-                return font;
-            }
-
-            set
-            {
-                Set(ref this.font, value);
-            }
+            get { return font; }
+            set { Set(ref this.font, value); }
         }
 
         public int Size
         {
-            get
-            {
-                return size;
-            }
-
-            set
-            {
-                Set(ref this.size, value);
-            }
+            get { return size; }
+            set { Set(ref this.size, value); }
         }
 
         public void Update()

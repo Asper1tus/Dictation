@@ -1,15 +1,12 @@
 ﻿namespace Dictation.ViewModels
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Input;
     using Dictation.Commands;
     using Dictation.Helpers;
-    using Dictation.Models;
     using Dictation.Services;
     using Dictation.Views;
-    using Windows.Storage.Pickers;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Media.Animation;
     using Windows.UI.Xaml.Navigation;
@@ -20,18 +17,11 @@
         private NavigationViewItem selected;
         private ICommand itemInvokedCommand;
 
-        public MenuViewModel(DocumentModel document)
-        {
-            Document = document;
-        }
-
         public NavigationViewItem Selected
         {
             get { return selected; }
             set { Set(ref selected, value); }
         }
-
-        public DocumentModel Document { get; set; }
 
         public ICommand ItemInvokedCommand => itemInvokedCommand ?? (itemInvokedCommand = new RelayCommand<NavigationViewItemInvokedEventArgs>(OnItemInvoked));
 
@@ -97,7 +87,7 @@
             switch (tag)
             {
                 case "back":
-                    NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight});
+                    NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
                     break;
                 case "new":
                     NewFile();
@@ -113,41 +103,41 @@
 
         private void NewFile()
         {
-            //TODO: add New File
+            // TODO: add New File
             throw new NotImplementedException();
         }
 
-        private async void SaveFile()
+        private void SaveFile()
         {
-            FileSavePicker savePicker = new FileSavePicker
-            {
-                SuggestedStartLocation = PickerLocationId.Desktop,
-                CommitButtonText = "Save",
-            };
-            List<string> filters = new List<string>() { ".txt", ".rtf", ".doc", ".docx", ".html", ".htm" };
-            savePicker.FileTypeChoices.Add(".txt, .rtf, .doc, .docx, .html, .htm", filters); 
-            var file = await savePicker.PickSaveFileAsync();
-            int retryAttempts = 5;
+            // TODO: Save file
+            // FileSavePicker savePicker = new FileSavePicker
+            // {
+            //    SuggestedStartLocation = PickerLocationId.Desktop,
+            //    CommitButtonText = "Save",
+            // };
+            // List<string> filters = new List<string>() { ".txt", ".rtf", ".doc", ".docx", ".html", ".htm" };
+            // savePicker.FileTypeChoices.Add(".txt, .rtf, .doc, .docx, .html, .htm", filters);
+            // var file = await savePicker.PickSaveFileAsync();
+            // int retryAttempts = 5;
 
-            if (file != null)
-            {
-                // Application now has read/write access to the picked file.
-                while (retryAttempts > 0)
-                {
-                        retryAttempts--;
-                        await Windows.Storage.FileIO.WriteTextAsync(file, Document.Text);
-                        break;
-                }
-            }
+            // if (file != null)
+            // {
+            //    // Application now has read/write access to the picked file.
+            //    while (retryAttempts > 0)
+            //    {
+            //            retryAttempts--;
+            //            await Windows.Storage.FileIO.WriteTextAsync(file, Document.Text);
+            //            break;
+            //    }
+            // }
 
-            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+            // NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
         private void CloseFile()
         {
-            //TODO: add Close File
+            // TODO: add Close File
             throw new NotImplementedException();
-        } 
-
+        }
     }
 }

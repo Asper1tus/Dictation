@@ -6,14 +6,14 @@
 
     public sealed partial class MainPage : Page
     {
-        MainPageViewModel ViewModel;
+        private MainPageViewModel viewModel;
 
         public MainPage()
         {
             InitializeComponent();
-            ViewModel = App.Locator.MainPageViewModel;
+            viewModel = App.Locator.MainPageViewModel;
             NavigationCacheMode = NavigationCacheMode.Enabled;
-            ViewModel.Initialize(ContentFrame);
+            viewModel.Initialize(ContentFrame);
         }
     }
 }

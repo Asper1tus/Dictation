@@ -15,37 +15,57 @@
 
         private static RichEditBox richEditBox;
 
-        public static bool IsBold { get; set; }
+        public static string RichText
+        {
+            get { return richEditBox.GetRtf(); }
+            set { richEditBox.SetRtf(value); }
+        }
 
-        public static bool IsItalic { get; set; }
+        public static string Text
+        {
+            get
+            {
+                richEditBox.Document.GetText(TextGetOptions.None, out string text);
+                return text;
+            }
 
-        public static bool IsUnderline { get; set; }
+            set
+            {
+                richEditBox.Document.SetText(TextSetOptions.None, value);
+            }
+        }
 
-        public static bool IsAlignLeft { get; set; }
+        public static bool IsBold => richEditBox.IsBold();
 
-        public static bool IsAlignRight { get; set; }
+        public static bool IsItalic => richEditBox.IsItalic();
 
-        public static bool IsAlignCenter { get; set; }
+        public static bool IsUnderline => richEditBox.IsUnderline();
 
-        public static bool IsJustify { get; set; }
+        public static bool IsAlignLeft => richEditBox.IsAlignLeft();
 
-        public static bool IsStrikethrough { get; set; }
+        public static bool IsAlignRight => richEditBox.IsAlignRight();
 
-        public static bool IsSuperscript { get; set; }
+        public static bool IsAlignCenter => richEditBox.IsAlignCenter();
 
-        public static bool IsSubscript { get; set; }
+        public static bool IsJustify => richEditBox.IsJustify();
 
-        public static bool HasBullets { get; set; }
+        public static bool IsStrikethrough => richEditBox.IsStrikethrough();
 
-        public static bool HasNumbers { get; set; }
+        public static bool IsSuperscript => richEditBox.IsSuperscript();
 
-        public static string Font { get; set; }
+        public static bool IsSubscript => richEditBox.IsSubscript();
 
-        public static int Size { get; set; }
+        public static bool HasBullets => richEditBox.HasBullets();
 
-        public static Color Color { get; set; }
+        public static bool HasNumbers => richEditBox.HasNumbers();
 
-        public static Color Highlight { get; set; }
+        public static string Font => richEditBox.GetFont();
+
+        public static int Size => (int)richEditBox.GetSize();
+
+        public static Color Color => richEditBox.GetForeground();
+
+        public static Color Highlight => richEditBox.GetBackground();
 
         public static string GetRichText(RichEditBox richEditBox)
         {
@@ -61,41 +81,44 @@
                 MessageService.FontChanged += SelectFont;
                 MessageService.SizeChanged += SelectSize;
                 MessageService.OperationSent += SelectOperation;
+                MessageService.FindWord += FindWord;
+                MessageService.ReplaceSelectedWord += ReplaceSelectedWord;
+                MessageService.ReplaceAllWords += ReplaceAllWords;
                 richEditBox.PointerCaptureLost += PointerCaptureLost;
-                //richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
+
+                // richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
             }
 
             richEditBox.SetValue(RichTextProperty, value);
         }
 
+        public static void AddRtf(string rtf)
+        {
+            richEditBox.AddRtf(rtf);
+        }
+
+        private static void ReplaceSelectedWord(string replacementWord)
+        {
+            richEditBox.ReplaceSelectedWord(replacementWord);
+        }
+
+        private static void ReplaceAllWords(string replacementWord, string searchedWord, bool isMatchCase)
+        {
+            richEditBox.ReplaceAllWords(replacementWord, searchedWord, isMatchCase);
+        }
+
+        private static void FindWord(string word, bool options)
+        {
+            richEditBox.FindWord(word, options);
+        }
+
         private static void PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
-            Notify();
+            MessageService.Notify();
         }
 
         private static void ProcessKeyboardAccelerators(UIElement sender, ProcessKeyboardAcceleratorEventArgs args)
         {
-            Notify();
-        }
-
-        private static void Notify()
-        {
-            IsBold = richEditBox.IsBold();
-            IsItalic = richEditBox.IsItalic();
-            IsUnderline = richEditBox.IsUnderline();
-            IsStrikethrough = richEditBox.IsStrikethrough();
-            IsSubscript = richEditBox.IsSubscript();
-            IsSuperscript = richEditBox.IsSuperscript();
-            IsAlignLeft = richEditBox.IsAlignLeft();
-            IsAlignRight = richEditBox.IsAlignRight();
-            IsAlignCenter = richEditBox.IsAlignCenter();
-            IsJustify = richEditBox.IsJustify();
-            HasBullets = richEditBox.HasBullets();
-            HasNumbers = richEditBox.HasNumbers();
-            Font = richEditBox.GetFont();
-            Size = (int)richEditBox.GetSize();
-            Color = richEditBox.GetForeground();
-            Highlight = richEditBox.GetBackground();
             MessageService.Notify();
         }
 
@@ -107,21 +130,45 @@
 
         private static void SelectStyle(string style)
         {
-            _ = style switch
+            switch (style)
             {
-                "Bold" => richEditBox.Bold(),
-                "Italic" => richEditBox.Italic(),
-                "Underline" => richEditBox.Underline(),
-                "AlignLeft" => richEditBox.AlignLeft(),
-                "AlignRight" => richEditBox.AlignRight(),
-                "AlignCenter" => richEditBox.AlignCenter(),
-                "Justify" => richEditBox.Justify(),
-                "Bullets" => richEditBox.Bullets(),
-                "Numbers" => richEditBox.Numbers(),
-                "Strikethrough" => richEditBox.Strikethrough(),
-                "Subscript" => richEditBox.Subscript(),
-                "Superscript" => richEditBox.Superscript(),
-            };
+                case "Bold":
+                    richEditBox.Bold();
+                    break;
+                case "Italic":
+                    richEditBox.Italic();
+                    break;
+                case "Underline":
+                    richEditBox.Underline();
+                    break;
+                case "AlignLeft":
+                    richEditBox.AlignLeft();
+                    break;
+                case "AlignRight":
+                    richEditBox.AlignRight();
+                    break;
+                case "AlignCenter":
+                    richEditBox.AlignCenter();
+                    break;
+                case "Justify":
+                    richEditBox.Justify();
+                    break;
+                case "Bullets":
+                    richEditBox.Bullets();
+                    break;
+                case "Numbers":
+                    richEditBox.Numbers();
+                    break;
+                case "Strikethrough":
+                    richEditBox.Strikethrough();
+                    break;
+                case "Subscript":
+                    richEditBox.Subscript();
+                    break;
+                case "Superscript":
+                    richEditBox.Superscript();
+                    break;
+            }
         }
 
         private static void SelectFont(string font)
@@ -146,15 +193,24 @@
 
         private static void SelectOperation(string operation)
         {
-            _ = operation switch
+            switch (operation)
             {
-                "Undo" => richEditBox.Undo(),
-                "Redo" => richEditBox.Redo(),
-                "Copy" => richEditBox.Copy(),
-                "Cut" => richEditBox.Cut(),
-                "Paste" => richEditBox.PasteIn(),
-            };
+                case "Undo":
+                    richEditBox.Undo();
+                    break;
+                case "Redo":
+                    richEditBox.Redo();
+                    break;
+                case "Copy":
+                    richEditBox.Copy();
+                    break;
+                case "Cut":
+                    richEditBox.Cut();
+                    break;
+                case "Paste":
+                    richEditBox.PasteIn();
+                    break;
+            }
         }
-
     }
 }

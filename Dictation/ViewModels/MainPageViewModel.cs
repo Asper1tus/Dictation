@@ -6,16 +6,22 @@
     using System.Windows.Input;
     using Dictation.Commands;
     using Dictation.Helpers;
-    using Dictation.Models;
     using Dictation.Services;
     using Dictation.Views;
     using Dictation.Views.Content;
-    using Windows.UI.Text;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Media.Animation;
 
     public class MainPageViewModel : Observable
     {
+        private readonly List<(string tag, Type page, string title)> pages = new List<(string tag, Type page, string title)>
+{
+    ("findreplace",  typeof(FindReplacePage), "Find and Replace"),
+    ("share", typeof(SharePage), "Share"),
+    ("tools", typeof(ToolsPage), "Formating Tools"),
+    ("vocabulary", typeof(VocabularyPage), "Vocabulary Training"),
+};
+
         private bool isPanelVisible;
         private bool isListeningVisible;
         private string title;
@@ -26,21 +32,10 @@
         private ICommand operationCommand;
         private Frame contentFrame;
 
-        private readonly List<(string tag, Type page, string title)> pages = new List<(string tag, Type page, string title)>
-{
-    ("findreplace",  typeof(FindReplacePage), "Find and Replace"),
-    ("share", typeof(SharePage), "Share"),
-    ("tools", typeof(ToolsPage), "Formating Tools"),
-    ("vocabulary", typeof(VocabularyPage), "Vocabulary Training"),
-};
-
-        public MainPageViewModel(DocumentModel document)
+        public MainPageViewModel()
         {
-            Document = document;
-            RecognizerService.Document = document;
             RecognizerService.InitializeRecognition();
             IsPanelVisible = false;
-            Document.Text = string.Empty;
         }
 
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
@@ -52,8 +47,6 @@
         public ICommand GoToMenuCommand => goToMenuCommand ?? (goToMenuCommand = new RelayCommand(GoToMenu));
 
         public ICommand OperationCommand => operationCommand ?? (operationCommand = new RelayCommand<string>(MessageService.SendOperation));
-
-        public DocumentModel Document { get; set; }
 
         public bool IsListening
         {

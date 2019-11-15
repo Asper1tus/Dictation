@@ -1,6 +1,6 @@
 ﻿namespace Dictation.ViewModels
 {
-    class HelpViewModel
+    public class HelpViewModel
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Dictation.ViewModels
 {
-    class SaveAsViewModel
+    public class SaveAsViewModel
     {
     }
 }
