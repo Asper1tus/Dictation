@@ -12,15 +12,15 @@
     <StackPanel Margin="10">
         <TextBlock TextWrapping="Wrap" Margin="0 0 30 10">Find every instance of a word in your document and replace it with another word.</TextBlock>
         <TextBlock FontSize="20" FontWeight="SemiBold">Find what:</TextBlock>
-        <TextBox Margin="5" Text="{x:Bind ViewModel.SearchedWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <CheckBox Margin="5 0 0 0" >Match case</CheckBox>
-        <Button Height="30"  Command="{x:Bind ViewModel.FindNextCommand}">Find Next</Button>
+        <TextBox Margin="5" Text="{x:Bind viewModel.SearchedWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <CheckBox Margin="5 0 0 0" IsChecked="{x:Bind viewModel.IsMatchCase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Match case</CheckBox>
+        <Button Height="30"  Command="{x:Bind viewModel.FindNextCommand}">Find Next</Button>
         
         <TextBlock FontSize="20" FontWeight="SemiBold">Replace with:</TextBlock>
-        <TextBox Margin="5" ></TextBox>
+        <TextBox Margin="5" Text="{x:Bind viewModel.ReplacementWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <StackPanel Orientation="Horizontal">
-            <Button Height="30" Command="{x:Bind ViewModel.ReplaceCommand}">Replace</Button>
-            <Button Height="30" Margin="20 0 0 0" Command="{x:Bind ViewModel.ReplaceAllCommand}">Replace All</Button>
+            <Button Height="30" Command="{x:Bind viewModel.ReplaceCommand}">Replace</Button>
+            <Button Height="30" Margin="20 0 0 0" Command="{x:Bind viewModel.ReplaceAllCommand}">Replace All</Button>
         </StackPanel>
     </StackPanel>
 

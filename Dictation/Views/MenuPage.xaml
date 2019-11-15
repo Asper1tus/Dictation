@@ -22,7 +22,7 @@
                         IsPaneToggleButtonVisible="False" 
                         PaneDisplayMode="Left"  
                         Width="200" 
-                        SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}">
+                        SelectedItem="{x:Bind viewModel.Selected, Mode=TwoWay}">
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Back" Content="Back" Tag="back" helpers:NavHelper.NavigateTo="local:MainPage" />
                 <NavigationViewItemSeparator/>
@@ -39,7 +39,7 @@
 
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="ItemInvoked">
-                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+                    <ic:InvokeCommandAction Command="{x:Bind viewModel.ItemInvokedCommand}" />
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </NavigationView>

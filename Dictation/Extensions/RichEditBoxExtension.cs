@@ -1,20 +1,32 @@
 ﻿namespace Dictation.Extensions
 {
     using Windows.UI;
+    using Windows.UI.Text;
     using Windows.UI.Xaml.Controls;
 
     public static class RichEditBoxExtension
     {
+        public static int GetLenght(this RichEditBox richEditBox)
+        {
+            richEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string value);
+            return value.Length;
+        }
+
         public static void SetRtf(this RichEditBox richEditBox, string rtf)
         {
-            richEditBox.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, rtf);
+            richEditBox.Document.SetText(TextSetOptions.FormatRtf, rtf);
         }
 
         public static string GetRtf(this RichEditBox richEditBox)
         {
-            string rtf;
-            richEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out rtf);
+            richEditBox.Document.GetText(TextGetOptions.FormatRtf, out string rtf);
             return rtf;
+        }
+
+        public static void AddRtf(this RichEditBox richEditBox, string rtf)
+        {
+            int lenght = richEditBox.GetLenght();
+            richEditBox.Document.Selection.StartPosition = lenght;
         }
 
         public static void ClearUndo(this RichEditBox richEditBox)
@@ -29,14 +41,14 @@
             return richEditBox.Document.CanRedo();
         }
 
-        public static bool Redo(this RichEditBox richEditBox)
+        public static void Redo(this RichEditBox richEditBox)
         {
             if (richEditBox.Document.CanRedo())
             {
                 richEditBox.Document.Redo();
             }
 
-            return CanRedo(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool CanUndo(this RichEditBox richEditBox)
@@ -44,14 +56,14 @@
             return richEditBox.Document.CanUndo();
         }
 
-        public static bool Undo(this RichEditBox richEditBox)
+        public static void Undo(this RichEditBox richEditBox)
         {
             if (richEditBox.Document.CanUndo())
             {
                 richEditBox.Document.Undo();
             }
 
-            return CanUndo(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool CanCopy(this RichEditBox richEditBox)
@@ -59,24 +71,24 @@
             return richEditBox.Document.CanCopy();
         }
 
-        public static bool Copy(this RichEditBox richEditBox)
+        public static void Copy(this RichEditBox richEditBox)
         {
             if (richEditBox.Document.CanCopy())
             {
                 richEditBox.Document.Selection.Copy();
             }
 
-            return CanCopy(richEditBox);
+            Focus(richEditBox);
         }
 
-        public static bool Cut(this RichEditBox richEditBox)
+        public static void Cut(this RichEditBox richEditBox)
         {
             if (richEditBox.Document.CanCopy())
             {
                 richEditBox.Document.Selection.Cut();
             }
 
-            return CanCopy(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool CanPaste(this RichEditBox richEditBox)
@@ -84,14 +96,14 @@
             return richEditBox.Document.Selection.CanPaste(0);
         }
 
-        public static bool PasteIn(this RichEditBox richEditBox)
+        public static void PasteIn(this RichEditBox richEditBox)
         {
             if (richEditBox.Document.CanPaste())
             {
                 richEditBox.Document.Selection.Paste(0);
             }
 
-            return CanPaste(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool IsBold(this RichEditBox richEditBox)
@@ -99,15 +111,14 @@
             return richEditBox.Document.Selection.CharacterFormat.Bold == Windows.UI.Text.FormatEffect.On;
         }
 
-        public static bool Bold(this RichEditBox richEditBox, bool focus = true)
+        public static void Bold(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.CharacterFormat.Bold = Windows.UI.Text.FormatEffect.Toggle;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.CharacterFormat.Bold = Windows.UI.Text.FormatEffect.Toggle;
             }
 
-            return IsBold(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool IsItalic(this RichEditBox richEditBox)
@@ -115,15 +126,14 @@
             return richEditBox.Document.Selection.CharacterFormat.Italic == Windows.UI.Text.FormatEffect.On;
         }
 
-        public static bool Italic(this RichEditBox richEditBox, bool focus = true)
+        public static void Italic(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.CharacterFormat.Italic = Windows.UI.Text.FormatEffect.Toggle;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.CharacterFormat.Italic = Windows.UI.Text.FormatEffect.Toggle;
             }
 
-            return IsItalic(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool IsUnderline(this RichEditBox richEditBox)
@@ -131,15 +141,14 @@
             return richEditBox.Document.Selection.CharacterFormat.Underline != Windows.UI.Text.UnderlineType.None;
         }
 
-        public static bool Underline(this RichEditBox richEditBox, bool focus = true)
+        public static void Underline(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.CharacterFormat.Underline = IsUnderline(richEditBox) ? Windows.UI.Text.UnderlineType.None : Windows.UI.Text.UnderlineType.Single;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.CharacterFormat.Underline = IsUnderline(richEditBox) ? Windows.UI.Text.UnderlineType.None : Windows.UI.Text.UnderlineType.Single;
             }
 
-            return IsUnderline(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool IsStrikethrough(this RichEditBox richEditBox)
@@ -147,15 +156,14 @@
             return richEditBox.Document.Selection.CharacterFormat.Strikethrough == Windows.UI.Text.FormatEffect.On;
         }
 
-        public static bool Strikethrough(this RichEditBox richEditBox, bool focus = true)
+        public static void Strikethrough(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.CharacterFormat.Strikethrough = Windows.UI.Text.FormatEffect.Toggle;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.CharacterFormat.Strikethrough = Windows.UI.Text.FormatEffect.Toggle;
             }
 
-            return IsStrikethrough(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool IsSuperscript(this RichEditBox richEditBox)
@@ -163,15 +171,14 @@
             return richEditBox.Document.Selection.CharacterFormat.Superscript == Windows.UI.Text.FormatEffect.On;
         }
 
-        public static bool Superscript(this RichEditBox richEditBox, bool focus = true)
+        public static void Superscript(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.CharacterFormat.Superscript = Windows.UI.Text.FormatEffect.Toggle;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.CharacterFormat.Superscript = Windows.UI.Text.FormatEffect.Toggle;
             }
 
-            return IsSuperscript(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool IsSubscript(this RichEditBox richEditBox)
@@ -179,15 +186,14 @@
             return richEditBox.Document.Selection.CharacterFormat.Subscript == Windows.UI.Text.FormatEffect.On;
         }
 
-        public static bool Subscript(this RichEditBox richEditBox, bool focus = true)
+        public static void Subscript(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.CharacterFormat.Subscript = Windows.UI.Text.FormatEffect.Toggle;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.CharacterFormat.Subscript = Windows.UI.Text.FormatEffect.Toggle;
             }
 
-            return IsSubscript(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool IsAlignLeft(this RichEditBox richEditBox)
@@ -195,15 +201,14 @@
             return richEditBox.Document.Selection.ParagraphFormat.Alignment == Windows.UI.Text.ParagraphAlignment.Left;
         }
 
-        public static bool AlignLeft(this RichEditBox richEditBox, bool focus = true)
+        public static void AlignLeft(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.ParagraphFormat.Alignment = IsAlignLeft(richEditBox) ? Windows.UI.Text.ParagraphAlignment.Undefined : Windows.UI.Text.ParagraphAlignment.Left;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.ParagraphFormat.Alignment = IsAlignLeft(richEditBox) ? Windows.UI.Text.ParagraphAlignment.Undefined : Windows.UI.Text.ParagraphAlignment.Left;
             }
 
-            return IsAlignLeft(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool IsAlignRight(this RichEditBox richEditBox)
@@ -211,15 +216,14 @@
             return richEditBox.Document.Selection.ParagraphFormat.Alignment == Windows.UI.Text.ParagraphAlignment.Right;
         }
 
-        public static bool AlignRight(this RichEditBox richEditBox, bool focus = true)
+        public static void AlignRight(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.ParagraphFormat.Alignment = IsAlignRight(richEditBox) ? Windows.UI.Text.ParagraphAlignment.Undefined : Windows.UI.Text.ParagraphAlignment.Right;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.ParagraphFormat.Alignment = IsAlignRight(richEditBox) ? Windows.UI.Text.ParagraphAlignment.Undefined : Windows.UI.Text.ParagraphAlignment.Right;
             }
 
-            return IsAlignRight(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool IsAlignCenter(this RichEditBox richEditBox)
@@ -227,15 +231,14 @@
             return richEditBox.Document.Selection.ParagraphFormat.Alignment == Windows.UI.Text.ParagraphAlignment.Center;
         }
 
-        public static bool AlignCenter(this RichEditBox richEditBox, bool focus = true)
+        public static void AlignCenter(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.ParagraphFormat.Alignment = IsAlignCenter(richEditBox) ? Windows.UI.Text.ParagraphAlignment.Undefined : Windows.UI.Text.ParagraphAlignment.Center;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.ParagraphFormat.Alignment = IsAlignCenter(richEditBox) ? Windows.UI.Text.ParagraphAlignment.Undefined : Windows.UI.Text.ParagraphAlignment.Center;
             }
 
-            return IsAlignCenter(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool IsJustify(this RichEditBox richEditBox)
@@ -243,15 +246,14 @@
             return richEditBox.Document.Selection.ParagraphFormat.Alignment == Windows.UI.Text.ParagraphAlignment.Justify;
         }
 
-        public static bool Justify(this RichEditBox richEditBox, bool focus = true)
+        public static void Justify(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.ParagraphFormat.Alignment = IsJustify(richEditBox) ? Windows.UI.Text.ParagraphAlignment.Undefined : Windows.UI.Text.ParagraphAlignment.Justify;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.ParagraphFormat.Alignment = IsJustify(richEditBox) ? Windows.UI.Text.ParagraphAlignment.Undefined : Windows.UI.Text.ParagraphAlignment.Justify;
             }
 
-            return IsJustify(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool HasBullets(this RichEditBox richEditBox)
@@ -259,16 +261,15 @@
             return richEditBox.Document.Selection.ParagraphFormat.ListType == Windows.UI.Text.MarkerType.Bullet;
         }
 
-        public static bool Bullets(this RichEditBox richEditBox, bool focus = true)
+        public static void Bullets(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.ParagraphFormat.ListType = HasBullets(richEditBox) ? Windows.UI.Text.MarkerType.None : Windows.UI.Text.MarkerType.Bullet;
-            richEditBox.Document.Selection.ParagraphFormat.ListStyle = Windows.UI.Text.MarkerStyle.Plain;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.ParagraphFormat.ListType = HasBullets(richEditBox) ? Windows.UI.Text.MarkerType.None : Windows.UI.Text.MarkerType.Bullet;
+                richEditBox.Document.Selection.ParagraphFormat.ListStyle = Windows.UI.Text.MarkerStyle.Plain;
             }
 
-            return HasBullets(richEditBox);
+            Focus(richEditBox);
         }
 
         public static bool HasNumbers(this RichEditBox richEditBox)
@@ -276,17 +277,16 @@
             return richEditBox.Document.Selection.ParagraphFormat.ListType == Windows.UI.Text.MarkerType.Arabic;
         }
 
-        public static bool Numbers(this RichEditBox richEditBox, bool focus = true)
+        public static void Numbers(this RichEditBox richEditBox)
         {
-            richEditBox.Document.Selection.ParagraphFormat.ListType = HasNumbers(richEditBox) ? Windows.UI.Text.MarkerType.None : Windows.UI.Text.MarkerType.Arabic;
-            richEditBox.Document.Selection.ParagraphFormat.ListStart = 1;
-            richEditBox.Document.Selection.ParagraphFormat.ListStyle = Windows.UI.Text.MarkerStyle.Parenthesis;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.ParagraphFormat.ListType = HasNumbers(richEditBox) ? Windows.UI.Text.MarkerType.None : Windows.UI.Text.MarkerType.Arabic;
+                richEditBox.Document.Selection.ParagraphFormat.ListStart = 1;
+                richEditBox.Document.Selection.ParagraphFormat.ListStyle = Windows.UI.Text.MarkerStyle.Parenthesis;
             }
 
-            return HasNumbers(richEditBox);
+            Focus(richEditBox);
         }
 
         public static float GetSize(this RichEditBox richEditBox)
@@ -294,15 +294,14 @@
             return richEditBox.Document.Selection.CharacterFormat.Size;
         }
 
-        public static float SetSize(this RichEditBox richEditBox, float size, bool focus = true)
+        public static void SetSize(this RichEditBox richEditBox, int size)
         {
-            richEditBox.Document.Selection.CharacterFormat.Size = size;
-            if (focus)
+            if (richEditBox.Document.Selection != null)
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.CharacterFormat.Size = size;
             }
 
-            return GetSize(richEditBox);
+            Focus(richEditBox);
         }
 
         public static Color GetForeground(this RichEditBox richEditBox)
@@ -310,15 +309,14 @@
             return richEditBox.Document.Selection.CharacterFormat.ForegroundColor;
         }
 
-        public static Color SetForeground(this RichEditBox richEditBox, Color color, bool focus = true)
+        public static void SetForeground(this RichEditBox richEditBox, Color color)
         {
-            richEditBox.Document.Selection.CharacterFormat.ForegroundColor = color;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.CharacterFormat.ForegroundColor = color;
             }
 
-            return GetForeground(richEditBox);
+            Focus(richEditBox);
         }
 
         public static Color GetBackground(this RichEditBox richEditBox)
@@ -326,15 +324,14 @@
             return richEditBox.Document.Selection.CharacterFormat.BackgroundColor;
         }
 
-        public static Color SetBackground(this RichEditBox richEditBox, Color color, bool focus = true)
+        public static void SetBackground(this RichEditBox richEditBox, Color color, bool focus = true)
         {
-            richEditBox.Document.Selection.CharacterFormat.BackgroundColor = color;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.CharacterFormat.BackgroundColor = color;
             }
 
-            return GetBackground(richEditBox);
+            Focus(richEditBox);
         }
 
         public static string GetFont(this RichEditBox richEditBox)
@@ -342,20 +339,70 @@
             return richEditBox.Document.Selection.CharacterFormat.Name;
         }
 
-        public static string SetFont(this RichEditBox richEditBox, string font, bool focus = true)
+        public static void SetFont(this RichEditBox richEditBox, string font, bool focus = true)
         {
-            richEditBox.Document.Selection.CharacterFormat.Name = font;
-            if (focus)
+            if (IsSelection(richEditBox))
             {
-                Focus(richEditBox);
+                richEditBox.Document.Selection.CharacterFormat.Name = font;
             }
 
-            return GetFont(richEditBox);
+            Focus(richEditBox);
         }
 
         public static void Focus(this RichEditBox richEditBox)
         {
             richEditBox.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+        }
+
+        public static bool IsSelection(this RichEditBox richEditBox)
+        {
+            return richEditBox.Document.Selection != null;
+        }
+
+        public static void FindWord(this RichEditBox richEditBox, string searchedWord, bool isMatchCase)
+        {
+            FindOptions options;
+            if (isMatchCase)
+            {
+                options = FindOptions.Case;
+            }
+            else
+            {
+                options = FindOptions.Word;
+            }
+
+            // To highlight the searched word in turn
+            if (string.Compare(richEditBox.Document.Selection.Text, searchedWord, true) != 0)
+            {
+                // Set selection to start of document
+                richEditBox.Document.Selection.SetRange(0, 0);
+            }
+
+            int lenght = richEditBox.GetLenght();
+            richEditBox.Document.Selection.FindText(searchedWord, lenght, options);
+
+            Focus(richEditBox);
+        }
+
+        public static void ReplaceSelectedWord(this RichEditBox richEditBox, string replacementWord)
+        {
+            if (richEditBox.Document.Selection.Text != string.Empty)
+            {
+                richEditBox.Document.Selection.Text = replacementWord;
+            }
+
+            Focus(richEditBox);
+        }
+
+        public static void ReplaceAllWords(this RichEditBox richEditBox, string replacementWord, string searchedWord, bool isMatchCase)
+        {
+            richEditBox.FindWord(searchedWord, isMatchCase);
+            do
+            {
+                richEditBox.ReplaceSelectedWord(replacementWord);
+                richEditBox.FindWord(searchedWord, isMatchCase);
+            }
+            while (string.Compare(richEditBox.Document.Selection.Text, searchedWord, isMatchCase) == 0);
         }
     }
 }

@@ -3,6 +3,7 @@
     using Dictation.Extensions;
     using Dictation.Services;
     using Windows.UI;
+    using Windows.UI.Text;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Input;
@@ -13,6 +14,26 @@
             DependencyProperty.RegisterAttached("RichText", typeof(string), typeof(RtfTextHelper), new PropertyMetadata(string.Empty, Callback));
 
         private static RichEditBox richEditBox;
+
+        public static string RichText
+        {
+            get { return richEditBox.GetRtf(); }
+            set { richEditBox.SetRtf(value); }
+        }
+
+        public static string Text
+        {
+            get
+            {
+                richEditBox.Document.GetText(TextGetOptions.None, out string text);
+                return text;
+            }
+
+            set
+            {
+                richEditBox.Document.SetText(TextSetOptions.None, value);
+            }
+        }
 
         public static bool IsBold => richEditBox.IsBold();
 
@@ -60,11 +81,35 @@
                 MessageService.FontChanged += SelectFont;
                 MessageService.SizeChanged += SelectSize;
                 MessageService.OperationSent += SelectOperation;
+                MessageService.FindWord += FindWord;
+                MessageService.ReplaceSelectedWord += ReplaceSelectedWord;
+                MessageService.ReplaceAllWords += ReplaceAllWords;
                 richEditBox.PointerCaptureLost += PointerCaptureLost;
-                //richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
+
+                // richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
             }
 
             richEditBox.SetValue(RichTextProperty, value);
+        }
+
+        public static void AddRtf(string rtf)
+        {
+            richEditBox.AddRtf(rtf);
+        }
+
+        private static void ReplaceSelectedWord(string replacementWord)
+        {
+            richEditBox.ReplaceSelectedWord(replacementWord);
+        }
+
+        private static void ReplaceAllWords(string replacementWord, string searchedWord, bool isMatchCase)
+        {
+            richEditBox.ReplaceAllWords(replacementWord, searchedWord, isMatchCase);
+        }
+
+        private static void FindWord(string word, bool options)
+        {
+            richEditBox.FindWord(word, options);
         }
 
         private static void PointerCaptureLost(object sender, PointerRoutedEventArgs e)
@@ -85,21 +130,45 @@
 
         private static void SelectStyle(string style)
         {
-            _ = style switch
+            switch (style)
             {
-                "Bold" => richEditBox.Bold(),
-                "Italic" => richEditBox.Italic(),
-                "Underline" => richEditBox.Underline(),
-                "AlignLeft" => richEditBox.AlignLeft(),
-                "AlignRight" => richEditBox.AlignRight(),
-                "AlignCenter" => richEditBox.AlignCenter(),
-                "Justify" => richEditBox.Justify(),
-                "Bullets" => richEditBox.Bullets(),
-                "Numbers" => richEditBox.Numbers(),
-                "Strikethrough" => richEditBox.Strikethrough(),
-                "Subscript" => richEditBox.Subscript(),
-                "Superscript" => richEditBox.Superscript(),
-            };
+                case "Bold":
+                    richEditBox.Bold();
+                    break;
+                case "Italic":
+                    richEditBox.Italic();
+                    break;
+                case "Underline":
+                    richEditBox.Underline();
+                    break;
+                case "AlignLeft":
+                    richEditBox.AlignLeft();
+                    break;
+                case "AlignRight":
+                    richEditBox.AlignRight();
+                    break;
+                case "AlignCenter":
+                    richEditBox.AlignCenter();
+                    break;
+                case "Justify":
+                    richEditBox.Justify();
+                    break;
+                case "Bullets":
+                    richEditBox.Bullets();
+                    break;
+                case "Numbers":
+                    richEditBox.Numbers();
+                    break;
+                case "Strikethrough":
+                    richEditBox.Strikethrough();
+                    break;
+                case "Subscript":
+                    richEditBox.Subscript();
+                    break;
+                case "Superscript":
+                    richEditBox.Superscript();
+                    break;
+            }
         }
 
         private static void SelectFont(string font)
@@ -124,15 +193,24 @@
 
         private static void SelectOperation(string operation)
         {
-            _ = operation switch
+            switch (operation)
             {
-                "Undo" => richEditBox.Undo(),
-                "Redo" => richEditBox.Redo(),
-                "Copy" => richEditBox.Copy(),
-                "Cut" => richEditBox.Cut(),
-                "Paste" => richEditBox.PasteIn(),
-            };
+                case "Undo":
+                    richEditBox.Undo();
+                    break;
+                case "Redo":
+                    richEditBox.Redo();
+                    break;
+                case "Copy":
+                    richEditBox.Copy();
+                    break;
+                case "Cut":
+                    richEditBox.Cut();
+                    break;
+                case "Paste":
+                    richEditBox.PasteIn();
+                    break;
+            }
         }
-
     }
 }
