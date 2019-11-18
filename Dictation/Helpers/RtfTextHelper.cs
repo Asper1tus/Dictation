@@ -2,6 +2,7 @@
 {
     using Dictation.Extensions;
     using Dictation.Services;
+    using Windows.Storage.Streams;
     using Windows.UI;
     using Windows.UI.Text;
     using Windows.UI.Xaml;
@@ -211,6 +212,10 @@
                     richEditBox.PasteIn();
                     break;
             }
+        }
+
+        public static void OpenFile(IRandomAccessStream stream)
+        {
         }
     }
 }

@@ -27,14 +27,14 @@
     <StackPanel Margin="10">
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Select font style</TextBlock>
         <StackPanel Orientation="Horizontal" Height="40">
-            <ComboBox Margin="5" Width="150" ItemsSource="{x:Bind Fonts}" SelectedItem="{x:Bind viewModel.Font, Mode=TwoWay}">
+            <ComboBox Margin="5" Width="150" ItemsSource="{x:Bind viewModel.Fonts}" SelectedItem="{x:Bind viewModel.Font, Mode=TwoWay}">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="SelectionChanged">
                         <ic:InvokeCommandAction Command="{x:Bind viewModel.FontCommand}" CommandParameter="{x:Bind viewModel.Font, Mode=OneWay}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </ComboBox>
-            <ComboBox Margin="10 5 5 5" ItemsSource="{x:Bind Sizes}" SelectedItem="{x:Bind viewModel.Size, Mode=TwoWay}">
+            <ComboBox Margin="10 5 5 5" ItemsSource="{x:Bind viewModel.Sizes}" SelectedItem="{x:Bind viewModel.Size, Mode=TwoWay}">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="SelectionChanged">
                         <ic:InvokeCommandAction Command="{x:Bind viewModel.SizeCommand}" CommandParameter="{x:Bind viewModel.Size, Mode=OneWay}" />

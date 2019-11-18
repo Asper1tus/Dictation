@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    RequestedTheme="Default"
     >
     <Page.Resources>
         <ResourceDictionary>
@@ -61,7 +60,9 @@
                                      Height="1122"
                                      Width="794"
                                      Margin="50" IsSpellCheckEnabled ="True"
-                                     helpers:RtfTextHelper.RichText =""></RichEditBox>
+                                     helpers:RtfTextHelper.RichText =""
+                                     FontFamily="{x:Bind viewModel.Font}"
+                                     FontSize="{x:Bind viewModel.FontSize}"></RichEditBox>
                     </ScrollViewer>
                 </Grid>
             </SplitView.Content>

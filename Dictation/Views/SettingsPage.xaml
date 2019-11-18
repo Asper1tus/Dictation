@@ -3,12 +3,69 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Dictation.Views"
+    xmlns:convert="using:Dictation.Converetrs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    mc:Ignorable="d">
 
-    <Grid>
-        <TextBlock>sdfghjkl;jhgfdgh jjhjjjhhjghjg</TextBlock>
+    <Page.Resources>
+        <convert:ThemeConverter x:Key="ThemeConverter" />
+    </Page.Resources>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+     
+        <ScrollViewer
+            Grid.Row="0"
+            Padding="20,0,0,0"
+            IsTabStop="False"
+            UseSystemFocusVisuals="False"
+            VerticalScrollBarVisibility="Auto"
+            VerticalScrollMode="Auto">
+            <StackPanel HorizontalAlignment="Left">
+                <TextBlock
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Margin="0,5,0,0"
+                    FontWeight="Normal"
+                    Text="Theme Mode" />
+                <StackPanel Margin="0,10,0,0">
+                    <RadioButton Content="Light" Command="{x:Bind viewModel.ChooseThemeCommand}" CommandParameter="Light"
+                                 IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Light}"/>
+                    <RadioButton Content="Dark" Command="{x:Bind viewModel.ChooseThemeCommand}" CommandParameter="Dark"
+                                 IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Dark}"/>
+                    <RadioButton Content="Use system setting" Command="{x:Bind viewModel.ChooseThemeCommand}" CommandParameter="Default"
+                                 IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Default}"/>
+                </StackPanel>
+
+                <TextBlock
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Margin="0,5,0,0"
+                    FontWeight="Normal"
+                    Text="General" />
+                <TextBlock Margin="0,10,0,0"
+                    FontWeight="Normal"
+                    Text="Default font and size"/>
+                <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                    <ComboBox Width="200" ItemsSource="{x:Bind viewModel.Fonts}" SelectedItem="{x:Bind viewModel.Font, Mode=TwoWay}"/>
+                    <ComboBox Margin="20 0 0 0" ItemsSource="{x:Bind viewModel.Sizes}" SelectedItem="{x:Bind viewModel.Size, Mode=TwoWay}"/>
+
+                </StackPanel>
+
+                <TextBlock Margin="0,5,0,0"
+                    FontWeight="Normal"
+                    Text="Dictation language"/>
+                <ComboBox Margin="0,5,0,0" Width="200" />
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Padding="20,0,0,0" Grid.Row="1" Orientation="Horizontal">
+            <Button Width="150" Content="Restore Default"/>
+            <Button Width="150" Margin="20 0 0 0" Content="Save"/>
+        </StackPanel>
     </Grid>
 </Page>

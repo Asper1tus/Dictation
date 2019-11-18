@@ -1,9 +1,12 @@
 ﻿namespace Dictation.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Windows.Input;
     using Dictation.Commands;
+    using Dictation.Helpers;
     using Dictation.Services;
+    using Windows.Storage;
     using Windows.Storage.Pickers;
     using Windows.UI.Xaml.Media.Animation;
 
@@ -13,24 +16,25 @@
 
         public ICommand OpenFileCommand => openFile ?? (openFile = new RelayCommand(OpenFile));
 
-        private void OpenFile()
+        private async void OpenFile()
         {
             // TODO: OpenFile
-            //  openPicker = new FileOpenPicker
-            // {
-            //    ViewMode = PickerViewMode.Thumbnail,
-            //    SuggestedStartLocation = PickerLocationId.Desktop,
-            //    CommitButtonText = "Open",
-            // };
-            // List<string> filters = new List<string>() { ".txt", ".rtf", ".doc", ".docx", ".html", ".htm" };
+            var openPicker = new FileOpenPicker
+            {
+                ViewMode = PickerViewMode.Thumbnail,
+                SuggestedStartLocation = PickerLocationId.Desktop,
+                CommitButtonText = "Open",
+            };
+            List<string> filters = new List<string>() { ".txt", ".rtf", ".doc", ".docx", ".html", ".htm" };
 
-            // AddFilters(openPicker, filters);
-            // var file = await openPicker.PickSingleFileAsync();
+            AddFilters(openPicker, filters);
+            var file = await openPicker.PickSingleFileAsync();
 
-            // if (file != null)
-            // {
-            //    //document.Text = await FileIO.ReadTextAsync(file);
-            // }
+            if (file != null)
+            {
+                var stream = await file.OpenAsync(FileAccessMode.Read);
+                RtfTextHelper.OpenFile(stream);
+            }
 
             NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }

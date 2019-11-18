@@ -15,6 +15,7 @@
             SimpleIoc.Default.Register<SettingsViewModel>();
             SimpleIoc.Default.Register<FindReplaceViewModel>();
             SimpleIoc.Default.Register<ToolsViewModel>();
+            SimpleIoc.Default.Register<SettingsViewModel>();
         }
 
         public MainPageViewModel MainPageViewModel => SimpleIoc.Default.GetInstance<MainPageViewModel>();
@@ -26,5 +27,7 @@
         public OpenViewModel OpenViewModel => SimpleIoc.Default.GetInstance<OpenViewModel>();
 
         public MenuViewModel MenuViewModel => SimpleIoc.Default.GetInstance<MenuViewModel>();
+
+        public SettingsViewModel SettingsViewModel => SimpleIoc.Default.GetInstance<SettingsViewModel>();
     }
 }

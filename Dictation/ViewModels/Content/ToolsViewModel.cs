@@ -1,5 +1,6 @@
 ﻿namespace Dictation.ViewModels.Content
 {
+    using System.Collections.Generic;
     using System.Windows.Input;
     using Dictation.Commands;
     using Dictation.Helpers;
@@ -28,8 +29,9 @@
 
         public ToolsViewModel()
         {
+            Font = App.Font;
+            Size = App.FontSize;
             MessageService.NotifyEvent += Update;
-            Font = "Segoe UI";
         }
 
         public ICommand StyleCommand => styleCommand ?? (styleCommand = new RelayCommand<string>(MessageService.SendStyle));
@@ -37,6 +39,22 @@
         public ICommand FontCommand => fontCommand ?? (fontCommand = new RelayCommand<string>(MessageService.SendFont));
 
         public ICommand SizeCommand => sizeCommand ?? (sizeCommand = new RelayCommand<int>(MessageService.SendSize));
+
+        public List<string> Fonts
+        {
+            get
+            {
+                return FontService.Fonts;
+            }
+        }
+
+        public List<int> Sizes
+        {
+            get
+            {
+                return FontService.Sizes;
+            }
+        }
 
         public bool IsBold
         {

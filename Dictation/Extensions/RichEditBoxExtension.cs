@@ -1,7 +1,6 @@
 ﻿namespace Dictation.Extensions
 {
     using Windows.UI;
-    using Windows.UI.Text;
     using Windows.UI.Xaml.Controls;
 
     public static class RichEditBoxExtension
@@ -14,12 +13,12 @@
 
         public static void SetRtf(this RichEditBox richEditBox, string rtf)
         {
-            richEditBox.Document.SetText(TextSetOptions.FormatRtf, rtf);
+            richEditBox.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, rtf);
         }
 
         public static string GetRtf(this RichEditBox richEditBox)
         {
-            richEditBox.Document.GetText(TextGetOptions.FormatRtf, out string rtf);
+            richEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out string rtf);
             return rtf;
         }
 
@@ -27,6 +26,7 @@
         {
             int lenght = richEditBox.GetLenght();
             richEditBox.Document.Selection.StartPosition = lenght;
+            richEditBox.Document.Selection.TypeText(rtf);
         }
 
         public static void ClearUndo(this RichEditBox richEditBox)
@@ -361,14 +361,14 @@
 
         public static void FindWord(this RichEditBox richEditBox, string searchedWord, bool isMatchCase)
         {
-            FindOptions options;
+            Windows.UI.Text.FindOptions options;
             if (isMatchCase)
             {
-                options = FindOptions.Case;
+                options = Windows.UI.Text.FindOptions.Case;
             }
             else
             {
-                options = FindOptions.Word;
+                options = Windows.UI.Text.FindOptions.Word;
             }
 
             // To highlight the searched word in turn
