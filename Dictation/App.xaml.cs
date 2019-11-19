@@ -8,7 +8,6 @@
     using Windows.Storage;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
-    using Windows.UI.Xaml.Media;
     using Windows.UI.Xaml.Navigation;
 
     /// <summary>
@@ -117,7 +116,7 @@
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Загрузить состояние из ранее приостановленного приложения
+                    // TODO: Загрузить состояние из ранее приостановленного приложения
                 }
 
                 // Размещение фрейма в текущем окне
@@ -133,6 +132,7 @@
                     // навигации
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
+
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();
             }
@@ -146,11 +146,11 @@
         }
 
         /// <summary>
-        /// Вызывается в случае сбоя навигации на определенную страницу
+        /// Вызывается в случае сбоя навигации на определенную страницу.
         /// </summary>
-        /// <param name="sender">Фрейм, для которого произошел сбой навигации</param>
-        /// <param name="e">Сведения о сбое навигации</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        /// <param name="sender">Фрейм, для которого произошел сбой навигации.</param>
+        /// <param name="e">Сведения о сбое навигации.</param>
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
@@ -165,7 +165,8 @@
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Сохранить состояние приложения и остановить все фоновые операции
+
+            // TODO: Сохранить состояние приложения и остановить все фоновые операции
             deferral.Complete();
         }
     }

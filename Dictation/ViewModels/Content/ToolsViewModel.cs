@@ -22,23 +22,39 @@
         private bool hasNumbers;
         private string font;
         private int size;
+        private string foregroundColor;
+        private string backgroundColor;
 
-        private ICommand styleCommand;
-        private ICommand fontCommand;
-        private ICommand sizeCommand;
+        private ICommand changeStyleCommand;
+        private ICommand changeFontCommand;
+        private ICommand changeSizeCommand;
+        private ICommand selectForegroundColorCommand;
+        private ICommand selectBackgroundColorCommand;
+        private ICommand changeForegroundColorCommand;
+        private ICommand changeBackgroundColorCommand;
 
         public ToolsViewModel()
         {
             Font = App.Font;
             Size = App.FontSize;
+            ForegroundColor = "Black";
+            BackgroundColor = "White";
             MessageService.NotifyEvent += Update;
         }
 
-        public ICommand StyleCommand => styleCommand ?? (styleCommand = new RelayCommand<string>(MessageService.SendStyle));
+        public ICommand ChangeStyleCommand => changeStyleCommand ?? (changeStyleCommand = new RelayCommand<string>(MessageService.SendStyle));
 
-        public ICommand FontCommand => fontCommand ?? (fontCommand = new RelayCommand<string>(MessageService.SendFont));
+        public ICommand ChangeFontCommand => changeFontCommand ?? (changeFontCommand = new RelayCommand<string>(MessageService.SendFont));
 
-        public ICommand SizeCommand => sizeCommand ?? (sizeCommand = new RelayCommand<int>(MessageService.SendSize));
+        public ICommand ChangeSizeCommand => changeSizeCommand ?? (changeSizeCommand = new RelayCommand<int>(MessageService.SendSize));
+
+        public ICommand SelectForegroundColorCommand => selectForegroundColorCommand ?? (selectForegroundColorCommand = new RelayCommand<string>(SelectForegroundColor));
+
+        public ICommand SelectBackgroundColorCommand => selectBackgroundColorCommand ?? (selectBackgroundColorCommand = new RelayCommand<string>(SelectBackgroundColor));
+
+        public ICommand ChangeForegroundColorCommand => changeForegroundColorCommand ?? (changeForegroundColorCommand = new RelayCommand<string>(MessageService.SendForegroundColor));
+
+        public ICommand ChangeBackgroundColorCommand => changeBackgroundColorCommand ?? (changeBackgroundColorCommand = new RelayCommand<string>(MessageService.SendBackgroundColor));
 
         public List<string> Fonts
         {
@@ -140,6 +156,18 @@
             set { Set(ref this.size, value); }
         }
 
+        public string ForegroundColor
+        {
+            get { return foregroundColor; }
+            set { Set(ref this.foregroundColor, value); }
+        }
+
+        public string BackgroundColor
+        {
+            get { return backgroundColor; }
+            set { Set(ref this.backgroundColor, value); }
+        }
+
         public void Update()
         {
             IsBold = RtfTextHelper.IsBold;
@@ -156,6 +184,16 @@
             HasBullets = RtfTextHelper.HasBullets;
             Font = RtfTextHelper.Font;
             Size = RtfTextHelper.Size;
+        }
+
+        private void SelectForegroundColor(string color)
+        {
+            ForegroundColor = color;
+        }
+
+        private void SelectBackgroundColor(string color)
+        {
+            BackgroundColor = color;
         }
     }
 }

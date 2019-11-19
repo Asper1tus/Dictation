@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:muxc="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
      Width="300">
@@ -15,12 +16,30 @@
             <Setter Property="Height" Value="30"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="FontSize" Value="10"/>
-        </Style> 
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        </Style>
         <Style TargetType="Button">
             <Setter Property="Width" Value="30"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        </Style>
+        <Style TargetType="SplitButton">
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style TargetType="DropDownButton">
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style TargetType="FontIcon">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="12"/>
         </Style>
     </Page.Resources>
 
@@ -30,52 +49,206 @@
             <ComboBox Margin="5" Width="150" ItemsSource="{x:Bind viewModel.Fonts}" SelectedItem="{x:Bind viewModel.Font, Mode=TwoWay}">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="SelectionChanged">
-                        <ic:InvokeCommandAction Command="{x:Bind viewModel.FontCommand}" CommandParameter="{x:Bind viewModel.Font, Mode=OneWay}" />
+                        <ic:InvokeCommandAction Command="{x:Bind viewModel.ChangeFontCommand}" CommandParameter="{x:Bind viewModel.Font, Mode=OneWay}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </ComboBox>
             <ComboBox Margin="10 5 5 5" ItemsSource="{x:Bind viewModel.Sizes}" SelectedItem="{x:Bind viewModel.Size, Mode=TwoWay}">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="SelectionChanged">
-                        <ic:InvokeCommandAction Command="{x:Bind viewModel.SizeCommand}" CommandParameter="{x:Bind viewModel.Size, Mode=OneWay}" />
+                        <ic:InvokeCommandAction Command="{x:Bind viewModel.ChangeSizeCommand}" CommandParameter="{x:Bind viewModel.Size, Mode=OneWay}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </ComboBox>
             
         </StackPanel>
-        <VariableSizedWrapGrid MaximumRowsOrColumns="5" Orientation="Horizontal">
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DD;" IsChecked="{x:Bind viewModel.IsBold, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Bold" ></ToggleButton>
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DB;" IsChecked="{x:Bind viewModel.IsItalic, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Italic"></ToggleButton>
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8DC;" IsChecked="{x:Bind viewModel.IsUnderline, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Underline"></ToggleButton>
-            
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8D3;"></ToggleButton>
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE006;"></ToggleButton>
-            <ToggleButton IsChecked="{x:Bind viewModel.IsStrikethrough, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Strikethrough">
+        
+        <StackPanel Orientation="Horizontal" >
+            <ToggleButton Content="&#xE8DD;" IsChecked="{x:Bind viewModel.IsBold, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Bold" ></ToggleButton>
+            <ToggleButton Content="&#xE8DB;" IsChecked="{x:Bind viewModel.IsItalic, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Italic"></ToggleButton>
+            <ToggleButton Content="&#xE8DC;" IsChecked="{x:Bind viewModel.IsUnderline, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Underline"></ToggleButton>
+
+            <SplitButton Command="{x:Bind viewModel.ChangeForegroundColorCommand}" CommandParameter="{x:Bind viewModel.ForegroundColor, Mode=OneWay}">
+                <StackPanel>
+                    <FontIcon Glyph="&#xE97E;" />
+                    <Rectangle Height="4" Width="20" Fill="{x:Bind viewModel.ForegroundColor, Mode=OneWay}"></Rectangle>
+                </StackPanel>
+                <SplitButton.Flyout>
+                    <Flyout Placement="Bottom">
+                        <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="3">
+                            <VariableSizedWrapGrid.Resources>
+                                <Style TargetType="Rectangle">
+                                    <Setter Property="Width" Value="32"/>
+                                    <Setter Property="Height" Value="32"/>
+                                </Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="MinWidth" Value="0"/>
+                                    <Setter Property="MinHeight" Value="0"/>
+                                    <Setter Property="Margin" Value="6"/>
+                                </Style>
+                            </VariableSizedWrapGrid.Resources>
+                            <Button Command="{x:Bind viewModel.SelectForegroundColorCommand}" CommandParameter="Red">
+                                <Button.Content>
+                                    <Rectangle Fill="Red"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectForegroundColorCommand}" CommandParameter="Orange">
+                                <Button.Content>
+                                    <Rectangle Fill="Orange"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectForegroundColorCommand}" CommandParameter="Yellow">
+                                <Button.Content>
+                                    <Rectangle Fill="Yellow"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectForegroundColorCommand}" CommandParameter="Green">
+                                <Button.Content>
+                                    <Rectangle Fill="Green"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectForegroundColorCommand}" CommandParameter="Blue">
+                                <Button.Content>
+                                    <Rectangle Fill="Blue"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectForegroundColorCommand}" CommandParameter="Indigo">
+                                <Button.Content>
+                                    <Rectangle Fill="Indigo"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectForegroundColorCommand}" CommandParameter="Violet">
+                                <Button.Content>
+                                    <Rectangle Fill="Violet"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectForegroundColorCommand}" CommandParameter="Gray">
+                                <Button.Content>
+                                    <Rectangle Fill="Gray"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectForegroundColorCommand}" CommandParameter="Black">
+                                <Button.Content>
+                                    <Rectangle Fill="Black"/>
+                                </Button.Content>
+                            </Button>
+                        </VariableSizedWrapGrid>
+                    </Flyout>
+                </SplitButton.Flyout>
+            </SplitButton>
+
+            <SplitButton Command="{x:Bind viewModel.ChangeBackgroundColorCommand}" CommandParameter="{x:Bind viewModel.BackgroundColor, Mode=OneWay}">
+               <StackPanel>
+                    <FontIcon Glyph="&#xE76D;" />
+                    <Rectangle Height="4" Width="20"  Fill="{x:Bind viewModel.BackgroundColor, Mode=OneWay}"></Rectangle>
+                </StackPanel>
+                <SplitButton.Flyout>
+                    <Flyout Placement="Bottom">
+                        <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="3">
+                            <VariableSizedWrapGrid.Resources>
+                                <Style TargetType="Rectangle">
+                                    <Setter Property="Width" Value="32"/>
+                                    <Setter Property="Height" Value="32"/>
+                                </Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="MinWidth" Value="0"/>
+                                    <Setter Property="MinHeight" Value="0"/>
+                                    <Setter Property="Margin" Value="6"/>
+                                </Style>
+                            </VariableSizedWrapGrid.Resources>
+                            <Button Command="{x:Bind viewModel.SelectBackgroundColorCommand}" CommandParameter="Red">
+                                <Button.Content>
+                                    <Rectangle Fill="Red"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectBackgroundColorCommand}" CommandParameter="Orange">
+                                <Button.Content>
+                                    <Rectangle Fill="Orange"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectBackgroundColorCommand}" CommandParameter="Yellow">
+                                <Button.Content>
+                                    <Rectangle Fill="Yellow"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectBackgroundColorCommand}" CommandParameter="Green">
+                                <Button.Content>
+                                    <Rectangle Fill="Green"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectBackgroundColorCommand}" CommandParameter="Blue">
+                                <Button.Content>
+                                    <Rectangle Fill="Blue"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectBackgroundColorCommand}" CommandParameter="Indigo">
+                                <Button.Content>
+                                    <Rectangle Fill="Indigo"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectBackgroundColorCommand}" CommandParameter="Violet">
+                                <Button.Content>
+                                    <Rectangle Fill="Violet"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectBackgroundColorCommand}" CommandParameter="Gray">
+                                <Button.Content>
+                                    <Rectangle Fill="Gray"/>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{x:Bind viewModel.SelectBackgroundColorCommand}" CommandParameter="Black">
+                                <Button.Content>
+                                    <Rectangle Fill="Black"/>
+                                </Button.Content>
+                            </Button>
+                        </VariableSizedWrapGrid>
+                    </Flyout>
+                </SplitButton.Flyout>
+            </SplitButton>
+
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" >
+            <ToggleButton IsChecked="{x:Bind viewModel.IsStrikethrough, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Strikethrough">
                 <Grid>
-                    <FontIcon FontSize="10"  FontFamily="Segoe MDL2 Assets" Glyph="&#xE8E9;" />
-                    <FontIcon FontSize="10" FontFamily="Segoe MDL2 Assets" Glyph="&#xE921;" />
+                    <FontIcon Glyph="&#xE8E9;" />
+                    <FontIcon Glyph="&#xE921;" />
                 </Grid>
             </ToggleButton>
-            <ToggleButton Content="X&#x2082;" IsChecked="{x:Bind viewModel.IsSubscript, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Subscript"></ToggleButton>
-            <ToggleButton Content="X²" IsChecked="{x:Bind viewModel.IsSuperscript, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Superscript"></ToggleButton>
-            <ComboBox  Width="70" Margin="5" VariableSizedWrapGrid.ColumnSpan="2"></ComboBox>
-        </VariableSizedWrapGrid>
+            <ToggleButton FontFamily="Segoe UI" Content="X&#x2082;" IsChecked="{x:Bind viewModel.IsSubscript, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Subscript"></ToggleButton>
+            <ToggleButton FontFamily="Segoe UI" Content="X²" IsChecked="{x:Bind viewModel.IsSuperscript, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Superscript"></ToggleButton>
+            <DropDownButton>
+                <FontIcon Glyph="&#xE8D2;" />
+                <DropDownButton.Flyout>
+                    <MenuFlyout Placement="Bottom">
+                        <MenuFlyoutItem Text="TO UPPER CASE" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="ToUpper" />
+                        <MenuFlyoutItem Text="to lower case" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="ToLower" />
+                    </MenuFlyout>
+                </DropDownButton.Flyout>
+
+            </DropDownButton>
+        </StackPanel>
+
+
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Set alignment</TextBlock>
+            
         <StackPanel Orientation="Horizontal">
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E4;" IsChecked="{x:Bind viewModel.IsAlignLeft, Mode=OneWay}"  Command="{x:Bind viewModel.StyleCommand}" CommandParameter="AlignLeft"></ToggleButton>
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E3;" IsChecked="{x:Bind viewModel.IsAlignCenter, Mode=OneWay}"  Command="{x:Bind viewModel.StyleCommand}" CommandParameter="AlignCenter"></ToggleButton>
-            <ToggleButton FontFamily="Segoe MDL2 Assets" Content="&#xE8E2;" IsChecked="{x:Bind viewModel.IsAlignRight, Mode=OneWay}"  Command="{x:Bind viewModel.StyleCommand}" CommandParameter="AlignRight"></ToggleButton>
-            <ToggleButton IsChecked="{x:Bind viewModel.IsJustify, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Justify">
+            <ToggleButton Content="&#xE8E4;" IsChecked="{x:Bind viewModel.IsAlignLeft, Mode=OneWay}"  Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="AlignLeft"></ToggleButton>
+            <ToggleButton Content="&#xE8E3;" IsChecked="{x:Bind viewModel.IsAlignCenter, Mode=OneWay}"  Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="AlignCenter"></ToggleButton>
+            <ToggleButton Content="&#xE8E2;" IsChecked="{x:Bind viewModel.IsAlignRight, Mode=OneWay}"  Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="AlignRight"></ToggleButton>
+            <ToggleButton IsChecked="{x:Bind viewModel.IsJustify, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Justify">
                 <Grid>
-                    <FontIcon FontSize="10"  FontFamily="Segoe MDL2 Assets" Glyph="&#xE8E4;" />
-                    <FontIcon FontSize="10" FontFamily="Segoe MDL2 Assets" Glyph="&#xE8E2;" />
+                    <FontIcon Glyph="&#xE8E4;" />
+                    <FontIcon Glyph="&#xE8E2;" />
                 </Grid>
             </ToggleButton>
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Bullets and Numbering</TextBlock>
         <StackPanel Orientation="Horizontal">
-            <ToggleButton IsChecked="{x:Bind viewModel.HasBullets, Mode=OneWay}" FontFamily="Segoe MDL2 Assets" Content="&#xE8FD;" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Bullets"></ToggleButton>
-            <ToggleButton IsChecked="{x:Bind viewModel.HasNumbers, Mode=OneWay}" Command="{x:Bind viewModel.StyleCommand}" CommandParameter="Numbers"></ToggleButton>
+            <ToggleButton IsChecked="{x:Bind viewModel.HasBullets, Mode=OneWay}" FontFamily="Segoe MDL2 Assets" Content="&#xE8FD;" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Bullets"></ToggleButton>
+            <ToggleButton IsChecked="{x:Bind viewModel.HasNumbers, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Numbers"></ToggleButton>
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Line spacing</TextBlock>
         <StackPanel Orientation="Horizontal">

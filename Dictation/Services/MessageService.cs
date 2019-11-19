@@ -22,6 +22,10 @@
 
         public static event Action<string, string, bool> ReplaceAllWords;
 
+        public static event Action<string> ForegroundColorChanged;
+
+        public static event Action<string> BackgroundColorChanged;
+
         public static void SendStyle(string style)
         {
             StlyeChanged(style);
@@ -35,6 +39,16 @@
         public static void SendSize(int size)
         {
             SizeChanged(size);
+        }
+
+        public static void SendForegroundColor(string color)
+        {
+            ForegroundColorChanged(color);
+        }
+
+        public static void SendBackgroundColor(string color)
+        {
+            BackgroundColorChanged(color);
         }
 
         public static void SendOperation(string operation)
