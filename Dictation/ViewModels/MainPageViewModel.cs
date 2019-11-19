@@ -66,6 +66,23 @@
             set { Set(ref this.title, value); }
         }
 
+        public int FontSize
+        {
+            get
+            {
+                // FontSize in RichEditBox 4 sizes smaller
+                return App.FontSize + 4;
+            }
+        }
+
+        public string Font
+        {
+            get
+            {
+                return App.Font;
+            }
+        }
+
         public void Initialize(Frame contentFrame)
         {
             this.contentFrame = contentFrame;

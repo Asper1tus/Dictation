@@ -1,38 +1,99 @@
 ﻿namespace Dictation
 {
-    using Dictation.ViewModels;
     using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Runtime.InteropServices.WindowsRuntime;
+    using System.Reflection;
+    using Dictation.ViewModels;
     using Windows.ApplicationModel;
     using Windows.ApplicationModel.Activation;
-    using Windows.Foundation;
-    using Windows.Foundation.Collections;
+    using Windows.Storage;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
-    using Windows.UI.Xaml.Controls.Primitives;
-    using Windows.UI.Xaml.Data;
-    using Windows.UI.Xaml.Input;
-    using Windows.UI.Xaml.Media;
     using Windows.UI.Xaml.Navigation;
 
     /// <summary>
     /// Обеспечивает зависящее от конкретного приложения поведение, дополняющее класс Application по умолчанию.
     /// </summary>
-    sealed partial class App : Application
+    public sealed partial class App : Application
     {
-        private static Locator _locator;
-        public static Locator Locator => _locator ?? (_locator = new Locator());
-        /// <summary>
-        /// Инициализирует одноэлементный объект приложения. Это первая выполняемая строка разрабатываемого
-        /// кода, поэтому она является логическим эквивалентом main() или WinMain().
-        /// </summary>
+        private const string SelectedAppThemeKey = "SelectedAppTheme";
+        private static Locator locator;
+
         public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+        }
+
+        public static Locator Locator => locator ?? (locator = new Locator());
+
+        public static int FontSize
+        {
+            get
+            {
+                if (ApplicationData.Current.LocalSettings.Values["FontSize"] != null)
+                {
+                    return (int)ApplicationData.Current.LocalSettings.Values["FontSize"];
+                }
+
+                return 14;
+            }
+
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["FontSize"] = value;
+            }
+        }
+
+        public static string Font
+        {
+            get
+            {
+                if (ApplicationData.Current.LocalSettings.Values["Font"] != null)
+                {
+                    return ApplicationData.Current.LocalSettings.Values["Font"].ToString();
+                }
+
+                return "Segoe UI";
+            }
+
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["Font"] = value.ToString();
+            }
+        }
+
+        public static ElementTheme RootTheme
+        {
+            get
+            {
+                if (Window.Current.Content is FrameworkElement rootElement)
+                {
+                    return rootElement.RequestedTheme;
+                }
+
+                return ElementTheme.Default;
+            }
+
+            set
+            {
+                if (Window.Current.Content is FrameworkElement rootElement)
+                {
+                    rootElement.RequestedTheme = value;
+                }
+
+                ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey] = value.ToString();
+            }
+        }
+
+        public static TEnum GetEnum<TEnum>(string text)
+            where TEnum : struct
+        {
+            if (!typeof(TEnum).GetTypeInfo().IsEnum)
+            {
+                throw new InvalidOperationException("Generic parameter 'TEnum' must be an enum.");
+            }
+
+            return (TEnum)Enum.Parse(typeof(TEnum), text);
         }
 
         /// <summary>
@@ -55,7 +116,7 @@
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Загрузить состояние из ранее приостановленного приложения
+                    // TODO: Загрузить состояние из ранее приостановленного приложения
                 }
 
                 // Размещение фрейма в текущем окне
@@ -71,17 +132,25 @@
                     // навигации
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
+
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();
+            }
+
+            string savedTheme = ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey]?.ToString();
+
+            if (savedTheme != null)
+            {
+                RootTheme = GetEnum<ElementTheme>(savedTheme);
             }
         }
 
         /// <summary>
-        /// Вызывается в случае сбоя навигации на определенную страницу
+        /// Вызывается в случае сбоя навигации на определенную страницу.
         /// </summary>
-        /// <param name="sender">Фрейм, для которого произошел сбой навигации</param>
-        /// <param name="e">Сведения о сбое навигации</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        /// <param name="sender">Фрейм, для которого произошел сбой навигации.</param>
+        /// <param name="e">Сведения о сбое навигации.</param>
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
@@ -96,7 +165,8 @@
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Сохранить состояние приложения и остановить все фоновые операции
+
+            // TODO: Сохранить состояние приложения и остановить все фоновые операции
             deferral.Complete();
         }
     }

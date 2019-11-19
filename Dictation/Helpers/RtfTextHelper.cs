@@ -2,6 +2,7 @@
 {
     using Dictation.Extensions;
     using Dictation.Services;
+    using Windows.Storage.Streams;
     using Windows.UI;
     using Windows.UI.Text;
     using Windows.UI.Xaml;
@@ -84,6 +85,8 @@
                 MessageService.FindWord += FindWord;
                 MessageService.ReplaceSelectedWord += ReplaceSelectedWord;
                 MessageService.ReplaceAllWords += ReplaceAllWords;
+                MessageService.ForegroundColorChanged += SelectColor;
+                MessageService.BackgroundColorChanged += SelectHighlight;
                 richEditBox.PointerCaptureLost += PointerCaptureLost;
 
                 // richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
@@ -168,6 +171,12 @@
                 case "Superscript":
                     richEditBox.Superscript();
                     break;
+                case "ToLower":
+                    richEditBox.ToLower();
+                    break;
+                case "ToUpper":
+                    richEditBox.ToUpper();
+                    break;
             }
         }
 
@@ -181,13 +190,15 @@
             richEditBox.SetSize(size);
         }
 
-        private static void SelectColor(Color color)
+        private static void SelectColor(string selectedColor)
         {
+            Color color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(selectedColor);
             richEditBox.SetForeground(color);
         }
 
-        private static void SelectHighlight(Color color)
+        private static void SelectHighlight(string selectedColor)
         {
+            Color color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(selectedColor);
             richEditBox.SetBackground(color);
         }
 
@@ -211,6 +222,10 @@
                     richEditBox.PasteIn();
                     break;
             }
+        }
+
+        public static void OpenFile(IRandomAccessStream stream)
+        {
         }
     }
 }
