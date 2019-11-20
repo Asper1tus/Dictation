@@ -1,10 +1,12 @@
 ﻿namespace Dictation.ViewModels.Content
 {
+    using System;
     using System.Collections.Generic;
     using System.Windows.Input;
     using Dictation.Commands;
     using Dictation.Helpers;
     using Dictation.Services;
+    using Dictation.Views.Content;
 
     public class ToolsViewModel : Observable
     {
@@ -32,6 +34,8 @@
         private ICommand selectBackgroundColorCommand;
         private ICommand changeForegroundColorCommand;
         private ICommand changeBackgroundColorCommand;
+        private ICommand insertImageCommand;
+        private ICommand insertHyperlinkCommand;
 
         public ToolsViewModel()
         {
@@ -55,6 +59,10 @@
         public ICommand ChangeForegroundColorCommand => changeForegroundColorCommand ?? (changeForegroundColorCommand = new RelayCommand<string>(MessageService.SendForegroundColor));
 
         public ICommand ChangeBackgroundColorCommand => changeBackgroundColorCommand ?? (changeBackgroundColorCommand = new RelayCommand<string>(MessageService.SendBackgroundColor));
+
+        public ICommand InsertImageCommand => insertImageCommand ?? (insertImageCommand = new RelayCommand(MessageService.SendImage));
+
+        public ICommand InsertHyperlinkCommand => insertHyperlinkCommand ?? (insertHyperlinkCommand = new RelayCommand(ContentDialogService.ShowHyperLinkDialogAsync));
 
         public List<string> Fonts
         {

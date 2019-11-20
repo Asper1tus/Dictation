@@ -1,5 +1,6 @@
 ﻿namespace Dictation.Helpers
 {
+    using System;
     using Dictation.Extensions;
     using Dictation.Services;
     using Windows.Storage.Streams;
@@ -87,6 +88,8 @@
                 MessageService.ReplaceAllWords += ReplaceAllWords;
                 MessageService.ForegroundColorChanged += SelectColor;
                 MessageService.BackgroundColorChanged += SelectHighlight;
+                MessageService.ImageInsert += InsertImage;
+                MessageService.HyperLinkInsert += InsertHyperlink;
                 richEditBox.PointerCaptureLost += PointerCaptureLost;
 
                 // richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
@@ -224,8 +227,24 @@
             }
         }
 
-        public static void OpenFile(IRandomAccessStream stream)
+        private static async void InsertImage()
         {
+            Windows.Storage.Pickers.FileOpenPicker open = new Windows.Storage.Pickers.FileOpenPicker();
+            open.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            open.FileTypeFilter.Add(".png");
+            open.FileTypeFilter.Add(".jpg");
+            open.FileTypeFilter.Add(".jpeg");
+            Windows.Storage.StorageFile file = await open.PickSingleFileAsync();
+            if (file != null)
+            {
+                IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
+                richEditBox.InsertImage(fileStream);
+            }
+        }
+
+        private static void InsertHyperlink(string link, string text)
+        {
+            richEditBox.InsertHyperLink(link, text);
         }
     }
 }

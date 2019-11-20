@@ -1,7 +1,10 @@
 ﻿namespace Dictation.Extensions
 {
+    using System;
+    using Windows.Storage.Streams;
     using Windows.UI;
     using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Media.Imaging;
 
     public static class RichEditBoxExtension
     {
@@ -26,7 +29,10 @@
         {
             int lenght = richEditBox.GetLenght();
             richEditBox.Document.Selection.StartPosition = lenght;
-            richEditBox.Document.Selection.TypeText(rtf);
+            if (rtf != null)
+            {
+                richEditBox.Document.Selection.TypeText(rtf);
+            }
         }
 
         public static void ClearUndo(this RichEditBox richEditBox)
@@ -346,6 +352,28 @@
         {
             richEditBox.Document.Selection.ChangeCase(Windows.UI.Text.LetterCase.Lower);
             Focus(richEditBox);
+        }
+
+        public static async void InsertImage(this RichEditBox richEditBox, IRandomAccessStream stream)
+        {
+            BitmapImage image = new BitmapImage();
+            await image.SetSourceAsync(stream);
+            richEditBox.Document.Selection.InsertImage(image.PixelWidth, image.PixelHeight, 0, Windows.UI.Text.VerticalCharacterAlignment.Baseline, "img", stream);
+        }
+
+        public static void InsertHyperLink(this RichEditBox richEditBox, string link, string text)
+        {
+            richEditBox.Document.Selection.Text = text;
+            string hyperlink = link;
+
+            if (!link.StartsWith("http://"))
+            {
+                hyperlink = "http://" + hyperlink;
+            }
+
+            hyperlink = '\u0022' + hyperlink + '\u0022';
+
+            richEditBox.Document.Selection.Link = hyperlink;
         }
     }
 }

@@ -251,18 +251,13 @@
             <ToggleButton IsChecked="{x:Bind viewModel.HasNumbers, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Numbers"></ToggleButton>
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Line spacing</TextBlock>
-        <StackPanel Orientation="Horizontal">
-            <ToggleButton></ToggleButton>
-            <ToggleButton></ToggleButton>
-            <ToggleButton></ToggleButton>
-            <ToggleButton></ToggleButton>
-            <ToggleButton></ToggleButton>
-            <ToggleButton></ToggleButton>
-        </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Insert</TextBlock>
+        
         <StackPanel Orientation="Horizontal">
-            <Button></Button>
-            <Button></Button>
+            <Button Height="40" Width="40" FontSize="16" Content="&#xE8B9;" Command="{x:Bind viewModel.InsertImageCommand}"></Button>
+            <Button Height="40" Width="40" FontSize="16" Content="&#xE71B;" Command="{x:Bind viewModel.InsertHyperlinkCommand}"></Button>
         </StackPanel>
+        
+
     </StackPanel>
 </Page>

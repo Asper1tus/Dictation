@@ -1,0 +1,18 @@
+﻿<ContentDialog
+    x:Class="Dictation.Views.Content.HyperLinkContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Dictation.Views.Content"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Insert HyperLink"
+    PrimaryButtonText="Ok"
+    PrimaryButtonCommand="{x:Bind viewModel.InsertHypelinkCommand}"
+    IsPrimaryButtonEnabled="{x:Bind viewModel.IsEnabledOkButton, Mode=OneWay}"
+    CloseButtonText="Cancel">
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TextBox Header="URL:" PlaceholderText="http://www.example.com" Text="{x:Bind viewModel.Link, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="{x:Bind viewModel.OkButtonSwitch}"/>
+        <TextBox Header="Display text:" Text="{x:Bind viewModel.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="{x:Bind viewModel.OkButtonSwitch}"/>
+    </StackPanel>
+</ContentDialog>

@@ -18,24 +18,6 @@
 
         private async void OpenFile()
         {
-            // TODO: OpenFile
-            var openPicker = new FileOpenPicker
-            {
-                ViewMode = PickerViewMode.Thumbnail,
-                SuggestedStartLocation = PickerLocationId.Desktop,
-                CommitButtonText = "Open",
-            };
-            List<string> filters = new List<string>() { ".txt", ".rtf", ".doc", ".docx", ".html", ".htm" };
-
-            AddFilters(openPicker, filters);
-            var file = await openPicker.PickSingleFileAsync();
-
-            if (file != null)
-            {
-                var stream = await file.OpenAsync(FileAccessMode.Read);
-                RtfTextHelper.OpenFile(stream);
-            }
-
             NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
