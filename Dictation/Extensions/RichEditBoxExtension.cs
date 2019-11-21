@@ -16,7 +16,10 @@
 
         public static void SetRtf(this RichEditBox richEditBox, string rtf)
         {
-            richEditBox.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, rtf);
+            if (rtf != null)
+            {
+                richEditBox.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, rtf);
+            }
         }
 
         public static string GetRtf(this RichEditBox richEditBox)

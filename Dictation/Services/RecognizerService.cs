@@ -1,8 +1,11 @@
 ﻿namespace Dictation.Services
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Dictation.Helpers;
+    using Windows.Globalization;
     using Windows.Media.SpeechRecognition;
     using Windows.UI.Core;
 
@@ -15,19 +18,25 @@
         private static string richText;
         private static string recognizedText;
 
-        public static async void InitializeRecognition()
+        public static void InitializeRecognizerService()
         {
             dictatedTextBuilder = new StringBuilder();
             dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-            speechRecognizer = new SpeechRecognizer();
-            SpeechRecognitionCompilationResult result =
-                await speechRecognizer.CompileConstraintsAsync();
-            speechRecognizer.ContinuousRecognitionSession.ResultGenerated +=
-        ContinuousRecognitionSession_ResultGenerated;
-            speechRecognizer.ContinuousRecognitionSession.Completed +=
-      ContinuousRecognitionSession_Completed;
-            speechRecognizer.HypothesisGenerated +=
-                SpeechRecognizer_HypothesisGenerated;
+            Language language = GetLanguageByNativeName(App.RecognitionLanguage);
+            InitializeSpeechRecognizer(language);
+        }
+
+        public static List<string> GetSupportedLanguagesNativeName()
+        {
+            var languages = from lang in SpeechRecognizer.SupportedTopicLanguages
+                            select lang.NativeName;
+            return languages.ToList();
+        }
+
+        public static void SetRecognitionLanguage(string languageName)
+        {
+            var language = GetLanguageByNativeName(languageName);
+            InitializeSpeechRecognizer(language);
         }
 
         public static async void Listening(bool isListening)
@@ -53,6 +62,26 @@
                 RtfTextHelper.AddRtf(recognizedText);
                 recognizedText = string.Empty;
             }
+        }
+
+        private static Language GetLanguageByNativeName(string name)
+        {
+            var language = SpeechRecognizer.SupportedTopicLanguages.First((c) => c.NativeName.Equals(name));
+
+            return DefaultSettings.Language;
+        }
+
+        private static async void InitializeSpeechRecognizer(Language language)
+        {
+            speechRecognizer = new SpeechRecognizer(language);
+            SpeechRecognitionCompilationResult result =
+                await speechRecognizer.CompileConstraintsAsync();
+            speechRecognizer.ContinuousRecognitionSession.ResultGenerated +=
+        ContinuousRecognitionSession_ResultGenerated;
+            speechRecognizer.ContinuousRecognitionSession.Completed +=
+      ContinuousRecognitionSession_Completed;
+            speechRecognizer.HypothesisGenerated +=
+                SpeechRecognizer_HypothesisGenerated;
         }
 
         private static async void ContinuousRecognitionSession_ResultGenerated(

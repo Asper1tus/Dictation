@@ -34,7 +34,7 @@
 
         public MainPageViewModel()
         {
-            RecognizerService.InitializeRecognition();
+            RecognizerService.InitializeRecognizerService();
             IsPanelVisible = false;
         }
 
@@ -100,7 +100,14 @@
                 IsListening = false;
             }
 
-            RecognizerService.Listening(IsListening);
+            try
+            {
+                RecognizerService.Listening(IsListening);
+            }
+            catch
+            {
+                IsListening = false;
+            }
         }
 
         private void ChoosePage(object tag)

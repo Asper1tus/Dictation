@@ -49,14 +49,14 @@
             <ComboBox Margin="5" Width="150" ItemsSource="{x:Bind viewModel.Fonts}" SelectedItem="{x:Bind viewModel.Font, Mode=TwoWay}">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="SelectionChanged">
-                        <ic:InvokeCommandAction Command="{x:Bind viewModel.ChangeFontCommand}" CommandParameter="{x:Bind viewModel.Font, Mode=OneWay}" />
+                        <ic:InvokeCommandAction Command="{x:Bind viewModel.ChangeFontCommand, Mode=OneWay}" CommandParameter="{x:Bind viewModel.Font, Mode=OneWay}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </ComboBox>
             <ComboBox Margin="10 5 5 5" ItemsSource="{x:Bind viewModel.Sizes}" SelectedItem="{x:Bind viewModel.Size, Mode=TwoWay}">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="SelectionChanged">
-                        <ic:InvokeCommandAction Command="{x:Bind viewModel.ChangeSizeCommand}" CommandParameter="{x:Bind viewModel.Size, Mode=OneWay}" />
+                        <ic:InvokeCommandAction Command="{x:Bind viewModel.ChangeSizeCommand, Mode=OneWay}" CommandParameter="{x:Bind viewModel.Size, Mode=OneWay}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </ComboBox>
