@@ -30,6 +30,9 @@
                 RtfTextHelper.OpenFile(stream);
                 stream.Dispose();
                 savedText = RtfTextHelper.RichText;
+
+                var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
+                mru.Add(file, "profile pic");
             }
         }
 

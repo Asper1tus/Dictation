@@ -32,6 +32,14 @@
                        HorizontalAlignment="Center" 
                        FontSize="30" 
                        Margin="10"></TextBlock>
+            
+            <ListView ItemsSource="{x:Bind viewModel.Items, Mode=OneWay}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel AreStickyGroupHeadersEnabled="True"/>
+                    </ItemsPanelTemplate >
+                </ListView.ItemsPanel>
+            </ListView>
         </StackPanel>
     </Grid>
 </Page>
