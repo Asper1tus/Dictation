@@ -90,32 +90,16 @@
                     NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
                     break;
                 case "new":
-                    NewFile();
+                    FileService.New();
                     break;
                 case "save":
-                    SaveFile();
+                    FileService.SaveAsync();
                     break;
                 case "saveas":
-                    SaveAsFile();
+                    FileService.SaveAsAsync();
                     break;
             }
-        }
 
-        private void NewFile()
-        {
-            FileService.New();
-            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
-        }
-
-        private void SaveFile()
-        {
-            FileService.SaveAsync();
-            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
-        }
-
-        private void SaveAsFile()
-        {
-            FileService.SaveAsAsync();
             NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
     }
