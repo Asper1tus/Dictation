@@ -95,49 +95,28 @@
                 case "save":
                     SaveFile();
                     break;
-                case "close":
-                    CloseFile();
+                case "saveas":
+                    SaveAsFile();
                     break;
             }
         }
 
         private void NewFile()
         {
-            // TODO: add New File
-            throw new NotImplementedException();
+            FileService.New();
+            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
         private void SaveFile()
         {
-            // TODO: Save file
-            // FileSavePicker savePicker = new FileSavePicker
-            // {
-            //    SuggestedStartLocation = PickerLocationId.Desktop,
-            //    CommitButtonText = "Save",
-            // };
-            // List<string> filters = new List<string>() { ".txt", ".rtf", ".doc", ".docx", ".html", ".htm" };
-            // savePicker.FileTypeChoices.Add(".txt, .rtf, .doc, .docx, .html, .htm", filters);
-            // var file = await savePicker.PickSaveFileAsync();
-            // int retryAttempts = 5;
-
-            // if (file != null)
-            // {
-            //    // Application now has read/write access to the picked file.
-            //    while (retryAttempts > 0)
-            //    {
-            //            retryAttempts--;
-            //            await Windows.Storage.FileIO.WriteTextAsync(file, Document.Text);
-            //            break;
-            //    }
-            // }
-
-            // NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+            FileService.SaveAsync();
+            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
-        private void CloseFile()
+        private void SaveAsFile()
         {
-            // TODO: add Close File
-            throw new NotImplementedException();
+            FileService.SaveAsAsync();
+            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
     }
 }

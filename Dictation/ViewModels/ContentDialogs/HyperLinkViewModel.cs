@@ -1,4 +1,4 @@
-﻿namespace Dictation.ViewModels.Content
+﻿namespace Dictation.ViewModels.ContentDialogs
 {
     using System.Windows.Input;
     using Dictation.Commands;

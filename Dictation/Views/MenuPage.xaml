@@ -29,12 +29,11 @@
                 <NavigationViewItem Icon="Page2" Content="New" Tag="new"  ></NavigationViewItem>
                 <NavigationViewItem Icon="OpenFile" IsSelected="True" Content="Open" helpers:NavHelper.NavigateTo="views:OpenPage"/>
                 <NavigationViewItem Icon="Save" Content="Save" Tag="save"/>
-                <NavigationViewItem Icon="SaveLocal" Content="Save as" helpers:NavHelper.NavigateTo="views:SaveAsPage" />
+                <NavigationViewItem Icon="SaveLocal" Content="Save as" Tag="saveas" />
                 <NavigationViewItemSeparator/>
                 <NavigationViewItem Icon="Print" Content="Print" Tag="print"/>
-                <NavigationViewItem Icon="Clear" Content="Close document" Tag="close"/>
-                <NavigationViewItemSeparator/>
                 <NavigationViewItem Icon="Help" Content="Help"  helpers:NavHelper.NavigateTo="views:HelpPage" />
+                <NavigationViewItemSeparator/>
             </NavigationView.MenuItems>
 
             <i:Interaction.Behaviors>

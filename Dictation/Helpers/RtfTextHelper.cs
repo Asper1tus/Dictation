@@ -103,6 +103,16 @@
             richEditBox.AddRtf(rtf);
         }
 
+        public static void OpenFile(IRandomAccessStream stream)
+        {
+            richEditBox.Document.LoadFromStream(TextSetOptions.FormatRtf, stream);
+        }
+
+        public static void SaveFile(IRandomAccessStream stream)
+        {
+            richEditBox.Document.SaveToStream(TextGetOptions.FormatRtf, stream);
+        }
+
         private static void ReplaceSelectedWord(string replacementWord)
         {
             richEditBox.ReplaceSelectedWord(replacementWord);

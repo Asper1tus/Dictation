@@ -1,6 +1,6 @@
-﻿namespace Dictation.Views.Content
+﻿namespace Dictation.Views.ContentDialogs
 {
-    using Dictation.ViewModels.Content;
+    using Dictation.ViewModels.ContentDialogs;
     using Windows.UI.Xaml.Controls;
 
     public sealed partial class HyperLinkContentDialog : ContentDialog
