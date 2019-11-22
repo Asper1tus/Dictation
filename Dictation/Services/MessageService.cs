@@ -26,6 +26,10 @@
 
         public static event Action<string> BackgroundColorChanged;
 
+        public static event Action<string, string> HyperLinkInsert;
+
+        public static event Action ImageInsert;
+
         public static void SendStyle(string style)
         {
             StlyeChanged(style);
@@ -74,6 +78,16 @@
         public static void SendAllWords(string replacementWord, string searhedWord, bool isMatchCase)
         {
             ReplaceAllWords(replacementWord, searhedWord, isMatchCase);
+        }
+
+        public static void SendHyperlink(string link, string text)
+        {
+            HyperLinkInsert(link, text);
+        }
+
+        public static void SendImage()
+        {
+            ImageInsert();
         }
 
         public static void Notify()

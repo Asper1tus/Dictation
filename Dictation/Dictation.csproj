@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dictation</RootNamespace>
     <AssemblyName>Dictation</AssemblyName>
-    <DefaultLanguage>ru-RU</DefaultLanguage>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
@@ -130,15 +130,18 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converetrs\ThemeConverter.cs" />
     <Compile Include="Extensions\RichEditBoxExtension.cs" />
+    <Compile Include="Helpers\DefaultSettings.cs" />
     <Compile Include="Services\AudioCapturePermissionsService.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\Observable.cs" />
+    <Compile Include="Services\ContentDialogService.cs" />
     <Compile Include="Services\FontService.cs" />
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\RecognizerService.cs" />
     <Compile Include="Helpers\RtfTextHelper.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModels\Content\FindReplaceViewModel.cs" />
+    <Compile Include="ViewModels\Content\HyperLinkViewModel.cs" />
     <Compile Include="ViewModels\Content\ToolsViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="ViewModels\Locator.cs" />
@@ -153,6 +156,9 @@
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\Content\FindReplacePage.xaml.cs">
       <DependentUpon>FindReplacePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Content\HyperLinkContentDialog.xaml.cs">
+      <DependentUpon>HyperLinkContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Content\SharePage.xaml.cs">
       <DependentUpon>SharePage.xaml</DependentUpon>
@@ -208,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Content\FindReplacePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Content\HyperLinkContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

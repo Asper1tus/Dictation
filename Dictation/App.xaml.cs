@@ -2,9 +2,11 @@
 {
     using System;
     using System.Reflection;
+    using Dictation.Helpers;
     using Dictation.ViewModels;
     using Windows.ApplicationModel;
     using Windows.ApplicationModel.Activation;
+    using Windows.Globalization;
     using Windows.Storage;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
@@ -26,6 +28,24 @@
 
         public static Locator Locator => locator ?? (locator = new Locator());
 
+        public static string RecognitionLanguage
+        {
+            get
+            {
+                if (ApplicationData.Current.LocalSettings.Values["RecognitionLanguage"] != null)
+                {
+                    return ApplicationData.Current.LocalSettings.Values["RecognitionLanguage"].ToString();
+                }
+
+                return DefaultSettings.Language.NativeName;
+            }
+
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["RecognitionLanguage"] = value;
+            }
+        }
+
         public static int FontSize
         {
             get
@@ -35,7 +55,7 @@
                     return (int)ApplicationData.Current.LocalSettings.Values["FontSize"];
                 }
 
-                return 14;
+                return DefaultSettings.Size;
             }
 
             set
@@ -53,7 +73,7 @@
                     return ApplicationData.Current.LocalSettings.Values["Font"].ToString();
                 }
 
-                return "Segoe UI";
+                return DefaultSettings.Font;
             }
 
             set

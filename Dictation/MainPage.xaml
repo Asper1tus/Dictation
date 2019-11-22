@@ -62,7 +62,7 @@
                                      Margin="50" IsSpellCheckEnabled ="True"
                                      helpers:RtfTextHelper.RichText =""
                                      FontFamily="{x:Bind viewModel.Font}"
-                                     FontSize="{x:Bind viewModel.FontSize}"></RichEditBox>
+                                     FontSize="{x:Bind viewModel.FontSize}" />
                     </ScrollViewer>
                 </Grid>
             </SplitView.Content>

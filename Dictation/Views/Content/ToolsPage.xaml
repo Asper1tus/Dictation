@@ -49,14 +49,14 @@
             <ComboBox Margin="5" Width="150" ItemsSource="{x:Bind viewModel.Fonts}" SelectedItem="{x:Bind viewModel.Font, Mode=TwoWay}">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="SelectionChanged">
-                        <ic:InvokeCommandAction Command="{x:Bind viewModel.ChangeFontCommand}" CommandParameter="{x:Bind viewModel.Font, Mode=OneWay}" />
+                        <ic:InvokeCommandAction Command="{x:Bind viewModel.ChangeFontCommand, Mode=OneWay}" CommandParameter="{x:Bind viewModel.Font, Mode=OneWay}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </ComboBox>
             <ComboBox Margin="10 5 5 5" ItemsSource="{x:Bind viewModel.Sizes}" SelectedItem="{x:Bind viewModel.Size, Mode=TwoWay}">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="SelectionChanged">
-                        <ic:InvokeCommandAction Command="{x:Bind viewModel.ChangeSizeCommand}" CommandParameter="{x:Bind viewModel.Size, Mode=OneWay}" />
+                        <ic:InvokeCommandAction Command="{x:Bind viewModel.ChangeSizeCommand, Mode=OneWay}" CommandParameter="{x:Bind viewModel.Size, Mode=OneWay}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </ComboBox>
@@ -251,18 +251,13 @@
             <ToggleButton IsChecked="{x:Bind viewModel.HasNumbers, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Numbers"></ToggleButton>
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Line spacing</TextBlock>
-        <StackPanel Orientation="Horizontal">
-            <ToggleButton></ToggleButton>
-            <ToggleButton></ToggleButton>
-            <ToggleButton></ToggleButton>
-            <ToggleButton></ToggleButton>
-            <ToggleButton></ToggleButton>
-            <ToggleButton></ToggleButton>
-        </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Insert</TextBlock>
+        
         <StackPanel Orientation="Horizontal">
-            <Button></Button>
-            <Button></Button>
+            <Button Height="40" Width="40" FontSize="16" Content="&#xE8B9;" Command="{x:Bind viewModel.InsertImageCommand}"></Button>
+            <Button Height="40" Width="40" FontSize="16" Content="&#xE71B;" Command="{x:Bind viewModel.InsertHyperlinkCommand}"></Button>
         </StackPanel>
+        
+
     </StackPanel>
 </Page>

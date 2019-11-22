@@ -60,12 +60,27 @@
                 <TextBlock Margin="0,5,0,0"
                     FontWeight="Normal"
                     Text="Dictation language"/>
-                <ComboBox Margin="0,5,0,0" Width="200" />
+                <ComboBox Margin="0,5,0,0" Width="200" ItemsSource="{x:Bind viewModel.Languages}" SelectedItem="{x:Bind viewModel.Language, Mode=TwoWay}"/>
+                
+                <TextBlock x:Name="LocationDisabledMessage" FontStyle="Italic"
+                 Margin="0,15,0,0" TextWrapping="Wrap" >
+          <Run Text="You can add more dictation languages. Go to " />
+              <Hyperlink NavigateUri="ms-settings:regionlanguage">
+                  <Run Text="Region and Languages" />
+              </Hyperlink>
+          <Run Text=" to add language."/>
+                </TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Be careful, only languages ​​with an icon" FontWeight="Bold"/>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE720;" FontSize="18"/>
+                    <TextBlock Text="supports Speech Recognition."  FontWeight="Bold"/>
+                </StackPanel>
+
             </StackPanel>
         </ScrollViewer>
         <StackPanel Padding="20,0,0,0" Grid.Row="1" Orientation="Horizontal">
-            <Button Width="150" Content="Restore Default"/>
-            <Button Width="150" Margin="20 0 0 0" Content="Save"/>
+            <Button Width="150" Content="Restore Default" Command="{x:Bind viewModel.RestoreDefaultCommand}"/>
+            <Button Width="150" Margin="20 0 0 0" Content="Save" Command="{x:Bind viewModel.SaveCommand}"/>
         </StackPanel>
     </Grid>
 </Page>
