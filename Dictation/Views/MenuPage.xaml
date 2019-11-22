@@ -24,15 +24,52 @@
                         Width="200" 
                         SelectedItem="{x:Bind viewModel.Selected, Mode=TwoWay}">
             <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Back" Content="Back" Tag="back" helpers:NavHelper.NavigateTo="local:MainPage" />
+                <NavigationViewItem 
+                    Icon="Back"
+                    Content="Back" 
+                    AccessKey="B"
+                    ToolTipService.ToolTip="Back to home (Alt + B)"  
+                    Tag="back" helpers:NavHelper.NavigateTo="local:MainPage" />
                 <NavigationViewItemSeparator/>
-                <NavigationViewItem Icon="Page2" Content="New" Tag="new"  ></NavigationViewItem>
-                <NavigationViewItem Icon="OpenFile" IsSelected="True" Content="Open" helpers:NavHelper.NavigateTo="views:OpenPage"/>
-                <NavigationViewItem Icon="Save" Content="Save" Tag="save"/>
-                <NavigationViewItem Icon="SaveLocal" Content="Save as" Tag="saveas" />
+                <NavigationViewItem 
+                    Icon="Page2" 
+                    Content="New" 
+                    Tag="new"
+                    ToolTipService.ToolTip="New file (Ctrl + N)">
+                    <NavigationViewItem.KeyboardAccelerators>
+                        <KeyboardAccelerator 
+                        Modifiers="Control" 
+                        Key="N" />
+                    </NavigationViewItem.KeyboardAccelerators></NavigationViewItem>
+                <NavigationViewItem 
+                    Icon="OpenFile" 
+                    IsSelected="True" 
+                    Content="Open" 
+                    helpers:NavHelper.NavigateTo="views:OpenPage"/>
+                <NavigationViewItem 
+                    Icon="Save" 
+                    Content="Save"
+                    Tag="save"
+                    ToolTipService.ToolTip="Save file (Ctrl + S)">
+                    <NavigationViewItem.KeyboardAccelerators>
+                        <KeyboardAccelerator 
+                        Modifiers="Control" 
+                        Key="S" />
+                    </NavigationViewItem.KeyboardAccelerators>
+                </NavigationViewItem>
+                <NavigationViewItem 
+                    Icon="SaveLocal" 
+                    Content="Save as" 
+                    Tag="saveas" />
                 <NavigationViewItemSeparator/>
-                <NavigationViewItem Icon="Print" Content="Print" Tag="print"/>
-                <NavigationViewItem Icon="Help" Content="Help"  helpers:NavHelper.NavigateTo="views:HelpPage" />
+                <NavigationViewItem 
+                    Icon="Print" 
+                    Content="Print" 
+                    Tag="print"/>
+                <NavigationViewItem 
+                    Icon="Help" 
+                    Content="Help"  
+                    helpers:NavHelper.NavigateTo="views:HelpPage" />
                 <NavigationViewItemSeparator/>
             </NavigationView.MenuItems>
 
@@ -43,7 +80,6 @@
             </i:Interaction.Behaviors>
         </NavigationView>
 
-        <Frame x:Name="ContentFrame" Grid.Column="1"></Frame>
-
+        <Frame x:Name="ContentFrame" Grid.Column="1"/>
     </Grid>
 </Page>

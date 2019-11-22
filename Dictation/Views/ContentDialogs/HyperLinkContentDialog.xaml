@@ -12,7 +12,14 @@
     IsPrimaryButtonEnabled="{x:Bind viewModel.IsEnabledOkButton, Mode=OneWay}"
     CloseButtonText="Cancel">
     <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <TextBox Header="URL:" PlaceholderText="http://www.example.com" Text="{x:Bind viewModel.Link, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="{x:Bind viewModel.OkButtonSwitch}"/>
-        <TextBox Header="Display text:" Text="{x:Bind viewModel.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="{x:Bind viewModel.OkButtonSwitch}"/>
+        <TextBox 
+            Header="URL:" 
+            PlaceholderText="http://www.example.com" 
+            Text="{x:Bind viewModel.Link, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            TextChanged="{x:Bind viewModel.OkButtonSwitch}"/>
+        <TextBox 
+            Header="Display text:" 
+            Text="{x:Bind viewModel.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            TextChanged="{x:Bind viewModel.OkButtonSwitch}"/>
     </StackPanel>
 </ContentDialog>

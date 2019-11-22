@@ -13,10 +13,25 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Button x:Name="BrowseDoc" Content="Browse Document" HorizontalAlignment="Center" FontSize="20" Command="{x:Bind viewModel.OpenFileCommand}" CommandParameter="Open"></Button>
+        <Button 
+            Content="Browse Document" 
+            HorizontalAlignment="Center" 
+            FontSize="20" 
+            Command="{x:Bind viewModel.OpenFileCommand}" 
+            CommandParameter="Open"
+            ToolTipService.ToolTip="Open file (Ctrl + N)">
+            <Button.KeyboardAccelerators>
+                <KeyboardAccelerator 
+                    Modifiers="Control" 
+                    Key="O" />
+            </Button.KeyboardAccelerators>
+        </Button>
 
         <StackPanel Grid.Row="1" >
-            <TextBlock Text="Recent Documents"  HorizontalAlignment="Center" FontSize="30" Margin="10"></TextBlock>
+            <TextBlock Text="Recent Documents"  
+                       HorizontalAlignment="Center" 
+                       FontSize="30" 
+                       Margin="10"></TextBlock>
         </StackPanel>
     </Grid>
 </Page>
