@@ -82,6 +82,42 @@
             }
         }
 
+        public static int Minutes
+        {
+            get
+            {
+                if (ApplicationData.Current.LocalSettings.Values["Minutes"] != null)
+                {
+                    return (int)ApplicationData.Current.LocalSettings.Values["Minutes"];
+                }
+
+                return DefaultSettings.Minutes;
+            }
+
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["Minutes"] = value;
+            }
+        }
+
+        public static bool IsSaveEnabled
+        {
+            get
+            {
+                if (ApplicationData.Current.LocalSettings.Values["IsSaveEnabled"] != null)
+                {
+                    return (bool)ApplicationData.Current.LocalSettings.Values["IsSaveEnabled"];
+                }
+
+                return DefaultSettings.IsSaveEnabled;
+            }
+
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["IsSaveEnabled"] = value;
+            }
+        }
+
         public static ElementTheme RootTheme
         {
             get

@@ -5,10 +5,16 @@
 
     public static class DefaultSettings
     {
-        public static int Size { get; } = 14;
+        public const int Size = 14;
 
-        public static string Font { get; } = "Segoe UI";
+        public const string Font = "Segoe UI";
 
-        public static Language Language { get; } = SpeechRecognizer.SystemSpeechLanguage;
+        public const int Minutes = 10;
+
+        public const bool IsSaveEnabled = false;
+
+        public const string Theme = "Default";
+
+        public static readonly Language Language = SpeechRecognizer.SystemSpeechLanguage;
     }
 }

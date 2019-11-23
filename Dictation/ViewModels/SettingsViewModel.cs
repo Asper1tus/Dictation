@@ -1,5 +1,6 @@
 ﻿namespace Dictation.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Windows.Input;
     using Dictation.Commands;
@@ -16,14 +17,21 @@
         private string font;
         private int size;
         private string theme;
+        private int minutes;
+        private bool isSaveEnabled;
+        private bool isValid;
+        private DispatcherTimer timer;
 
         public SettingsViewModel()
         {
             var currentTheme = App.RootTheme.ToString();
             Font = App.Font;
             Size = App.FontSize;
+            IsSaveEnabled = App.IsSaveEnabled;
+            Minutes = App.Minutes;
             Theme = currentTheme;
             Language = App.RecognitionLanguage;
+            InitializeTimer();
         }
 
         public ICommand ChooseThemeCommand => chooseThemeCommand ?? (chooseThemeCommand = new RelayCommand<string>(ChooseTheme));
@@ -80,11 +88,41 @@
             set { Set(ref this.language, value); }
         }
 
+        public int Minutes
+        {
+            get { return minutes; }
+            set { Set(ref this.minutes, value); }
+        }
+
+        public bool IsSaveEnabled
+        {
+            get { return isSaveEnabled; }
+            set { Set(ref this.isSaveEnabled, value); }
+        }
+
+        public bool IsValid
+        {
+            get
+            {
+                return isValid;
+            }
+
+            set
+            {
+                if (!value)
+                {
+                    Set(ref this.isValid, value);
+                    Minutes = 0;
+                }
+            }
+
+        }
+
         private void ChooseTheme(string selectedTheme)
         {
             if (selectedTheme != null)
             {
-                App.RootTheme = App.GetEnum<ElementTheme>(selectedTheme);
+                Theme = selectedTheme;
             }
         }
 
@@ -93,7 +131,16 @@
             App.FontSize = Size;
             App.Font = Font;
             App.RecognitionLanguage = Language;
+            App.Minutes = Minutes;
+            App.IsSaveEnabled = IsSaveEnabled;
+            App.RootTheme = App.GetEnum<ElementTheme>(Theme);
             RecognizerService.SetRecognitionLanguage(Language);
+            InitializeTimer();
+        }
+
+        private void Timer_Tick(object sender, object e)
+        {
+            FileService.SaveAsync();
         }
 
         private void RestoreDefault()
@@ -101,6 +148,21 @@
             Size = DefaultSettings.Size;
             Font = DefaultSettings.Font;
             Language = DefaultSettings.Language.NativeName;
+            Theme = DefaultSettings.Theme;
+            Minutes = DefaultSettings.Minutes;
+            IsSaveEnabled = App.IsSaveEnabled;
+            SaveSettings();
+        }
+
+        private void InitializeTimer()
+        {
+            if (IsSaveEnabled)
+            {
+                int seconds = minutes * 60;
+                timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, seconds) };
+                timer.Tick += Timer_Tick;
+                timer.Start();
+            }
         }
     }
 }
