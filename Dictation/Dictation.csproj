@@ -131,6 +131,7 @@
     <Compile Include="Converetrs\ThemeConverter.cs" />
     <Compile Include="Extensions\RichEditBoxExtension.cs" />
     <Compile Include="Helpers\DefaultSettings.cs" />
+    <Compile Include="Models\FileModel.cs" />
     <Compile Include="Services\AudioCapturePermissionsService.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\Observable.cs" />
@@ -191,6 +192,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\RtfFileIcon.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -279,9 +281,7 @@
       <Version>1.24.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include=".editorconfig" />
   </ItemGroup>

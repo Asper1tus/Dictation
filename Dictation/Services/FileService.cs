@@ -15,24 +15,43 @@
 
         public static async void OpenAsync()
         {
-            var openPicker = new FileOpenPicker
+            if (await IsFileSavedAsync())
             {
-                ViewMode = PickerViewMode.Thumbnail,
-                SuggestedStartLocation = PickerLocationId.Desktop,
-                CommitButtonText = "Open",
-            };
-            openPicker.FileTypeFilter.Add(".rtf");
+                var openPicker = new FileOpenPicker
+                {
+                    ViewMode = PickerViewMode.Thumbnail,
+                    SuggestedStartLocation = PickerLocationId.Desktop,
+                    CommitButtonText = "Open",
+                };
+                openPicker.FileTypeFilter.Add(".rtf");
 
-            file = await openPicker.PickSingleFileAsync();
-            if (file != null)
+                file = await openPicker.PickSingleFileAsync();
+                if (file != null)
+                {
+                    var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+                    RtfTextHelper.OpenFile(stream);
+                    stream.Dispose();
+                    savedText = RtfTextHelper.RichText;
+
+                    var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
+                    mru.Add(file, "profile pic");
+                }
+            }
+        }
+
+        public static async void OpenAsync(string path)
+        {
+            if (await IsFileSavedAsync())
             {
-                var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-                RtfTextHelper.OpenFile(stream);
-                stream.Dispose();
-                savedText = RtfTextHelper.RichText;
+                file = await StorageFile.GetFileFromPathAsync(path);
 
-                var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
-                mru.Add(file, "profile pic");
+                if (file != null)
+                {
+                    var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+                    RtfTextHelper.OpenFile(stream);
+                    stream.Dispose();
+                    savedText = RtfTextHelper.RichText;
+                }
             }
         }
 
@@ -74,24 +93,32 @@
 
         public static async void New()
         {
+            if (await IsFileSavedAsync())
+            {
+                Clear();
+            }
+        }
+
+        private static async Task<bool> IsFileSavedAsync()
+        {
             if (RtfTextHelper.RichText != savedText)
             {
                 var result = await ContentDialogService.ShowSaveDocumentDialogAsync();
 
                 if (result == ContentDialogResult.None)
                 {
-                    return;
+                    return false;
                 }
                 else if (result == ContentDialogResult.Primary)
                 {
                     if (!await SaveAsync())
                     {
-                        return;
+                        return false;
                     }
                 }
             }
 
-            Clear();
+            return true;
         }
 
         private static void Clear()
