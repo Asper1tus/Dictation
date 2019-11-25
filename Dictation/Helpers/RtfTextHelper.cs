@@ -92,8 +92,6 @@
                 MessageService.ImageInsert += InsertImage;
                 MessageService.HyperLinkInsert += InsertHyperlink;
                 richEditBox.PointerCaptureLost += PointerCaptureLost;
-
-                // richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
             }
 
             richEditBox.SetValue(RichTextProperty, value);
@@ -130,11 +128,6 @@
         }
 
         private static void PointerCaptureLost(object sender, PointerRoutedEventArgs e)
-        {
-            MessageService.Notify();
-        }
-
-        private static void ProcessKeyboardAccelerators(UIElement sender, ProcessKeyboardAcceleratorEventArgs args)
         {
             MessageService.Notify();
         }

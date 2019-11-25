@@ -8,8 +8,8 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:muxc="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-     Width="300">
+    Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}"
+    Width="300">
     <Page.Resources>
         <Style TargetType="ToggleButton">
             <Setter Property="Width" Value="30"/>
@@ -43,7 +43,7 @@
         </Style>
     </Page.Resources>
 
-    <StackPanel Margin="10">
+    <StackPanel Margin="10" Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Select font style</TextBlock>
         <StackPanel Orientation="Horizontal" Height="40">
             <ComboBox Margin="5" Width="150" ItemsSource="{x:Bind viewModel.Fonts}" SelectedItem="{x:Bind viewModel.Font, Mode=TwoWay}">
@@ -284,13 +284,19 @@
             <ToggleButton 
                 ToolTipService.ToolTip="Bullets (Ctrl + Shift + L)"  
                 IsChecked="{x:Bind viewModel.HasBullets, Mode=OneWay}" 
-                FontFamily="Segoe MDL2 Assets" Content="&#xE8FD;" 
+                FontFamily="Segoe MDL2 Assets" 
+                Content="&#xE8FD;" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
                 CommandParameter="Bullets"></ToggleButton>
             <ToggleButton 
                 IsChecked="{x:Bind viewModel.HasNumbers, Mode=OneWay}" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
-                CommandParameter="Numbers"></ToggleButton>
+                CommandParameter="Numbers"
+                Padding="0">
+                <BitmapIcon 
+                    UriSource="ms-appx:///Assets/NumberingListIcon.jpg"
+                    Height="15"/>
+            </ToggleButton>
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Line spacing</TextBlock>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Insert</TextBlock>
@@ -298,15 +304,17 @@
         <StackPanel Orientation="Horizontal">
             <Button 
                 Height="40" Width="40" 
-                FontSize="16" 
+                FontSize="35" 
                 Content="&#xE8B9;"  
-                Command="{x:Bind viewModel.InsertImageCommand}"/>
+                Command="{x:Bind viewModel.InsertImageCommand}"
+                Padding="0"/>
 
             <Button 
                 Height="40"
                 Width="40" 
-                FontSize="16"
+                FontSize="35"
                 Content="&#xE71B;" 
+                Padding="0"
                 ToolTipService.ToolTip="Insert Hyperlink (Ctrl + K)" 
                 Command="{x:Bind viewModel.InsertHyperlinkCommand}">
                 <Button.KeyboardAccelerators>

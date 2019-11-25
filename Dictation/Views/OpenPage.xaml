@@ -8,7 +8,7 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -37,7 +37,6 @@
             <ListView x:Name="listItem"
                       ItemsSource="{x:Bind viewModel.Items, Mode=OneWay}"
                       Height="500">
-                <CollectionViewSource x:Name="ContactsCVS" IsSourceGrouped="True"/>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel 
@@ -46,7 +45,8 @@
                             <BitmapIcon 
                                 UriSource="{Binding IconPath}" 
                                 Height="50" 
-                                Width="50"/>
+                                Width="50"
+                                RequestedTheme="Dark"/>
                         <StackPanel Margin="10 0 0 0">
                             <TextBlock Text="{Binding Name}"/>
                             <TextBlock Text="{Binding FolderPath}"/>
@@ -56,14 +56,17 @@
                 </ListView.ItemTemplate>
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <ItemsStackPanel AreStickyGroupHeadersEnabled="True"
-                                         ScrollViewer.IsVerticalRailEnabled="True"/>
+                        <ItemsStackPanel 
+                            AreStickyGroupHeadersEnabled="True"
+                            ScrollViewer.IsVerticalRailEnabled="True"/>
                     </ItemsPanelTemplate >
                 </ListView.ItemsPanel>
                 
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="SelectionChanged">
-                        <ic:InvokeCommandAction Command="{x:Bind viewModel.OpenRecentFileCommand}" CommandParameter="{Binding SelectedItem, ElementName=listItem}"/>
+                        <ic:InvokeCommandAction 
+                            Command="{x:Bind viewModel.OpenRecentFileCommand}" 
+                            CommandParameter="{Binding SelectedItem, ElementName=listItem}"/>
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </ListView>
