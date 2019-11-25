@@ -6,21 +6,46 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-     Width="300">
+    Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}"
+    Width="300">
 
     <StackPanel Margin="10">
-        <TextBlock TextWrapping="Wrap" Margin="0 0 30 10">Find every instance of a word in your document and replace it with another word.</TextBlock>
-        <TextBlock FontSize="20" FontWeight="SemiBold">Find what:</TextBlock>
-        <TextBox Margin="5" Text="{x:Bind viewModel.SearchedWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <CheckBox Margin="5 0 0 0" IsChecked="{x:Bind viewModel.IsMatchCase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Match case</CheckBox>
-        <Button Height="30"  Command="{x:Bind viewModel.FindNextCommand}">Find Next</Button>
-        
-        <TextBlock FontSize="20" FontWeight="SemiBold">Replace with:</TextBlock>
-        <TextBox Margin="5" Text="{x:Bind viewModel.ReplacementWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBlock 
+            TextWrapping="Wrap" 
+            Margin="0 0 30 10" 
+            Text="Find every instance of a word in your document and replace it with another word."/>
+        <TextBlock 
+            FontSize="20" 
+            FontWeight="SemiBold"
+            Text="Find what:"/>
+        <TextBox 
+            Margin="5" 
+            Text="{x:Bind viewModel.SearchedWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <CheckBox 
+            Margin="5 0 0 0" 
+            Content="Match case"
+            IsChecked="{x:Bind viewModel.IsMatchCase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button 
+            Height="30"
+            Content="Find Next"
+            Command="{x:Bind viewModel.FindNextCommand}"/>
+        <TextBlock 
+            FontSize="20" 
+            FontWeight="SemiBold"
+            Text="Replace with:"/>
+        <TextBox 
+            Margin="5" 
+            Text="{x:Bind viewModel.ReplacementWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <StackPanel Orientation="Horizontal">
-            <Button Height="30" Command="{x:Bind viewModel.ReplaceCommand}">Replace</Button>
-            <Button Height="30" Margin="20 0 0 0" Command="{x:Bind viewModel.ReplaceAllCommand}">Replace All</Button>
+            <Button 
+                Height="30" 
+                Content="Replace"
+                Command="{x:Bind viewModel.ReplaceCommand}"/>
+            <Button 
+                Height="30" 
+                Margin="20 0 0 0" 
+                Content="Replace All"
+                Command="{x:Bind viewModel.ReplaceAllCommand}"/>
         </StackPanel>
     </StackPanel>
 

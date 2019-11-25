@@ -8,8 +8,8 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:muxc="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-     Width="300">
+    Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}"
+    Width="300">
     <Page.Resources>
         <Style TargetType="ToggleButton">
             <Setter Property="Width" Value="30"/>
@@ -43,7 +43,7 @@
         </Style>
     </Page.Resources>
 
-    <StackPanel Margin="10">
+    <StackPanel Margin="10" Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Select font style</TextBlock>
         <StackPanel Orientation="Horizontal" Height="40">
             <ComboBox Margin="5" Width="150" ItemsSource="{x:Bind viewModel.Fonts}" SelectedItem="{x:Bind viewModel.Font, Mode=TwoWay}">
@@ -60,13 +60,28 @@
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </ComboBox>
-            
+
         </StackPanel>
-        
+
         <StackPanel Orientation="Horizontal" >
-            <ToggleButton Content="&#xE8DD;" IsChecked="{x:Bind viewModel.IsBold, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Bold" ></ToggleButton>
-            <ToggleButton Content="&#xE8DB;" IsChecked="{x:Bind viewModel.IsItalic, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Italic"></ToggleButton>
-            <ToggleButton Content="&#xE8DC;" IsChecked="{x:Bind viewModel.IsUnderline, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Underline"></ToggleButton>
+            <ToggleButton 
+                Content="&#xE8DD;" 
+                ToolTipService.ToolTip="Bold (Ctrl + B)"  
+                IsChecked="{x:Bind viewModel.IsBold, Mode=OneWay}" 
+                Command="{x:Bind viewModel.ChangeStyleCommand}" 
+                CommandParameter="Bold" ></ToggleButton>
+            <ToggleButton 
+                Content="&#xE8DB;" 
+                ToolTipService.ToolTip="Italic (Ctrl + I)"  
+                IsChecked="{x:Bind viewModel.IsItalic, Mode=OneWay}" 
+                Command="{x:Bind viewModel.ChangeStyleCommand}" 
+                CommandParameter="Italic"></ToggleButton>
+            <ToggleButton 
+                Content="&#xE8DC;" 
+                ToolTipService.ToolTip="Underline (Ctrl + U)"  
+                IsChecked="{x:Bind viewModel.IsUnderline, Mode=OneWay}" 
+                Command="{x:Bind viewModel.ChangeStyleCommand}" 
+                CommandParameter="Underline"></ToggleButton>
 
             <SplitButton Command="{x:Bind viewModel.ChangeForegroundColorCommand}" CommandParameter="{x:Bind viewModel.ForegroundColor, Mode=OneWay}">
                 <StackPanel>
@@ -139,7 +154,7 @@
             </SplitButton>
 
             <SplitButton Command="{x:Bind viewModel.ChangeBackgroundColorCommand}" CommandParameter="{x:Bind viewModel.BackgroundColor, Mode=OneWay}">
-               <StackPanel>
+                <StackPanel>
                     <FontIcon Glyph="&#xE76D;" />
                     <Rectangle Height="4" Width="20"  Fill="{x:Bind viewModel.BackgroundColor, Mode=OneWay}"></Rectangle>
                 </StackPanel>
@@ -233,12 +248,31 @@
 
 
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Set alignment</TextBlock>
-            
+
         <StackPanel Orientation="Horizontal">
-            <ToggleButton Content="&#xE8E4;" IsChecked="{x:Bind viewModel.IsAlignLeft, Mode=OneWay}"  Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="AlignLeft"></ToggleButton>
-            <ToggleButton Content="&#xE8E3;" IsChecked="{x:Bind viewModel.IsAlignCenter, Mode=OneWay}"  Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="AlignCenter"></ToggleButton>
-            <ToggleButton Content="&#xE8E2;" IsChecked="{x:Bind viewModel.IsAlignRight, Mode=OneWay}"  Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="AlignRight"></ToggleButton>
-            <ToggleButton IsChecked="{x:Bind viewModel.IsJustify, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Justify">
+            <ToggleButton 
+                Content="&#xE8E4;" 
+                ToolTipService.ToolTip="Align left (Ctrl + L)"  
+                IsChecked="{x:Bind viewModel.IsAlignLeft, Mode=OneWay}"  
+                Command="{x:Bind viewModel.ChangeStyleCommand}" 
+                CommandParameter="AlignLeft"></ToggleButton>
+            <ToggleButton 
+                Content="&#xE8E3;" 
+                ToolTipService.ToolTip="Align center (Ctrl + E)"  
+                IsChecked="{x:Bind viewModel.IsAlignCenter, Mode=OneWay}"  
+                Command="{x:Bind viewModel.ChangeStyleCommand}" 
+                CommandParameter="AlignCenter"></ToggleButton>
+            <ToggleButton 
+                Content="&#xE8E2;" 
+                ToolTipService.ToolTip="Align right (Ctrl + R)"  
+                IsChecked="{x:Bind viewModel.IsAlignRight, Mode=OneWay}"  
+                Command="{x:Bind viewModel.ChangeStyleCommand}" 
+                CommandParameter="AlignRight"></ToggleButton>
+            <ToggleButton 
+                ToolTipService.ToolTip="Align justify (Ctrl + J)"  
+                IsChecked="{x:Bind viewModel.IsJustify, Mode=OneWay}" 
+                Command="{x:Bind viewModel.ChangeStyleCommand}" 
+                CommandParameter="Justify">
                 <Grid>
                     <FontIcon Glyph="&#xE8E4;" />
                     <FontIcon Glyph="&#xE8E2;" />
@@ -247,17 +281,49 @@
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Bullets and Numbering</TextBlock>
         <StackPanel Orientation="Horizontal">
-            <ToggleButton IsChecked="{x:Bind viewModel.HasBullets, Mode=OneWay}" FontFamily="Segoe MDL2 Assets" Content="&#xE8FD;" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Bullets"></ToggleButton>
-            <ToggleButton IsChecked="{x:Bind viewModel.HasNumbers, Mode=OneWay}" Command="{x:Bind viewModel.ChangeStyleCommand}" CommandParameter="Numbers"></ToggleButton>
+            <ToggleButton 
+                ToolTipService.ToolTip="Bullets (Ctrl + Shift + L)"  
+                IsChecked="{x:Bind viewModel.HasBullets, Mode=OneWay}" 
+                FontFamily="Segoe MDL2 Assets" 
+                Content="&#xE8FD;" 
+                Command="{x:Bind viewModel.ChangeStyleCommand}" 
+                CommandParameter="Bullets"></ToggleButton>
+            <ToggleButton 
+                IsChecked="{x:Bind viewModel.HasNumbers, Mode=OneWay}" 
+                Command="{x:Bind viewModel.ChangeStyleCommand}" 
+                CommandParameter="Numbers"
+                Padding="0">
+                <BitmapIcon 
+                    UriSource="ms-appx:///Assets/NumberingListIcon.jpg"
+                    Height="15"/>
+            </ToggleButton>
         </StackPanel>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Line spacing</TextBlock>
         <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Insert</TextBlock>
-        
+
         <StackPanel Orientation="Horizontal">
-            <Button Height="40" Width="40" FontSize="16" Content="&#xE8B9;" Command="{x:Bind viewModel.InsertImageCommand}"></Button>
-            <Button Height="40" Width="40" FontSize="16" Content="&#xE71B;" Command="{x:Bind viewModel.InsertHyperlinkCommand}"></Button>
+            <Button 
+                Height="40" Width="40" 
+                FontSize="35" 
+                Content="&#xE8B9;"  
+                Command="{x:Bind viewModel.InsertImageCommand}"
+                Padding="0"/>
+
+            <Button 
+                Height="40"
+                Width="40" 
+                FontSize="35"
+                Content="&#xE71B;" 
+                Padding="0"
+                ToolTipService.ToolTip="Insert Hyperlink (Ctrl + K)" 
+                Command="{x:Bind viewModel.InsertHyperlinkCommand}">
+                <Button.KeyboardAccelerators>
+                    <KeyboardAccelerator 
+                    Modifiers="Control" 
+                    Key="K" />
+                </Button.KeyboardAccelerators></Button>
         </StackPanel>
-        
+
 
     </StackPanel>
 </Page>

@@ -90,54 +90,17 @@
                     NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
                     break;
                 case "new":
-                    NewFile();
+                    FileService.New();
                     break;
                 case "save":
-                    SaveFile();
+                    FileService.SaveAsync();
                     break;
-                case "close":
-                    CloseFile();
+                case "saveas":
+                    FileService.SaveAsAsync();
                     break;
             }
-        }
 
-        private void NewFile()
-        {
-            // TODO: add New File
-            throw new NotImplementedException();
-        }
-
-        private void SaveFile()
-        {
-            // TODO: Save file
-            // FileSavePicker savePicker = new FileSavePicker
-            // {
-            //    SuggestedStartLocation = PickerLocationId.Desktop,
-            //    CommitButtonText = "Save",
-            // };
-            // List<string> filters = new List<string>() { ".txt", ".rtf", ".doc", ".docx", ".html", ".htm" };
-            // savePicker.FileTypeChoices.Add(".txt, .rtf, .doc, .docx, .html, .htm", filters);
-            // var file = await savePicker.PickSaveFileAsync();
-            // int retryAttempts = 5;
-
-            // if (file != null)
-            // {
-            //    // Application now has read/write access to the picked file.
-            //    while (retryAttempts > 0)
-            //    {
-            //            retryAttempts--;
-            //            await Windows.Storage.FileIO.WriteTextAsync(file, Document.Text);
-            //            break;
-            //    }
-            // }
-
-            // NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
-        }
-
-        private void CloseFile()
-        {
-            // TODO: add Close File
-            throw new NotImplementedException();
+            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
     }
 }

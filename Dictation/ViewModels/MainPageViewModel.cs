@@ -22,29 +22,34 @@
     ("vocabulary", typeof(VocabularyPage), "Vocabulary Training"),
 };
 
+        private Frame contentFrame;
         private bool isPanelVisible;
         private bool isListeningVisible;
         private string title;
+        private float zoomValue;
         private ICommand listeningCommand;
-        private ICommand dispalyContent;
+        private ICommand dispalyContentCommand;
         private ICommand closeCommand;
         private ICommand goToMenuCommand;
         private ICommand operationCommand;
-        private Frame contentFrame;
+        private ICommand changeZoomCommand;
 
         public MainPageViewModel()
         {
             RecognizerService.InitializeRecognizerService();
             IsPanelVisible = false;
+            ZoomValue = 1f;
         }
 
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
 
-        public ICommand DispalyContent => dispalyContent ?? (dispalyContent = new RelayCommand<string>(ChoosePage));
+        public ICommand DispalyContentCommand => dispalyContentCommand ?? (dispalyContentCommand = new RelayCommand<string>(ChoosePage));
 
         public ICommand CloseCommand => closeCommand ?? (closeCommand = new RelayCommand(Close));
 
         public ICommand GoToMenuCommand => goToMenuCommand ?? (goToMenuCommand = new RelayCommand(GoToMenu));
+
+        public ICommand ChangeZoomCommand => changeZoomCommand ?? (changeZoomCommand = new RelayCommand<string>(ChangeZoom));
 
         public ICommand OperationCommand => operationCommand ?? (operationCommand = new RelayCommand<string>(MessageService.SendOperation));
 
@@ -64,6 +69,12 @@
         {
             get { return title; }
             set { Set(ref this.title, value); }
+        }
+
+        public float ZoomValue
+        {
+            get { return zoomValue; }
+            set { Set(ref this.zoomValue, value); }
         }
 
         public int FontSize
@@ -123,6 +134,28 @@
         private void GoToMenu()
         {
             NavigationService.Navigate(typeof(Menu), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
+        }
+
+        private void ChangeZoom(string operation)
+        {
+            if (operation == "Plus")
+            {
+                ZoomValue += 0.1f;
+
+                if (ZoomValue > 5)
+                {
+                    ZoomValue = 5;
+                }
+            }
+            else
+            {
+                ZoomValue -= 0.1f;
+
+                if (ZoomValue < 0.1f)
+                {
+                    ZoomValue = 0.1f;
+                }
+            }
         }
     }
 }

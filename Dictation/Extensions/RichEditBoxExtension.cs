@@ -32,7 +32,7 @@
         {
             int lenght = richEditBox.GetLenght();
             richEditBox.Document.Selection.StartPosition = lenght;
-            if (rtf != null)
+            if (rtf != null && rtf != string.Empty)
             {
                 richEditBox.Document.Selection.TypeText(rtf);
             }
@@ -336,13 +336,17 @@
 
         public static void ReplaceAllWords(this RichEditBox richEditBox, string replacementWord, string searchedWord, bool isMatchCase)
         {
-            richEditBox.FindWord(searchedWord, isMatchCase);
-            do
+            // Avoids infinite lool
+            if (replacementWord != searchedWord && searchedWord != string.Empty)
             {
-                richEditBox.ReplaceSelectedWord(replacementWord);
                 richEditBox.FindWord(searchedWord, isMatchCase);
+                do
+                {
+                    richEditBox.ReplaceSelectedWord(replacementWord);
+                    richEditBox.FindWord(searchedWord, isMatchCase);
+                }
+                while (string.Compare(richEditBox.Document.Selection.Text, searchedWord, isMatchCase) == 0);
             }
-            while (string.Compare(richEditBox.Document.Selection.Text, searchedWord, isMatchCase) == 0);
         }
 
         public static void ToUpper(this RichEditBox richEditBox)

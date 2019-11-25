@@ -8,14 +8,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
-    mc:Ignorable="d">
+    xmlns:i="using:Microsoft.Xaml.Interactivity"  
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
 
     <Page.Resources>
         <convert:ThemeConverter x:Key="ThemeConverter" />
     </Page.Resources>
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
@@ -35,12 +37,19 @@
                     FontWeight="Normal"
                     Text="Theme Mode" />
                 <StackPanel Margin="0,10,0,0">
-                    <RadioButton Content="Light" Command="{x:Bind viewModel.ChooseThemeCommand}" CommandParameter="Light"
-                                 IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Light}"/>
-                    <RadioButton Content="Dark" Command="{x:Bind viewModel.ChooseThemeCommand}" CommandParameter="Dark"
-                                 IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Dark}"/>
-                    <RadioButton Content="Use system setting" Command="{x:Bind viewModel.ChooseThemeCommand}" CommandParameter="Default"
-                                 IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Default}"/>
+                    <RadioButton 
+                        Content="Light" 
+                        Command="{x:Bind viewModel.ChooseThemeCommand}" 
+                        CommandParameter="Light"
+                        IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Light, Mode=OneWay}"/>
+                    <RadioButton Content="Dark" 
+                                 Command="{x:Bind viewModel.ChooseThemeCommand}" 
+                                 CommandParameter="Dark"
+                                 IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Dark, Mode=OneWay}"/>
+                    <RadioButton Content="Use system setting" 
+                                 Command="{x:Bind viewModel.ChooseThemeCommand}" 
+                                 CommandParameter="Default"
+                                 IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Default, Mode=OneWay}"/>
                 </StackPanel>
 
                 <TextBlock
@@ -52,35 +61,65 @@
                     FontWeight="Normal"
                     Text="Default font and size"/>
                 <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                    <ComboBox Width="200" ItemsSource="{x:Bind viewModel.Fonts}" SelectedItem="{x:Bind viewModel.Font, Mode=TwoWay}"/>
-                    <ComboBox Margin="20 0 0 0" ItemsSource="{x:Bind viewModel.Sizes}" SelectedItem="{x:Bind viewModel.Size, Mode=TwoWay}"/>
-
+                    <ComboBox 
+                        Width="200" 
+                        ItemsSource="{x:Bind viewModel.Fonts}" 
+                        SelectedItem="{x:Bind viewModel.Font, Mode=TwoWay}"/>
+                    <ComboBox 
+                        Margin="20 0 0 0" 
+                        ItemsSource="{x:Bind viewModel.Sizes}" 
+                        SelectedItem="{x:Bind viewModel.Size, Mode=TwoWay}"/>
                 </StackPanel>
-
-                <TextBlock Margin="0,5,0,0"
-                    FontWeight="Normal"
-                    Text="Dictation language"/>
-                <ComboBox Margin="0,5,0,0" Width="200" ItemsSource="{x:Bind viewModel.Languages}" SelectedItem="{x:Bind viewModel.Language, Mode=TwoWay}"/>
                 
-                <TextBlock x:Name="LocationDisabledMessage" FontStyle="Italic"
-                 Margin="0,15,0,0" TextWrapping="Wrap" >
-          <Run Text="You can add more dictation languages. Go to " />
-              <Hyperlink NavigateUri="ms-settings:regionlanguage">
-                  <Run Text="Region and Languages" />
-              </Hyperlink>
-          <Run Text=" to add language."/>
+                <ComboBox 
+                    Header="Dictation language"
+                    Margin="0,5,0,0" 
+                    Width="200" 
+                    ItemsSource="{x:Bind viewModel.Languages}" 
+                    SelectedItem="{x:Bind viewModel.Language, Mode=TwoWay}"/>
+                
+                <TextBlock 
+                    FontStyle="Italic"
+                    Margin="0,15,0,0" 
+                    TextWrapping="Wrap">
+                        <Run Text="You can add more dictation languages. Go to " />
+                        <Hyperlink NavigateUri="ms-settings:regionlanguage">
+                            <Run Text="Region and Languages" />
+                        </Hyperlink>
+                        <Run Text=" to add language."/>
                 </TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Be careful, only languages ​​with an icon" FontWeight="Bold"/>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE720;" FontSize="18"/>
                     <TextBlock Text="supports Speech Recognition."  FontWeight="Bold"/>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                    <CheckBox
+                        IsChecked="{x:Bind viewModel.IsSaveEnabled, Mode=TwoWay}"
+                        Content="Auto save file every"/>
+                    <TextBox 
+                        extensions:TextBoxRegex.ValidationType="Number"
+                        extensions:TextBoxRegex.IsValid="{x:Bind viewModel.IsValid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        MaxLength="3"
+                        Text="{x:Bind viewModel.Minutes, Mode=TwoWay}"
+                        Margin="10 0 10 0"/>
+                    <TextBlock VerticalAlignment="Center" Text="minutes"/>
+                </StackPanel>
 
             </StackPanel>
         </ScrollViewer>
-        <StackPanel Padding="20,0,0,0" Grid.Row="1" Orientation="Horizontal">
-            <Button Width="150" Content="Restore Default" Command="{x:Bind viewModel.RestoreDefaultCommand}"/>
-            <Button Width="150" Margin="20 0 0 0" Content="Save" Command="{x:Bind viewModel.SaveCommand}"/>
+        <StackPanel Padding="20,0,0,0" 
+                    Grid.Row="1" 
+                    Orientation="Horizontal">
+            <Button 
+                Width="150" 
+                Content="Restore Default" 
+                Command="{x:Bind viewModel.RestoreDefaultCommand}"/>
+            <Button 
+                Width="150" 
+                Margin="20 0 0 0" 
+                Content="Save" 
+                Command="{x:Bind viewModel.SaveCommand}"/>
         </StackPanel>
     </Grid>
 </Page>

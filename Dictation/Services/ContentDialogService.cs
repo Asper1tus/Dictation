@@ -1,7 +1,9 @@
 ﻿namespace Dictation.Services
 {
     using System;
-    using Dictation.Views.Content;
+    using System.Threading.Tasks;
+    using Dictation.Views.ContentDialogs;
+    using Windows.UI.Xaml.Controls;
 
     public static class ContentDialogService
     {
@@ -9,6 +11,12 @@
         {
             HyperLinkContentDialog hyperLink = new HyperLinkContentDialog();
             await hyperLink.ShowAsync();
+        }
+
+        public static async Task<ContentDialogResult> ShowSaveDocumentDialogAsync()
+        {
+            SaveDocumentContentDialog saveDocument = new SaveDocumentContentDialog();
+            return await saveDocument.ShowAsync();
         }
     }
 }

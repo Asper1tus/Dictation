@@ -11,7 +11,6 @@
             SimpleIoc.Default.Register<MainPageViewModel>();
             SimpleIoc.Default.Register<HelpViewModel>();
             SimpleIoc.Default.Register<OpenViewModel>();
-            SimpleIoc.Default.Register<SaveAsViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
             SimpleIoc.Default.Register<FindReplaceViewModel>();
             SimpleIoc.Default.Register<ToolsViewModel>();
