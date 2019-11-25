@@ -45,22 +45,22 @@
                 Icon="Library" 
                 Label="Vocabulary Training" 
                 Tag="vocabulary" 
-                Command="{x:Bind viewModel.DispalyContent}" 
+                Command="{x:Bind viewModel.DispalyContentCommand}" 
                 CommandParameter="vocabulary"/>
             <AppBarButton 
                 Icon="Font" 
                 Label="Formating Tools" 
-                Command="{x:Bind viewModel.DispalyContent}" 
+                Command="{x:Bind viewModel.DispalyContentCommand}" 
                 CommandParameter="tools"/>
             <AppBarButton 
                 Icon="Rename" 
                 Label="Find and Replace" 
-                Command="{x:Bind viewModel.DispalyContent}" 
+                Command="{x:Bind viewModel.DispalyContentCommand}" 
                 CommandParameter="findreplace"/>
             <AppBarButton 
                 Icon="Share" 
                 Label="Share"
-                Command="{x:Bind viewModel.DispalyContent}" 
+                Command="{x:Bind viewModel.DispalyContentCommand}" 
                 CommandParameter="share"/>
             <AppBarElementContainer>
                 <DropDownButton 

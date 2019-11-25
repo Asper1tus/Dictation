@@ -43,19 +43,13 @@
         {
             if (isListening)
             {
-                if (speechRecognizer.State == SpeechRecognizerState.Idle)
-                {
-                    await speechRecognizer.ContinuousRecognitionSession.StartAsync();
-                    dictatedTextBuilder.Append(RtfTextHelper.Text);
-                    richText = RtfTextHelper.RichText;
-                }
+                await speechRecognizer.ContinuousRecognitionSession.StartAsync();
+                dictatedTextBuilder.Append(RtfTextHelper.Text);
+                richText = RtfTextHelper.RichText;
             }
             else
             {
-                if (speechRecognizer.State != SpeechRecognizerState.Idle)
-                {
-                    await speechRecognizer.ContinuousRecognitionSession.StopAsync();
-                }
+                await speechRecognizer.ContinuousRecognitionSession.StopAsync();
 
                 dictatedTextBuilder.Clear();
                 RtfTextHelper.RichText = richText;
@@ -91,8 +85,10 @@
             if (args.Result.Confidence == SpeechRecognitionConfidence.Medium ||
               args.Result.Confidence == SpeechRecognitionConfidence.High)
             {
-                dictatedTextBuilder.Append(args.Result.Text + " ");
-                recognizedText += args.Result.Text + " ";
+                string resultGeneratedText = args.Result.Text + " ";
+                dictatedTextBuilder.Append(resultGeneratedText);
+                recognizedText += resultGeneratedText;
+                resultGeneratedText = string.Empty;
 
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
