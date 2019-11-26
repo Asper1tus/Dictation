@@ -122,9 +122,9 @@
                 <Grid>
                     <ScrollViewer 
                         ZoomMode="Enabled"
-                        helpers:ScrollViewerHelper.ZoomValue="{x:Bind viewModel.ZoomValue, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                        helpers:ScrollViewerHelper.ZoomValue="{x:Bind viewModel.ZoomFactor, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                         MinZoomFactor="0.1"
-                        MaxZoomFactor="10">
+                        MaxZoomFactor="5">
                         <RichEditBox 
                             Style="{StaticResource RichEditBoxStyle}"
                             Height="1122"
@@ -183,7 +183,7 @@
                 Minimum="10"
                 Maximum="500"
                 Width="200"
-                Value="{x:Bind viewModel.ZoomValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ZoomToSliderConverter}}"/>
+                Value="{x:Bind viewModel.ZoomFactor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ZoomToSliderConverter}}"/>
             <Button
                 Content="+"
                 FontSize="12"
@@ -197,7 +197,7 @@
                 Width="30"
                 FontSize="12"
                 VerticalAlignment="Center"
-                Text="{x:Bind viewModel.ZoomValue, Mode=OneWay, Converter={StaticResource ZoomToTextConverter}}"/>
+                Text="{x:Bind viewModel.ZoomFactor, Mode=OneWay, Converter={StaticResource ZoomToTextConverter}}"/>
             </StackPanel>
         </Grid>
     </Grid>

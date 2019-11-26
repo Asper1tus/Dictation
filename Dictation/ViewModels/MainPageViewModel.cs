@@ -26,7 +26,7 @@
         private bool isPanelVisible;
         private bool isListeningVisible;
         private string title;
-        private float zoomValue;
+        private float zoomFactor;
         private ICommand listeningCommand;
         private ICommand dispalyContentCommand;
         private ICommand closeCommand;
@@ -38,7 +38,8 @@
         {
             RecognizerService.InitializeRecognizerService();
             IsPanelVisible = false;
-            ZoomValue = 1f;
+            ZoomFactor = 1f;
+            MessageService.ZoomFactorChanged += ZoomFactorChanged;
         }
 
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
@@ -71,10 +72,10 @@
             set { Set(ref this.title, value); }
         }
 
-        public float ZoomValue
+        public float ZoomFactor
         {
-            get { return zoomValue; }
-            set { Set(ref this.zoomValue, value); }
+            get { return zoomFactor; }
+            set { Set(ref this.zoomFactor, value); }
         }
 
         public int FontSize
@@ -140,22 +141,27 @@
         {
             if (operation == "Plus")
             {
-                ZoomValue += 0.1f;
+                ZoomFactor += 0.1f;
 
-                if (ZoomValue > 5)
+                if (ZoomFactor > 5)
                 {
-                    ZoomValue = 5;
+                    ZoomFactor = 5;
                 }
             }
             else
             {
-                ZoomValue -= 0.1f;
+                ZoomFactor -= 0.1f;
 
-                if (ZoomValue < 0.1f)
+                if (ZoomFactor < 0.1f)
                 {
-                    ZoomValue = 0.1f;
+                    ZoomFactor = 0.1f;
                 }
             }
+        }
+
+        private void ZoomFactorChanged(float zoomFactor)
+        {
+            ZoomFactor = zoomFactor;
         }
     }
 }

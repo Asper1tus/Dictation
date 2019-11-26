@@ -9,7 +9,5 @@
     Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
 
     <Grid>
-
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Vocabulary</TextBlock>
     </Grid>
 </Page>

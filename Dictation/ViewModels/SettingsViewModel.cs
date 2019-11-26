@@ -115,7 +115,6 @@
                     Minutes = 0;
                 }
             }
-
         }
 
         private void ChooseTheme(string selectedTheme)

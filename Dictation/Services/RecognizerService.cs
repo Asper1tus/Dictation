@@ -43,13 +43,19 @@
         {
             if (isListening)
             {
-                await speechRecognizer.ContinuousRecognitionSession.StartAsync();
-                dictatedTextBuilder.Append(RtfTextHelper.Text);
-                richText = RtfTextHelper.RichText;
+                if (speechRecognizer.State == SpeechRecognizerState.Idle)
+                {
+                    await speechRecognizer.ContinuousRecognitionSession.StartAsync();
+                    dictatedTextBuilder.Append(RtfTextHelper.Text);
+                    richText = RtfTextHelper.RichText;
+                }
             }
             else
             {
-                await speechRecognizer.ContinuousRecognitionSession.StopAsync();
+                if (speechRecognizer.State == SpeechRecognizerState.Idle)
+                {
+                    await speechRecognizer.ContinuousRecognitionSession.CancelAsync();
+                }
 
                 dictatedTextBuilder.Clear();
                 RtfTextHelper.RichText = richText;

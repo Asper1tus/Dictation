@@ -1,12 +1,10 @@
 ﻿namespace Dictation.ViewModels.Content
 {
-    using System;
     using System.Collections.Generic;
     using System.Windows.Input;
     using Dictation.Commands;
     using Dictation.Helpers;
     using Dictation.Services;
-    using Dictation.Views.Content;
 
     public class ToolsViewModel : Observable
     {
@@ -23,9 +21,9 @@
         private bool hasBullets;
         private bool hasNumbers;
         private string font;
-        private int size;
         private string foregroundColor;
         private string backgroundColor;
+        private int size;
 
         private ICommand changeStyleCommand;
         private ICommand changeFontCommand;
