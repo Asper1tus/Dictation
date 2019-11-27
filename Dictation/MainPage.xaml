@@ -175,7 +175,7 @@
                 Padding="0"
                 Height="20"
                 Width="20"
-                Command="{x:Bind viewModel.ChangeZoomCommand}"
+                Command="{x:Bind viewModel.ChangeZoomCommand, Mode=OneWay}"
                 CommandParameter="Minus"/>
             <Slider 
                 Margin="5"
@@ -183,14 +183,14 @@
                 Minimum="10"
                 Maximum="500"
                 Width="200"
-                Value="{x:Bind viewModel.ZoomFactor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ZoomToSliderConverter}}"/>
+                Value="{x:Bind viewModel.ZoomFactor, Mode=TwoWay, Converter={StaticResource ZoomToSliderConverter}}"/>
             <Button
                 Content="+"
                 FontSize="12"
                 Padding="0"
                 Height="20"
                 Width="20"  
-                Command="{x:Bind viewModel.ChangeZoomCommand}"
+                Command="{x:Bind viewModel.ChangeZoomCommand, Mode=OneWay}"
                 CommandParameter="Plus"/>
             <TextBlock 
                 Margin="5"

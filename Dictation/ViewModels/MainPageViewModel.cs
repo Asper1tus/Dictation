@@ -125,11 +125,20 @@
         private void ChoosePage(object tag)
         {
             NavigationService.ContentFrame = contentFrame;
-            IsPanelVisible = true;
             var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag));
             var page = item.page;
-            NavigationService.NavigateContent(page, null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
-            Title = item.title;
+
+            if (NavigationService.ContentFrame.CurrentSourcePageType != page)
+            {
+                IsPanelVisible = true;
+                NavigationService.NavigateContent(page, null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
+                Title = item.title;
+            }
+            else
+            {
+                IsPanelVisible = !IsPanelVisible;
+                NavigationService.ContentFrame = null;
+            }
         }
 
         private void GoToMenu()
