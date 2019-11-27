@@ -60,7 +60,7 @@
             <AppBarButton 
                 Icon="Share" 
                 Label="Share"
-                Command="{x:Bind viewModel.DispalyContentCommand}" 
+                Command="{x:Bind viewModel.OpenShareWindowCommand}" 
                 CommandParameter="share"/>
             <AppBarElementContainer>
                 <DropDownButton 

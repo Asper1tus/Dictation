@@ -9,6 +9,7 @@
     using Dictation.Services;
     using Dictation.Views;
     using Dictation.Views.Content;
+    using Windows.ApplicationModel.DataTransfer;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Media.Animation;
 
@@ -30,6 +31,7 @@
         private ICommand listeningCommand;
         private ICommand dispalyContentCommand;
         private ICommand closeCommand;
+        private ICommand openShareWindowCommand;
         private ICommand goToMenuCommand;
         private ICommand operationCommand;
         private ICommand changeZoomCommand;
@@ -44,7 +46,9 @@
 
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
 
-        public ICommand DispalyContentCommand => dispalyContentCommand ?? (dispalyContentCommand = new RelayCommand<string>(ChoosePage));
+        public ICommand DispalyContentCommand => dispalyContentCommand ?? (dispalyContentCommand = new RelayCommand<string>(DisplayContent));
+
+        public ICommand OpenShareWindowCommand => openShareWindowCommand ?? (openShareWindowCommand = new RelayCommand(OpenShareWindow));
 
         public ICommand CloseCommand => closeCommand ?? (closeCommand = new RelayCommand(Close));
 
@@ -122,12 +126,11 @@
             }
         }
 
-        private void ChoosePage(object tag)
+        private void DisplayContent(object tag)
         {
             NavigationService.ContentFrame = contentFrame;
             var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag));
             var page = item.page;
-
             if (NavigationService.ContentFrame.CurrentSourcePageType != page)
             {
                 IsPanelVisible = true;
@@ -139,6 +142,11 @@
                 IsPanelVisible = !IsPanelVisible;
                 NavigationService.ContentFrame = null;
             }
+        }
+
+        private void OpenShareWindow()
+        {
+            FileService.ShareFile();
         }
 
         private void GoToMenu()

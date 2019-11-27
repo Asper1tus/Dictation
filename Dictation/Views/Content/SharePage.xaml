@@ -10,6 +10,5 @@
     Width="300">
 
     <Grid>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Share</TextBlock>
     </Grid>
 </Page>

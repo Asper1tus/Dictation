@@ -2,6 +2,7 @@
 {
     using Dictation.ViewModels;
     using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Navigation;
 
     public sealed partial class OpenPage : Page
     {
@@ -12,5 +13,11 @@
             viewModel = App.Locator.OpenViewModel;
             this.InitializeComponent();
         }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            await viewModel.InitializeAsync();
+        }
+
     }
 }

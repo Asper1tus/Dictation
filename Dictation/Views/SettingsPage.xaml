@@ -102,7 +102,7 @@
                         Margin="10 0 10 0"/>
                     <TextBlock VerticalAlignment="Center" Text="minutes"/>
                 </StackPanel>
-
+                <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind viewModel.VersionDescription, Mode=OneWay}" />
             </StackPanel>
         </ScrollViewer>
         <StackPanel Padding="20,0,0,0" 

@@ -11,7 +11,9 @@
     PrimaryButtonCommand="{x:Bind viewModel.InsertHypelinkCommand}"
     IsPrimaryButtonEnabled="{x:Bind viewModel.IsEnabledOkButton, Mode=OneWay}"
     CloseButtonText="Cancel">
-    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <StackPanel 
+        VerticalAlignment="Stretch" 
+        HorizontalAlignment="Stretch">
         <TextBox 
             Header="URL:" 
             PlaceholderText="http://www.example.com" 

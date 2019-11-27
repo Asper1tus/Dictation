@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Dictation.Helpers;
+    using Windows.ApplicationModel.DataTransfer;
     using Windows.Storage;
     using Windows.Storage.Pickers;
     using Windows.UI.Xaml.Controls;
@@ -95,8 +96,29 @@
         {
             if (await IsFileSavedAsync())
             {
-                Clear();
+                CreateFileAsync();
             }
+        }
+
+        public static void ShareFile()
+        {
+            if (file == null)
+            {
+                CreateFileAsync();
+            }
+
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += DataRequested;
+            DataTransferManager.ShowShareUI();
+        }
+
+        private static void DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            DataRequest request = args.Request;
+            request.Data.SetStorageItems(new[] { file }, false);
+            request.Data.Properties.Title = file.Name;
+            request.Data.Properties.Description = "Shared from Dictation";
+
         }
 
         private static async Task<bool> IsFileSavedAsync()
@@ -115,17 +137,19 @@
                     {
                         return false;
                     }
-                }
+                };
             }
 
             return true;
         }
 
-        private static void Clear()
+        private static async void CreateFileAsync()
         {
-            file = null;
-            RtfTextHelper.RichText = string.Empty;
-            savedText = RtfTextHelper.RichText;
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            file = await storageFolder.CreateFileAsync("Document.rtf", CreationCollisionOption.ReplaceExisting);
+            var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+            RtfTextHelper.OpenFile(stream);
+            stream.Dispose();
         }
     }
 }

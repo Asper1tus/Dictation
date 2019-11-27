@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using Dictation.Commands;
     using Dictation.Helpers;
@@ -16,8 +17,6 @@
 
         public OpenViewModel()
         {
-            Items = new List<FileModel>();
-            RecentlyFilesAsync();
         }
 
         public ICommand OpenFileCommand => openFileCommand ?? (openFileCommand = new RelayCommand(OpenFile));
@@ -26,7 +25,13 @@
 
         public List<FileModel> Items { get; set; }
 
-        public async void RecentlyFilesAsync()
+        public async Task InitializeAsync()
+        {
+            Items = new List<FileModel>();
+            await RecentlyFilesAsync();
+        }
+
+        public async Task RecentlyFilesAsync()
         {
             Items.Clear();
             var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
@@ -37,12 +42,13 @@
                 var item = await mru.GetItemAsync(mruToken);
                 Items.Add(new FileModel { Name = item.Name, Path = item.Path, IconPath = "ms-appx:///Assets/RtfFileIcon.png" });
             }
+
+            await Task.CompletedTask;
         }
 
         private void OpenFile()
         {
             FileService.OpenAsync();
-            RecentlyFilesAsync();
             NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
