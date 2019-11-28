@@ -9,7 +9,6 @@
     using Dictation.Services;
     using Dictation.Views;
     using Dictation.Views.Content;
-    using Windows.ApplicationModel.DataTransfer;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Media.Animation;
 
@@ -146,7 +145,7 @@
 
         private void OpenShareWindow()
         {
-            FileService.ShareFile();
+            FileService.ShareFileAsync();
         }
 
         private void GoToMenu()

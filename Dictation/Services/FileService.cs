@@ -100,13 +100,14 @@
             }
         }
 
-        public static void ShareFile()
+        public static async void ShareFileAsync()
         {
             if (file == null)
             {
                 CreateFileAsync();
             }
 
+            await IsFileSavedAsync();
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataRequested;
             DataTransferManager.ShowShareUI();
@@ -118,7 +119,6 @@
             request.Data.SetStorageItems(new[] { file }, false);
             request.Data.Properties.Title = file.Name;
             request.Data.Properties.Description = "Shared from Dictation";
-
         }
 
         private static async Task<bool> IsFileSavedAsync()
@@ -137,7 +137,7 @@
                     {
                         return false;
                     }
-                };
+                }
             }
 
             return true;

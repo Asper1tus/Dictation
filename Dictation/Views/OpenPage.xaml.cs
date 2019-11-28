@@ -6,7 +6,7 @@
 
     public sealed partial class OpenPage : Page
     {
-        private OpenViewModel viewModel;
+        private readonly OpenViewModel viewModel;
 
         public OpenPage()
         {
@@ -18,6 +18,5 @@
         {
             await viewModel.InitializeAsync();
         }
-
     }
 }

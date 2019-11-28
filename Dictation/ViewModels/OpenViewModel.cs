@@ -12,35 +12,51 @@
 
     public class OpenViewModel : Observable
     {
+        private List<FileModel> items;
         private ICommand openFileCommand;
         private ICommand openRecentFileCommand;
 
         public OpenViewModel()
         {
+            Items = new List<FileModel>();
         }
 
         public ICommand OpenFileCommand => openFileCommand ?? (openFileCommand = new RelayCommand(OpenFile));
 
         public ICommand OpenRecentFileCommand => openRecentFileCommand ?? (openRecentFileCommand = new RelayCommand<FileModel>(OpenRecentFile));
 
-        public List<FileModel> Items { get; set; }
+        public List<FileModel> Items
+        {
+            get { return items; }
+            set { Set(ref this.items, value); }
+        }
 
         public async Task InitializeAsync()
         {
-            Items = new List<FileModel>();
             await RecentlyFilesAsync();
         }
 
-        public async Task RecentlyFilesAsync()
+        private async Task RecentlyFilesAsync()
         {
-            Items.Clear();
             var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
             foreach (Windows.Storage.AccessCache.AccessListEntry entry in mru.Entries)
             {
                 string mruToken = entry.Token;
                 string mruMetadata = entry.Metadata;
-                var item = await mru.GetItemAsync(mruToken);
-                Items.Add(new FileModel { Name = item.Name, Path = item.Path, IconPath = "ms-appx:///Assets/RtfFileIcon.png" });
+                try
+                {
+                    var item = await mru.GetItemAsync(mruToken);
+
+                    if (!Items.Exists(x => x.Path == item.Path))
+                    {
+                        Items.Insert(0, new FileModel { Name = item.Name, Path = item.Path, IconPath = "ms-appx:///Assets/RtfFileIcon.png" });
+                        OnPropertyChanged(nameof(Items));
+                    }
+                }
+                catch
+                {
+                    mru.Remove(mruToken);
+                }
             }
 
             await Task.CompletedTask;

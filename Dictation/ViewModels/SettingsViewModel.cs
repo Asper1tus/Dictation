@@ -149,9 +149,9 @@
             InitializeTimer();
         }
 
-        private void Timer_Tick(object sender, object e)
+        private async void TimerTickAsync(object sender, object e)
         {
-            FileService.SaveAsync();
+            await FileService.SaveAsync();
         }
 
         private void RestoreDefault()
@@ -171,7 +171,7 @@
             {
                 int seconds = minutes * 60;
                 timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, seconds) };
-                timer.Tick += Timer_Tick;
+                timer.Tick += TimerTickAsync;
                 timer.Start();
             }
         }
