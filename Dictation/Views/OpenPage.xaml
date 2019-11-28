@@ -33,7 +33,6 @@
             <TextBlock Text="Recent Documents"
                        FontSize="30" 
                        Margin="10"/>
-
             <ListView x:Name="listItem"
                       ItemsSource="{x:Bind viewModel.Items, Mode=OneWay}"
                       Height="500">

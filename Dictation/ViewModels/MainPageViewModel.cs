@@ -46,16 +46,6 @@
             FileService.FileManipulationEnded += FileOpeningEnded;
         }
 
-        private void FileOpeningEnded()
-        {
-            IsBusy = false;
-        }
-
-        private void FileOpeningStarted()
-        {
-            IsBusy = true;
-        }
-
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
 
         public ICommand DispalyContentCommand => dispalyContentCommand ?? (dispalyContentCommand = new RelayCommand<string>(DisplayContent));
@@ -120,6 +110,16 @@
         public void Initialize(Frame contentFrame)
         {
             this.contentFrame = contentFrame;
+        }
+
+        private void FileOpeningEnded()
+        {
+            IsBusy = false;
+        }
+
+        private void FileOpeningStarted()
+        {
+            IsBusy = true;
         }
 
         private void Close()

@@ -167,9 +167,6 @@
     <Compile Include="Views\ContentDialogs\HyperLinkContentDialog.xaml.cs">
       <DependentUpon>HyperLinkContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Content\SharePage.xaml.cs">
-      <DependentUpon>SharePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Content\ToolsPage.xaml.cs">
       <DependentUpon>ToolsPage.xaml</DependentUpon>
     </Compile>
@@ -228,10 +225,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ContentDialogs\HyperLinkContentDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Content\SharePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -81,30 +81,31 @@
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </ComboBox>
-
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" >
+        <StackPanel Orientation="Horizontal">
             <ToggleButton 
                 Content="&#xE8DD;" 
                 ToolTipService.ToolTip="Bold (Ctrl + B)"  
                 IsChecked="{x:Bind viewModel.IsBold, Mode=OneWay}" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
-                CommandParameter="Bold" ></ToggleButton>
+                CommandParameter="Bold"/>
             <ToggleButton 
                 Content="&#xE8DB;" 
                 ToolTipService.ToolTip="Italic (Ctrl + I)"  
                 IsChecked="{x:Bind viewModel.IsItalic, Mode=OneWay}" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
-                CommandParameter="Italic"></ToggleButton>
+                CommandParameter="Italic"/>
             <ToggleButton 
                 Content="&#xE8DC;" 
                 ToolTipService.ToolTip="Underline (Ctrl + U)"  
                 IsChecked="{x:Bind viewModel.IsUnderline, Mode=OneWay}" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
-                CommandParameter="Underline"></ToggleButton>
+                CommandParameter="Underline"/>
 
-            <SplitButton Command="{x:Bind viewModel.ChangeForegroundColorCommand}" CommandParameter="{x:Bind viewModel.ForegroundColor, Mode=OneWay}">
+            <SplitButton 
+                Command="{x:Bind viewModel.ChangeForegroundColorCommand}" 
+                CommandParameter="{x:Bind viewModel.ForegroundColor, Mode=OneWay}">
                 <StackPanel>
                     <FontIcon Glyph="&#xE97E;" />
                     <Rectangle 
@@ -342,7 +343,6 @@
             FontSize="20"
             FontWeight="SemiBold"
             Text="Set alignment"/>
-
         <StackPanel Orientation="Horizontal">
             <ToggleButton 
                 Content="&#xE8E4;" 
@@ -402,7 +402,6 @@
             FontSize="20"
             FontWeight="SemiBold"
             Text="Insert"/>
-
         <StackPanel Orientation="Horizontal">
             <Button 
                 Height="40" Width="40" 

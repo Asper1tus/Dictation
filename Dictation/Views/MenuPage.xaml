@@ -28,7 +28,7 @@
                     Content="Back" 
                     AccessKey="B"
                     ToolTipService.ToolTip="Back to home (Alt + B)"  
-                    Tag="back" helpers:NavHelper.NavigateTo="local:MainPage" />
+                    Tag="back" helpers:NavHelper.NavigateTo="local:MainPage"/>
                 <NavigationViewItemSeparator/>
                 <NavigationViewItem 
                     Icon="Page2" 
@@ -38,7 +38,7 @@
                     <NavigationViewItem.KeyboardAccelerators>
                         <KeyboardAccelerator 
                         Modifiers="Control" 
-                        Key="N" />
+                        Key="N"/>
                     </NavigationViewItem.KeyboardAccelerators>
                 </NavigationViewItem>
                 <NavigationViewItem 
@@ -60,7 +60,7 @@
                 <NavigationViewItem 
                     Icon="SaveLocal" 
                     Content="Save as" 
-                    Tag="saveas" />
+                    Tag="saveas"/>
                 <NavigationViewItemSeparator/>
                 <NavigationViewItem 
                     Icon="Print" 
@@ -69,13 +69,13 @@
                 <NavigationViewItem 
                     Icon="Help" 
                     Content="Help"  
-                    helpers:NavHelper.NavigateTo="views:HelpPage" />
+                    helpers:NavHelper.NavigateTo="views:HelpPage"/>
                 <NavigationViewItemSeparator/>
             </NavigationView.MenuItems>
             <Frame x:Name="ContentFrame" Grid.Column="1"/>
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="ItemInvoked">
-                    <ic:InvokeCommandAction Command="{x:Bind viewModel.ItemInvokedCommand}" />
+                    <ic:InvokeCommandAction Command="{x:Bind viewModel.ItemInvokedCommand}"/>
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </NavigationView>

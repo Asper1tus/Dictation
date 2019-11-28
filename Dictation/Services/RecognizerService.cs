@@ -67,7 +67,6 @@
         private static Language GetLanguageByNativeName(string name)
         {
             var language = SpeechRecognizer.SupportedTopicLanguages.First((c) => c.NativeName.Equals(name));
-
             return DefaultSettings.Language;
         }
 

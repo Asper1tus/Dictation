@@ -206,7 +206,8 @@
             Opacity="0.5">
             <ProgressRing 
                 IsActive="True"  
-                Height="50" Width="50"/>
+                Height="50" 
+                Width="50"/>
         </controls:Loading>
     </Grid>
 </Page>
