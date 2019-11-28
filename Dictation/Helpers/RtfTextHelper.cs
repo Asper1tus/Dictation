@@ -79,7 +79,7 @@
             if (RtfTextHelper.richEditBox == null)
             {
                 RtfTextHelper.richEditBox = richEditBox;
-                RtfTextHelper.RichText = string.Empty;
+                richEditBox.TextChanged += TextChanged;
                 MessageService.StlyeChanged += SelectStyle;
                 MessageService.FontChanged += SelectFont;
                 MessageService.SizeChanged += SelectSize;
@@ -111,6 +111,11 @@
         public static void SaveFile(IRandomAccessStream stream)
         {
             richEditBox.Document.SaveToStream(TextGetOptions.FormatRtf, stream);
+        }
+
+        private static void TextChanged(object sender, RoutedEventArgs e)
+        {
+            FileService.IsFileGhanged = true;
         }
 
         private static void ReplaceSelectedWord(string replacementWord)

@@ -23,6 +23,7 @@
 };
 
         private Frame contentFrame;
+        private bool isBusy;
         private bool isPanelVisible;
         private bool isListeningVisible;
         private string title;
@@ -41,6 +42,18 @@
             IsPanelVisible = false;
             ZoomFactor = 1f;
             MessageService.ZoomFactorChanged += ZoomFactorChanged;
+            FileService.FileManipulationStarted += FileOpeningStarted;
+            FileService.FileManipulationEnded += FileOpeningEnded;
+        }
+
+        private void FileOpeningEnded()
+        {
+            IsBusy = false;
+        }
+
+        private void FileOpeningStarted()
+        {
+            IsBusy = true;
         }
 
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
@@ -56,6 +69,12 @@
         public ICommand ChangeZoomCommand => changeZoomCommand ?? (changeZoomCommand = new RelayCommand<string>(ChangeZoom));
 
         public ICommand OperationCommand => operationCommand ?? (operationCommand = new RelayCommand<string>(MessageService.SendOperation));
+
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set { Set(ref this.isBusy, value); }
+        }
 
         public bool IsListening
         {
@@ -133,7 +152,7 @@
             if (NavigationService.ContentFrame.CurrentSourcePageType != page)
             {
                 IsPanelVisible = true;
-                NavigationService.NavigateContent(page, null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
+                NavigationService.NavigateContent(page, null, new SuppressNavigationTransitionInfo());
                 Title = item.title;
             }
             else
