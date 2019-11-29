@@ -3,11 +3,14 @@
     using System;
     using System.Reflection;
     using Dictation.Helpers;
+    using Dictation.Services;
     using Dictation.ViewModels;
     using Windows.ApplicationModel;
     using Windows.ApplicationModel.Activation;
     using Windows.Globalization;
     using Windows.Storage;
+    using Windows.UI.Core.Preview;
+    using Windows.UI.Popups;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Navigation;
@@ -189,6 +192,8 @@
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
 
+                SystemNavigationManagerPreview.GetForCurrentView().CloseRequested += CloseRequested;
+
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();
             }
@@ -199,6 +204,13 @@
             {
                 RootTheme = GetEnum<ElementTheme>(savedTheme);
             }
+        }
+
+        private async void CloseRequested(object sender, SystemNavigationCloseRequestedPreviewEventArgs e)
+        {
+            var deferral = e.GetDeferral();
+            e.Handled = !await FileService.IsFileSavedAsync();
+            deferral.Complete();
         }
 
         /// <summary>

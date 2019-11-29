@@ -331,10 +331,6 @@
                             CommandParameter="ToLower" />
                     </MenuFlyout>
                 </DropDownButton.Flyout>
-
-            </DropDownButton>
-            <DropDownButton >
-                
             </DropDownButton>
         </StackPanel>
 
@@ -392,11 +388,6 @@
                     Height="15"/>
             </ToggleButton>
         </StackPanel>
-        <TextBlock 
-            Margin="5" 
-            FontSize="20" 
-            FontWeight="SemiBold"
-            Text="Line spacing"/>
         <TextBlock
             Margin="5"
             FontSize="20"

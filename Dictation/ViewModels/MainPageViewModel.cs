@@ -17,7 +17,6 @@
         private readonly List<(string tag, Type page, string title)> pages = new List<(string tag, Type page, string title)>
 {
     ("findreplace",  typeof(FindReplacePage), "Find and Replace"),
-    ("share", typeof(SharePage), "Share"),
     ("tools", typeof(ToolsPage), "Formating Tools"),
     ("vocabulary", typeof(VocabularyPage), "Vocabulary Training"),
 };
@@ -94,8 +93,8 @@
         {
             get
             {
-                // FontSize in RichEditBox 4 sizes smaller
-                return App.FontSize + 4;
+                // FontSize in RichEditBox 0.75 times smaller generally
+                return (int)Math.Ceiling(App.FontSize / 0.75);
             }
         }
 
@@ -134,14 +133,7 @@
                 IsListening = false;
             }
 
-            try
-            {
-                RecognizerService.Listening(IsListening);
-            }
-            catch
-            {
-                IsListening = false;
-            }
+            RecognizerService.Listening(IsListening);
         }
 
         private void DisplayContent(object tag)

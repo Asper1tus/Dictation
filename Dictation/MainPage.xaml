@@ -132,8 +132,8 @@
                                 Width="794"
                                 Margin="50" IsSpellCheckEnabled ="True"
                                 helpers:RtfTextHelper.RichText =""
-                                FontFamily="{x:Bind viewModel.Font}"
-                                FontSize="{x:Bind viewModel.FontSize}" />
+                                FontFamily="{x:Bind viewModel.Font, Mode=OneTime}"
+                                FontSize="{x:Bind viewModel.FontSize, Mode=OneTime}" />
                         </ScrollViewer>
                     </Grid>
                 </SplitView.Content>

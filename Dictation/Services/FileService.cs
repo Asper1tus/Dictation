@@ -101,6 +101,28 @@
             DataTransferManager.ShowShareUI();
         }
 
+        public static async Task<bool> IsFileSavedAsync()
+        {
+            if (IsFileGhanged)
+            {
+                var result = await ContentDialogService.ShowSaveDocumentDialogAsync();
+
+                if (result == ContentDialogResult.None)
+                {
+                    return false;
+                }
+                else if (result == ContentDialogResult.Primary)
+                {
+                    if (!await SaveAsync())
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         private static async Task SaveFileAsync()
         {
             if (file != null)
@@ -121,28 +143,6 @@
             request.Data.SetStorageItems(new[] { file }, false);
             request.Data.Properties.Title = file.Name;
             request.Data.Properties.Description = "Shared from Dictation";
-        }
-
-        private static async Task<bool> IsFileSavedAsync()
-        {
-            if (IsFileGhanged)
-            {
-                var result = await ContentDialogService.ShowSaveDocumentDialogAsync();
-
-                if (result == ContentDialogResult.None)
-                {
-                    return false;
-                }
-                else if (result == ContentDialogResult.Primary)
-                {
-                    if (!await SaveAsync())
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
         }
 
         private static async void CreateFileAsync()

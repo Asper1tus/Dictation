@@ -10,9 +10,9 @@
 
         public MainPage()
         {
-            InitializeComponent();
             viewModel = App.Locator.MainPageViewModel;
             NavigationCacheMode = NavigationCacheMode.Enabled;
+            InitializeComponent();
             viewModel.Initialize(ContentFrame);
         }
     }
