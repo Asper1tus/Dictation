@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using Dictation.Commands;
     using Dictation.Helpers;
@@ -11,38 +12,59 @@
 
     public class OpenViewModel : Observable
     {
+        private List<FileModel> items;
         private ICommand openFileCommand;
         private ICommand openRecentFileCommand;
 
         public OpenViewModel()
         {
             Items = new List<FileModel>();
-            RecentlyFilesAsync();
         }
 
         public ICommand OpenFileCommand => openFileCommand ?? (openFileCommand = new RelayCommand(OpenFile));
 
         public ICommand OpenRecentFileCommand => openRecentFileCommand ?? (openRecentFileCommand = new RelayCommand<FileModel>(OpenRecentFile));
 
-        public List<FileModel> Items { get; set; }
-
-        public async void RecentlyFilesAsync()
+        public List<FileModel> Items
         {
-            Items.Clear();
+            get { return items; }
+            set { Set(ref this.items, value); }
+        }
+
+        public async Task InitializeAsync()
+        {
+            await RecentlyFilesAsync();
+        }
+
+        private async Task RecentlyFilesAsync()
+        {
             var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
             foreach (Windows.Storage.AccessCache.AccessListEntry entry in mru.Entries)
             {
                 string mruToken = entry.Token;
                 string mruMetadata = entry.Metadata;
-                var item = await mru.GetItemAsync(mruToken);
-                Items.Add(new FileModel { Name = item.Name, Path = item.Path, IconPath = "ms-appx:///Assets/RtfFileIcon.png" });
+                try
+                {
+                    var item = await mru.GetItemAsync(mruToken);
+
+                    if (!Items.Exists(x => x.Path == item.Path))
+                    {
+                        Items.Insert(0, new FileModel { Name = item.Name, Path = item.Path, IconPath = "ms-appx:///Assets/RtfFileIcon.png" });
+                        OnPropertyChanged(nameof(Items));
+                    }
+                }
+                catch
+                {
+                    mru.Remove(mruToken);
+                }
             }
+
+            await Task.CompletedTask;
         }
 
         private void OpenFile()
         {
             FileService.OpenAsync();
-            RecentlyFilesAsync();
             NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 

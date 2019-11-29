@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Dictation.Helpers;
+    using Windows.ApplicationModel.DataTransfer;
     using Windows.Storage;
     using Windows.Storage.Pickers;
     using Windows.UI.Xaml.Controls;
@@ -11,46 +12,44 @@
     public static class FileService
     {
         private static StorageFile file;
-        private static string savedText;
 
-        public static async void OpenAsync()
+        public static event Action FileManipulationStarted;
+
+        public static event Action FileManipulationEnded;
+
+        public static bool IsFileGhanged { get; set; }
+
+        public static async void OpenAsync(string path = null)
         {
             if (await IsFileSavedAsync())
             {
-                var openPicker = new FileOpenPicker
+                if (path == null)
                 {
-                    ViewMode = PickerViewMode.Thumbnail,
-                    SuggestedStartLocation = PickerLocationId.Desktop,
-                    CommitButtonText = "Open",
-                };
-                openPicker.FileTypeFilter.Add(".rtf");
+                    var openPicker = new FileOpenPicker
+                    {
+                        ViewMode = PickerViewMode.Thumbnail,
+                        SuggestedStartLocation = PickerLocationId.Desktop,
+                        CommitButtonText = "Open",
+                    };
+                    openPicker.FileTypeFilter.Add(".rtf");
+                    file = await openPicker.PickSingleFileAsync();
+                }
+                else
+                {
+                    file = await StorageFile.GetFileFromPathAsync(path);
+                }
 
-                file = await openPicker.PickSingleFileAsync();
                 if (file != null)
                 {
+                    FileManipulationStarted();
                     var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
                     RtfTextHelper.OpenFile(stream);
                     stream.Dispose();
-                    savedText = RtfTextHelper.RichText;
+                    IsFileGhanged = false;
 
                     var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
                     mru.Add(file, "profile pic");
-                }
-            }
-        }
-
-        public static async void OpenAsync(string path)
-        {
-            if (await IsFileSavedAsync())
-            {
-                file = await StorageFile.GetFileFromPathAsync(path);
-
-                if (file != null)
-                {
-                    var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-                    RtfTextHelper.OpenFile(stream);
-                    stream.Dispose();
-                    savedText = RtfTextHelper.RichText;
+                    FileManipulationEnded();
                 }
             }
         }
@@ -59,18 +58,15 @@
         {
             if (file == null)
             {
-                SaveAsAsync();
+                await SaveAsAsync();
                 return false;
             }
 
-            var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-            RtfTextHelper.SaveFile(stream);
-            stream.Dispose();
-            savedText = RtfTextHelper.RichText;
+            await SaveFileAsync();
             return true;
         }
 
-        public static async void SaveAsAsync()
+        public static async Task SaveAsAsync()
         {
             var savePicker = new FileSavePicker
             {
@@ -81,27 +77,33 @@
             savePicker.SuggestedFileName = "New Document";
 
             file = await savePicker.PickSaveFileAsync();
-
-            if (file != null)
-            {
-                var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-                RtfTextHelper.SaveFile(stream);
-                stream.Dispose();
-                savedText = RtfTextHelper.RichText;
-            }
+            await SaveFileAsync();
         }
 
         public static async void New()
         {
             if (await IsFileSavedAsync())
             {
-                Clear();
+                CreateFileAsync();
             }
         }
 
-        private static async Task<bool> IsFileSavedAsync()
+        public static async void ShareFileAsync()
         {
-            if (RtfTextHelper.RichText != savedText)
+            if (file == null)
+            {
+                CreateFileAsync();
+            }
+
+            await IsFileSavedAsync();
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += DataRequested;
+            DataTransferManager.ShowShareUI();
+        }
+
+        public static async Task<bool> IsFileSavedAsync()
+        {
+            if (IsFileGhanged)
             {
                 var result = await ContentDialogService.ShowSaveDocumentDialogAsync();
 
@@ -121,11 +123,36 @@
             return true;
         }
 
-        private static void Clear()
+        private static async Task SaveFileAsync()
         {
-            file = null;
-            RtfTextHelper.RichText = string.Empty;
-            savedText = RtfTextHelper.RichText;
+            if (file != null)
+            {
+                FileManipulationStarted();
+                var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+                RtfTextHelper.SaveFile(stream);
+                stream.Dispose();
+
+                IsFileGhanged = false;
+                FileManipulationEnded();
+            }
+        }
+
+        private static void DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            DataRequest request = args.Request;
+            request.Data.SetStorageItems(new[] { file }, false);
+            request.Data.Properties.Title = file.Name;
+            request.Data.Properties.Description = "Shared from Dictation";
+        }
+
+        private static async void CreateFileAsync()
+        {
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            file = await storageFolder.CreateFileAsync("Document.rtf", CreationCollisionOption.ReplaceExisting);
+            var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+            RtfTextHelper.OpenFile(stream);
+            stream.Dispose();
+            IsFileGhanged = false;
         }
     }
 }

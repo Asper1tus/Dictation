@@ -31,7 +31,6 @@
             NavigationService.ContentFrame = contentFrame;
             NavigationService.NavigationFailed += Frame_NavigationFailed;
             NavigationService.Navigated += Frame_Navigated;
-
             NavigationService.NavigateContent(typeof(OpenPage));
         }
 
@@ -39,6 +38,7 @@
         {
             if (args.IsSettingsInvoked)
             {
+                navigationView.Header = "Settings";
                 NavigationService.NavigateContent(typeof(SettingsPage));
                 return;
             }
@@ -55,6 +55,7 @@
             }
 
             var pageType = item.GetValue(NavHelper.NavigateToProperty) as Type;
+            navigationView.Header = item.Content;
             NavigationService.NavigateContent(pageType);
         }
 

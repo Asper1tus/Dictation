@@ -30,6 +30,8 @@
 
         public static event Action ImageInsert;
 
+        public static event Action<float> ZoomFactorChanged;
+
         public static void SendStyle(string style)
         {
             StlyeChanged(style);
@@ -100,6 +102,11 @@
             catch
             {
             }
+        }
+
+        public static void SendZoomFactor(float zoomFactor)
+        {
+            ZoomFactorChanged(zoomFactor);
         }
     }
 }

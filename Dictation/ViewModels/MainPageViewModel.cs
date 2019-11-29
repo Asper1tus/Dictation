@@ -17,19 +17,20 @@
         private readonly List<(string tag, Type page, string title)> pages = new List<(string tag, Type page, string title)>
 {
     ("findreplace",  typeof(FindReplacePage), "Find and Replace"),
-    ("share", typeof(SharePage), "Share"),
     ("tools", typeof(ToolsPage), "Formating Tools"),
     ("vocabulary", typeof(VocabularyPage), "Vocabulary Training"),
 };
 
         private Frame contentFrame;
+        private bool isBusy;
         private bool isPanelVisible;
         private bool isListeningVisible;
         private string title;
-        private float zoomValue;
+        private float zoomFactor;
         private ICommand listeningCommand;
         private ICommand dispalyContentCommand;
         private ICommand closeCommand;
+        private ICommand openShareWindowCommand;
         private ICommand goToMenuCommand;
         private ICommand operationCommand;
         private ICommand changeZoomCommand;
@@ -38,12 +39,17 @@
         {
             RecognizerService.InitializeRecognizerService();
             IsPanelVisible = false;
-            ZoomValue = 1f;
+            ZoomFactor = 1f;
+            MessageService.ZoomFactorChanged += ZoomFactorChanged;
+            FileService.FileManipulationStarted += FileOpeningStarted;
+            FileService.FileManipulationEnded += FileOpeningEnded;
         }
 
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
 
-        public ICommand DispalyContentCommand => dispalyContentCommand ?? (dispalyContentCommand = new RelayCommand<string>(ChoosePage));
+        public ICommand DispalyContentCommand => dispalyContentCommand ?? (dispalyContentCommand = new RelayCommand<string>(DisplayContent));
+
+        public ICommand OpenShareWindowCommand => openShareWindowCommand ?? (openShareWindowCommand = new RelayCommand(OpenShareWindow));
 
         public ICommand CloseCommand => closeCommand ?? (closeCommand = new RelayCommand(Close));
 
@@ -52,6 +58,12 @@
         public ICommand ChangeZoomCommand => changeZoomCommand ?? (changeZoomCommand = new RelayCommand<string>(ChangeZoom));
 
         public ICommand OperationCommand => operationCommand ?? (operationCommand = new RelayCommand<string>(MessageService.SendOperation));
+
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set { Set(ref this.isBusy, value); }
+        }
 
         public bool IsListening
         {
@@ -71,18 +83,18 @@
             set { Set(ref this.title, value); }
         }
 
-        public float ZoomValue
+        public float ZoomFactor
         {
-            get { return zoomValue; }
-            set { Set(ref this.zoomValue, value); }
+            get { return zoomFactor; }
+            set { Set(ref this.zoomFactor, value); }
         }
 
         public int FontSize
         {
             get
             {
-                // FontSize in RichEditBox 4 sizes smaller
-                return App.FontSize + 4;
+                // FontSize in RichEditBox 0.75 times smaller generally
+                return (int)Math.Ceiling(App.FontSize / 0.75);
             }
         }
 
@@ -99,6 +111,16 @@
             this.contentFrame = contentFrame;
         }
 
+        private void FileOpeningEnded()
+        {
+            IsBusy = false;
+        }
+
+        private void FileOpeningStarted()
+        {
+            IsBusy = true;
+        }
+
         private void Close()
         {
             IsPanelVisible = false;
@@ -111,24 +133,30 @@
                 IsListening = false;
             }
 
-            try
+            RecognizerService.Listening(IsListening);
+        }
+
+        private void DisplayContent(object tag)
+        {
+            NavigationService.ContentFrame = contentFrame;
+            var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag));
+            var page = item.page;
+            if (NavigationService.ContentFrame.CurrentSourcePageType != page)
             {
-                RecognizerService.Listening(IsListening);
+                IsPanelVisible = true;
+                NavigationService.NavigateContent(page, null, new SuppressNavigationTransitionInfo());
+                Title = item.title;
             }
-            catch
+            else
             {
-                IsListening = false;
+                IsPanelVisible = !IsPanelVisible;
+                NavigationService.ContentFrame = null;
             }
         }
 
-        private void ChoosePage(object tag)
+        private void OpenShareWindow()
         {
-            NavigationService.ContentFrame = contentFrame;
-            IsPanelVisible = true;
-            var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag));
-            var page = item.page;
-            NavigationService.NavigateContent(page, null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
-            Title = item.title;
+            FileService.ShareFileAsync();
         }
 
         private void GoToMenu()
@@ -140,22 +168,27 @@
         {
             if (operation == "Plus")
             {
-                ZoomValue += 0.1f;
+                ZoomFactor += 0.1f;
 
-                if (ZoomValue > 5)
+                if (ZoomFactor > 5)
                 {
-                    ZoomValue = 5;
+                    ZoomFactor = 5;
                 }
             }
             else
             {
-                ZoomValue -= 0.1f;
+                ZoomFactor -= 0.1f;
 
-                if (ZoomValue < 0.1f)
+                if (ZoomFactor < 0.1f)
                 {
-                    ZoomValue = 0.1f;
+                    ZoomFactor = 0.1f;
                 }
             }
+        }
+
+        private void ZoomFactorChanged(float zoomFactor)
+        {
+            ZoomFactor = zoomFactor;
         }
     }
 }

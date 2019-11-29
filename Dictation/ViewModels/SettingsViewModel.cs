@@ -2,10 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using Dictation.Commands;
     using Dictation.Helpers;
     using Dictation.Services;
+    using Microsoft.Toolkit.Uwp.Extensions;
+    using Windows.ApplicationModel;
     using Windows.UI.Xaml;
 
     public class SettingsViewModel : Observable
@@ -13,6 +16,7 @@
         private ICommand chooseThemeCommand;
         private ICommand saveCommand;
         private ICommand restoreDefaultCommand;
+        private string versionDescription;
         private string language;
         private string font;
         private int size;
@@ -32,6 +36,7 @@
             Theme = currentTheme;
             Language = App.RecognitionLanguage;
             InitializeTimer();
+            VersionDescription = GetVersionDescription();
         }
 
         public ICommand ChooseThemeCommand => chooseThemeCommand ?? (chooseThemeCommand = new RelayCommand<string>(ChooseTheme));
@@ -68,6 +73,13 @@
         {
             get { return theme; }
             set { Set(ref this.theme, value); }
+        }
+
+        public string VersionDescription
+        {
+            get { return versionDescription; }
+
+            set { Set(ref versionDescription, value); }
         }
 
         public string Font
@@ -115,7 +127,6 @@
                     Minutes = 0;
                 }
             }
-
         }
 
         private void ChooseTheme(string selectedTheme)
@@ -138,9 +149,9 @@
             InitializeTimer();
         }
 
-        private void Timer_Tick(object sender, object e)
+        private async void TimerTickAsync(object sender, object e)
         {
-            FileService.SaveAsync();
+            await FileService.SaveAsync();
         }
 
         private void RestoreDefault()
@@ -160,9 +171,19 @@
             {
                 int seconds = minutes * 60;
                 timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, seconds) };
-                timer.Tick += Timer_Tick;
+                timer.Tick += TimerTickAsync;
                 timer.Start();
             }
+        }
+
+        private string GetVersionDescription()
+        {
+            var appName = "AppDisplayName".GetLocalized();
+            var package = Package.Current;
+            var packageId = package.Id;
+            var version = packageId.Version;
+
+            return $"{appName} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
         }
     }
 }

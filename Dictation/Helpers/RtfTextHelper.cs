@@ -79,7 +79,7 @@
             if (RtfTextHelper.richEditBox == null)
             {
                 RtfTextHelper.richEditBox = richEditBox;
-                RtfTextHelper.RichText = string.Empty;
+                richEditBox.TextChanged += TextChanged;
                 MessageService.StlyeChanged += SelectStyle;
                 MessageService.FontChanged += SelectFont;
                 MessageService.SizeChanged += SelectSize;
@@ -92,6 +92,7 @@
                 MessageService.ImageInsert += InsertImage;
                 MessageService.HyperLinkInsert += InsertHyperlink;
                 richEditBox.PointerCaptureLost += PointerCaptureLost;
+                richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
             }
 
             richEditBox.SetValue(RichTextProperty, value);
@@ -112,6 +113,11 @@
             richEditBox.Document.SaveToStream(TextGetOptions.FormatRtf, stream);
         }
 
+        private static void TextChanged(object sender, RoutedEventArgs e)
+        {
+            FileService.IsFileGhanged = true;
+        }
+
         private static void ReplaceSelectedWord(string replacementWord)
         {
             richEditBox.ReplaceSelectedWord(replacementWord);
@@ -125,6 +131,11 @@
         private static void FindWord(string word, bool options)
         {
             richEditBox.FindWord(word, options);
+        }
+
+        private static void ProcessKeyboardAccelerators(UIElement sender, ProcessKeyboardAcceleratorEventArgs args)
+        {
+            MessageService.Notify();
         }
 
         private static void PointerCaptureLost(object sender, PointerRoutedEventArgs e)

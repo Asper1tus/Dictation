@@ -2,6 +2,7 @@
 {
     using Dictation.ViewModels;
     using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Navigation;
 
     public sealed partial class SettingsPage : Page
     {

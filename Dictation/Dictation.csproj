@@ -167,9 +167,6 @@
     <Compile Include="Views\ContentDialogs\HyperLinkContentDialog.xaml.cs">
       <DependentUpon>HyperLinkContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Content\SharePage.xaml.cs">
-      <DependentUpon>SharePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Content\ToolsPage.xaml.cs">
       <DependentUpon>ToolsPage.xaml</DependentUpon>
     </Compile>
@@ -231,10 +228,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Content\SharePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Content\ToolsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -270,6 +263,9 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
       <Version>6.0.0</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>6.0.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
     </PackageReference>
@@ -291,6 +287,7 @@
   <ItemGroup />
   <ItemGroup>
     <None Include=".editorconfig" />
+    <PRIResource Include="Strings\en-us\Resources.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

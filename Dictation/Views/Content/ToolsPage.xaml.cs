@@ -9,8 +9,8 @@
 
         public ToolsPage()
         {
-            this.InitializeComponent();
             viewModel = App.Locator.ToolsViewModel;
+            this.InitializeComponent();
         }
     }
 }
