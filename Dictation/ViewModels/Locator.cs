@@ -9,12 +9,10 @@
         {
             SimpleIoc.Default.Register<MenuViewModel>();
             SimpleIoc.Default.Register<MainPageViewModel>();
-            SimpleIoc.Default.Register<HelpViewModel>();
             SimpleIoc.Default.Register<OpenViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
             SimpleIoc.Default.Register<FindReplaceViewModel>();
             SimpleIoc.Default.Register<ToolsViewModel>();
-            SimpleIoc.Default.Register<SettingsViewModel>();
         }
 
         public MainPageViewModel MainPageViewModel => SimpleIoc.Default.GetInstance<MainPageViewModel>();
