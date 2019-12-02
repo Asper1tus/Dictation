@@ -135,6 +135,11 @@
 
         private static void ProcessKeyboardAccelerators(UIElement sender, ProcessKeyboardAcceleratorEventArgs args)
         {
+            if (args.Modifiers == Windows.System.VirtualKeyModifiers.Control && args.Key == Windows.System.VirtualKey.S)
+            {
+                FileService.SaveAsync();
+            }
+
             MessageService.Notify();
         }
 

@@ -73,6 +73,10 @@
         private static async void InitializeSpeechRecognizer(Language language)
         {
             speechRecognizer = new SpeechRecognizer(language);
+            var grammar = new SpeechRecognitionTopicConstraint(SpeechRecognitionScenario.Dictation, "Dictation");
+            speechRecognizer.Constraints.Add(grammar);
+
+            await speechRecognizer.CompileConstraintsAsync();
             SpeechRecognitionCompilationResult result =
                 await speechRecognizer.CompileConstraintsAsync();
             speechRecognizer.ContinuousRecognitionSession.ResultGenerated +=
