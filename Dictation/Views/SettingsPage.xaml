@@ -114,9 +114,6 @@
                         VerticalAlignment="Center" 
                         Text="minutes"/>
                 </StackPanel>
-                <TextBlock 
-                    Style="{ThemeResource BodyTextBlockStyle}" 
-                    Text="{x:Bind viewModel.VersionDescription, Mode=OneWay}"/>
             </StackPanel>
         </ScrollViewer>
         <StackPanel 

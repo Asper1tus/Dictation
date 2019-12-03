@@ -1,6 +1,7 @@
 ﻿namespace Dictation.ViewModels
 {
     using Dictation.ViewModels.Content;
+    using Dictation.ViewModels.HelpPages;
     using GalaSoft.MvvmLight.Ioc;
 
     public class Locator
@@ -13,6 +14,7 @@
             SimpleIoc.Default.Register<SettingsViewModel>();
             SimpleIoc.Default.Register<FindReplaceViewModel>();
             SimpleIoc.Default.Register<ToolsViewModel>();
+            SimpleIoc.Default.Register<AboutViewModel>();
         }
 
         public MainPageViewModel MainPageViewModel => SimpleIoc.Default.GetInstance<MainPageViewModel>();
@@ -26,5 +28,7 @@
         public MenuViewModel MenuViewModel => SimpleIoc.Default.GetInstance<MenuViewModel>();
 
         public SettingsViewModel SettingsViewModel => SimpleIoc.Default.GetInstance<SettingsViewModel>();
+
+        public AboutViewModel AboutViewModel => SimpleIoc.Default.GetInstance<AboutViewModel>();
     }
 }

@@ -9,6 +9,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock>About</TextBlock>
+        <TextBlock 
+            FontSize="20"
+            FontWeight="Bold"
+            Text="{x:Bind viewModel.VersionDescription, Mode=OneWay}"/>
     </Grid>
 </Page>

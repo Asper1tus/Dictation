@@ -148,6 +148,7 @@
     <Compile Include="ViewModels\Content\FindReplaceViewModel.cs" />
     <Compile Include="ViewModels\ContentDialogs\HyperLinkViewModel.cs" />
     <Compile Include="ViewModels\Content\ToolsViewModel.cs" />
+    <Compile Include="ViewModels\HelpPages\AboutViewModel.cs" />
     <Compile Include="ViewModels\Locator.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -221,6 +222,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\MainStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ToolsStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
