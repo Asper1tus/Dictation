@@ -43,19 +43,13 @@
         {
             if (isListening)
             {
-                if (speechRecognizer.State == SpeechRecognizerState.Idle)
-                {
-                    await speechRecognizer.ContinuousRecognitionSession.StartAsync();
-                    dictatedTextBuilder.Append(RtfTextHelper.Text);
-                    richText = RtfTextHelper.RichText;
-                }
+                await speechRecognizer.ContinuousRecognitionSession.StartAsync();
+                dictatedTextBuilder.Append(RtfTextHelper.Text);
+                richText = RtfTextHelper.RichText;
             }
             else
             {
-                if (speechRecognizer.State == SpeechRecognizerState.Idle)
-                {
-                    await speechRecognizer.ContinuousRecognitionSession.CancelAsync();
-                }
+                await speechRecognizer.ContinuousRecognitionSession.CancelAsync();
 
                 dictatedTextBuilder.Clear();
                 RtfTextHelper.RichText = richText;
@@ -75,8 +69,8 @@
             speechRecognizer = new SpeechRecognizer(language);
             var grammar = new SpeechRecognitionTopicConstraint(SpeechRecognitionScenario.Dictation, "Dictation");
             speechRecognizer.Constraints.Add(grammar);
-
             await speechRecognizer.CompileConstraintsAsync();
+
             SpeechRecognitionCompilationResult result =
                 await speechRecognizer.CompileConstraintsAsync();
             speechRecognizer.ContinuousRecognitionSession.ResultGenerated +=
