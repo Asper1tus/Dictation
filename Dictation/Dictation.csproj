@@ -148,7 +148,7 @@
     <Compile Include="ViewModels\Content\FindReplaceViewModel.cs" />
     <Compile Include="ViewModels\ContentDialogs\HyperLinkViewModel.cs" />
     <Compile Include="ViewModels\Content\ToolsViewModel.cs" />
-    <Compile Include="ViewModels\HelpViewModel.cs" />
+    <Compile Include="ViewModels\HelpPages\AboutViewModel.cs" />
     <Compile Include="ViewModels\Locator.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -175,6 +175,15 @@
     </Compile>
     <Compile Include="Views\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpPages\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpPages\FaqPage.xaml.cs">
+      <DependentUpon>FaqPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpPages\ShortcutKeysPage.xaml.cs">
+      <DependentUpon>ShortcutKeysPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
@@ -216,6 +225,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\ToolsStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ContentDialogs\SaveDocumentContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -237,6 +250,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HelpPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HelpPages\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HelpPages\FaqPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HelpPages\ShortcutKeysPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

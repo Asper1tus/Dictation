@@ -19,7 +19,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -52,13 +51,27 @@
                 <AppBarButton 
                     Icon="Font" 
                     Label="Formating Tools" 
+                    ToolTipService.ToolTip="Open Tools (Ctrl + T)"
                     Command="{x:Bind viewModel.DispalyContentCommand}" 
-                    CommandParameter="tools"/>
+                    CommandParameter="tools">
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator 
+                            Modifiers="Control"   
+                            Key="T"/>
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
                 <AppBarButton 
                     Icon="Rename" 
                     Label="Find and Replace" 
+                    ToolTipService.ToolTip="Find text (Ctrl + F)"
                     Command="{x:Bind viewModel.DispalyContentCommand}" 
-                    CommandParameter="findreplace"/>
+                    CommandParameter="findreplace">
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator 
+                            Modifiers="Control"   
+                            Key="F"/>
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
                 <AppBarButton 
                     Icon="Share" 
                     Label="Share"

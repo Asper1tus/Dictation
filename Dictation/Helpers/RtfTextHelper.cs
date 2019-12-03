@@ -133,8 +133,36 @@
             richEditBox.FindWord(word, options);
         }
 
-        private static void ProcessKeyboardAccelerators(UIElement sender, ProcessKeyboardAcceleratorEventArgs args)
+        private static async void ProcessKeyboardAccelerators(UIElement sender, ProcessKeyboardAcceleratorEventArgs args)
         {
+            if (args.Modifiers == Windows.System.VirtualKeyModifiers.Control)
+            {
+                if (args.Key == Windows.System.VirtualKey.S)
+                {
+                    await FileService.SaveAsync();
+                }
+
+                if (args.Key == Windows.System.VirtualKey.O)
+                {
+                    FileService.OpenAsync();
+                }
+
+                if (args.Key == Windows.System.VirtualKey.N)
+                {
+                    FileService.New();
+                }
+
+                if (args.Key == Windows.System.VirtualKey.K)
+                {
+                    ContentDialogService.ShowHyperLinkDialogAsync();
+                }
+            }
+
+            if (args.Modifiers == (Windows.System.VirtualKeyModifiers.Control | Windows.System.VirtualKeyModifiers.Shift) && args.Key == Windows.System.VirtualKey.S)
+            {
+                await FileService.SaveAsAsync();
+            }
+
             MessageService.Notify();
         }
 

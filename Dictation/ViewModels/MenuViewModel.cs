@@ -38,7 +38,6 @@
         {
             if (args.IsSettingsInvoked)
             {
-                navigationView.Header = "Settings";
                 NavigationService.NavigateContent(typeof(SettingsPage));
                 return;
             }
@@ -55,7 +54,6 @@
             }
 
             var pageType = item.GetValue(NavHelper.NavigateToProperty) as Type;
-            navigationView.Header = item.Content;
             NavigationService.NavigateContent(pageType);
         }
 
@@ -83,7 +81,7 @@
             return pageType == sourcePageType;
         }
 
-        private void ChooseItem(string tag)
+        private async void ChooseItem(string tag)
         {
             switch (tag)
             {
@@ -94,10 +92,10 @@
                     FileService.New();
                     break;
                 case "save":
-                    FileService.SaveAsync();
+                    await FileService.SaveAsync();
                     break;
                 case "saveas":
-                    FileService.SaveAsAsync();
+                    await FileService.SaveAsAsync();
                     break;
             }
 
