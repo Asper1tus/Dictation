@@ -149,7 +149,7 @@
 
                 if (args.Key == Windows.System.VirtualKey.N)
                 {
-                    FileService.New();
+                    await FileService.New();
                 }
 
                 if (args.Key == Windows.System.VirtualKey.K)

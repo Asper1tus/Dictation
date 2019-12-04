@@ -89,7 +89,7 @@
                     NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
                     break;
                 case "new":
-                    FileService.New();
+                    await FileService.New();
                     break;
                 case "save":
                     await FileService.SaveAsync();

@@ -35,16 +35,6 @@
         private ICommand operationCommand;
         private ICommand changeZoomCommand;
 
-        public MainPageViewModel()
-        {
-            RecognizerService.InitializeRecognizerService();
-            IsPanelVisible = false;
-            ZoomFactor = 1f;
-            MessageService.ZoomFactorChanged += ZoomFactorChanged;
-            FileService.FileManipulationStarted += FileOpeningStarted;
-            FileService.FileManipulationEnded += FileOpeningEnded;
-        }
-
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
 
         public ICommand DispalyContentCommand => dispalyContentCommand ?? (dispalyContentCommand = new RelayCommand<string>(DisplayContent));
@@ -106,19 +96,35 @@
             }
         }
 
-        public void Initialize(Frame contentFrame)
+        public string FileName
         {
+            get
+            {
+                return FileService.FileName;
+            }
+        }
+
+        public async void Initialize(Frame contentFrame)
+        {
+            MessageService.ZoomFactorChanged += ZoomFactorChanged;
+            FileService.FileManipulationStarted += FileManipulationStarted;
+            FileService.FileManipulationEnded += FileManipulationEnded;
+            await FileService.New();
             this.contentFrame = contentFrame;
+            RecognizerService.InitializeRecognizerService();
+            IsPanelVisible = false;
+            ZoomFactor = 1f;
         }
 
-        private void FileOpeningEnded()
-        {
-            IsBusy = false;
-        }
-
-        private void FileOpeningStarted()
+        private void FileManipulationStarted()
         {
             IsBusy = true;
+        }
+
+        private void FileManipulationEnded()
+        {
+            IsBusy = false;
+            OnPropertyChanged(nameof(FileName));
         }
 
         private void Close()
@@ -156,7 +162,7 @@
 
         private void OpenShareWindow()
         {
-            FileService.ShareFileAsync();
+            FileService.ShareAsync();
         }
 
         private void GoToMenu()
