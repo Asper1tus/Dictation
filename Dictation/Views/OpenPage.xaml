@@ -28,7 +28,6 @@
                     Key="O" />
             </Button.KeyboardAccelerators>
         </Button>
-
         <StackPanel Grid.Row="1" >
             <TextBlock Text="Recent Documents"
                        FontSize="30" 
@@ -60,7 +59,6 @@
                             ScrollViewer.IsVerticalRailEnabled="True"/>
                     </ItemsPanelTemplate >
                 </ListView.ItemsPanel>
-                
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="SelectionChanged">
                         <ic:InvokeCommandAction 

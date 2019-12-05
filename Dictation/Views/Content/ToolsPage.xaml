@@ -10,6 +10,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}"
     Width="300">
+    
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,7 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-
+    
     <StackPanel 
         Margin="10" 
         Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
@@ -57,7 +58,6 @@
                 </i:Interaction.Behaviors>
             </ComboBox>
         </StackPanel>
-
         <StackPanel Orientation="Horizontal">
             <ToggleButton 
                 Content="&#xE8DD;" 
@@ -77,7 +77,6 @@
                 IsChecked="{x:Bind viewModel.IsUnderline, Mode=OneWay}" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
                 CommandParameter="Underline"/>
-
             <SplitButton 
                 Command="{x:Bind viewModel.ChangeForegroundColorCommand}" 
                 CommandParameter="{x:Bind viewModel.ForegroundColor, Mode=OneWay}">
@@ -172,7 +171,6 @@
                     </Flyout>
                 </SplitButton.Flyout>
             </SplitButton>
-
             <SplitButton
                 Command="{x:Bind viewModel.ChangeBackgroundColorCommand}"
                 CommandParameter="{x:Bind viewModel.BackgroundColor, Mode=OneWay}">
@@ -267,9 +265,7 @@
                     </Flyout>
                 </SplitButton.Flyout>
             </SplitButton>
-
         </StackPanel>
-
         <StackPanel Orientation="Horizontal" >
             <ToggleButton
                 IsChecked="{x:Bind viewModel.IsStrikethrough, Mode=OneWay}"
@@ -308,7 +304,6 @@
                 </DropDownButton.Flyout>
             </DropDownButton>
         </StackPanel>
-
         <TextBlock
             Margin="5"
             FontSize="20"

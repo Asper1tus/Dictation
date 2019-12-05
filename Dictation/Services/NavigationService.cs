@@ -10,8 +10,8 @@
     public static class NavigationService
     {
         private static Frame frame;
-        private static object lastParamUsed;
         private static Frame contentFrame;
+        private static object lastParamUsed;
 
         public static event NavigatedEventHandler Navigated;
 

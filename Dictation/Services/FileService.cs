@@ -160,7 +160,6 @@
             var stream = await tempFile.OpenAsync(FileAccessMode.ReadWrite);
             RtfTextHelper.OpenFile(stream);
             stream.Dispose();
-
             IsFileGhanged = false;
         }
     }

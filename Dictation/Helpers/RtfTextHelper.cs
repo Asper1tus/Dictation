@@ -19,8 +19,8 @@
 
         public static string RichText
         {
-            get { return richEditBox.GetRtf(); }
-            set { richEditBox.SetRtf(value); }
+            get => richEditBox.GetRtf();
+            set => richEditBox.SetRtf(value);
         }
 
         public static string Text
@@ -79,18 +79,18 @@
             if (RtfTextHelper.richEditBox == null)
             {
                 RtfTextHelper.richEditBox = richEditBox;
-                richEditBox.TextChanged += TextChanged;
                 MessageService.StlyeChanged += SelectStyle;
                 MessageService.FontChanged += SelectFont;
                 MessageService.SizeChanged += SelectSize;
-                MessageService.OperationSent += SelectOperation;
-                MessageService.FindWord += FindWord;
-                MessageService.ReplaceSelectedWord += ReplaceSelectedWord;
-                MessageService.ReplaceAllWords += ReplaceAllWords;
+                MessageService.TextActionSending += SelectOperation;
+                MessageService.WordFinding += FindWord;
+                MessageService.ReplaceingSelectedWord += ReplaceSelectedWord;
+                MessageService.AllWordsReplacing += ReplaceAllWords;
                 MessageService.ForegroundColorChanged += SelectColor;
                 MessageService.BackgroundColorChanged += SelectHighlight;
-                MessageService.ImageInsert += InsertImage;
-                MessageService.HyperLinkInsert += InsertHyperlink;
+                MessageService.ImageInserting += InsertImage;
+                MessageService.HyperLinkInserting += InsertHyperlink;
+                richEditBox.TextChanged += TextChanged;
                 richEditBox.PointerCaptureLost += PointerCaptureLost;
                 richEditBox.ProcessKeyboardAccelerators += ProcessKeyboardAccelerators;
             }

@@ -26,7 +26,6 @@
                     <ColumnDefinition Width="400"/>
                     <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
-
                 <StackPanel Grid.Column="0">
                     <TextBlock HorizontalAlignment="Left">
                         <Run 
@@ -45,7 +44,6 @@
                         <LineBreak/>
                         <Run Text="SaveAs Document"/>
                     </TextBlock>
-                    
                     <TextBlock>
                         <Run 
                             FontWeight="Bold" 
@@ -63,7 +61,6 @@
                         <LineBreak/>
                         <Run Text="Find and Replace"/>
                     </TextBlock>
-
                     <TextBlock>
                         <Run 
                             FontWeight="Bold" 
@@ -93,7 +90,6 @@
                         <LineBreak/>
                     </TextBlock>
                 </StackPanel>
-                
                 <StackPanel Grid.Column="1">
                     <TextBlock>
                         <LineBreak/>
@@ -109,7 +105,6 @@
                         <LineBreak/>
                         <Run Text="Ctrl + Shift + S"/>
                     </TextBlock>
-
                     <TextBlock>
                         <LineBreak/>
                         <Run Text="Ctrl + Z"/>
@@ -124,7 +119,6 @@
                         <LineBreak/>
                         <Run Text="Ctrl + F"/>
                     </TextBlock>
-
                     <TextBlock>
                         <LineBreak/>
                         <Run Text="Ctrl + B"/>

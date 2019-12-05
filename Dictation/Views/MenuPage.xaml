@@ -11,6 +11,7 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
+    
     <Grid>
         <NavigationView 
             x:Name="NavView" 
@@ -83,7 +84,9 @@
                     helpers:NavHelper.NavigateTo="views:HelpPage"/>
                 <NavigationViewItemSeparator/>
             </NavigationView.MenuItems>
-            <Frame x:Name="ContentFrame" Grid.Column="1"/>
+            <Frame 
+                x:Name="ContentFrame" 
+                Grid.Column="1"/>
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="ItemInvoked">
                     <ic:InvokeCommandAction Command="{x:Bind viewModel.ItemInvokedCommand}"/>

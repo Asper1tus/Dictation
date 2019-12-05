@@ -8,6 +8,5 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
 
-    <Grid>
-    </Grid>
+    <Grid/>
 </Page>
