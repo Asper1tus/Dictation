@@ -19,13 +19,7 @@
 
         public static event Action FileManipulationEnded;
 
-        public static string FileName
-        {
-            get
-            {
-                return file.Name;
-            }
-        }
+        public static string FileName => file.Name;
 
         public static bool IsFileGhanged { get; set; }
 

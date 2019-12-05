@@ -27,8 +27,8 @@
 
         public List<FileModel> Items
         {
-            get { return items; }
-            set { Set(ref this.items, value); }
+            get => items;
+            set => Set(ref this.items, value);
         }
 
         public async Task InitializeAsync()

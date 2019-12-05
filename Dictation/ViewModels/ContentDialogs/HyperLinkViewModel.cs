@@ -16,20 +16,20 @@
 
         public string Text
         {
-            get { return text; }
-            set { Set(ref text, value); }
+            get => text;
+            set => Set(ref text, value);
         }
 
         public string Link
         {
-            get { return link; }
-            set { Set(ref link, value); }
+            get => link;
+            set => Set(ref link, value);
         }
 
         public bool IsEnabledOkButton
         {
-            get { return isEnabledOkButton; }
-            set { Set(ref isEnabledOkButton, value); }
+            get => isEnabledOkButton;
+            set => Set(ref isEnabledOkButton, value);
         }
 
         public void OkButtonSwitch()
@@ -37,11 +37,10 @@
             if (Text != null && Link != null)
             {
                 IsEnabledOkButton = true;
+                return;
             }
-            else
-            {
-                isEnabledOkButton = false;
-            }
+
+            isEnabledOkButton = false;
         }
 
         private void InsertHyperlink()

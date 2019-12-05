@@ -14,7 +14,6 @@
         private static StringBuilder dictatedTextBuilder;
         private static SpeechRecognizer speechRecognizer;
         private static CoreDispatcher dispatcher;
-
         private static string richText;
         private static string recognizedText;
 

@@ -49,59 +49,41 @@
 
         public ICommand OperationCommand => operationCommand ?? (operationCommand = new RelayCommand<string>(MessageService.SendOperation));
 
+        // FontSize in RichEditBox 0.75 times smaller generally
+        public int FontSize => (int)Math.Ceiling(App.FontSize / 0.75);
+
+        public string Font => App.Font;
+
+        public string FileName => FileService.FileName;
+
         public bool IsBusy
         {
-            get { return isBusy; }
-            set { Set(ref this.isBusy, value); }
+            get => isBusy;
+            set => Set(ref this.isBusy, value);
         }
 
         public bool IsListening
         {
-            get { return isListeningVisible; }
-            set { Set(ref this.isListeningVisible, value); }
+            get => isListeningVisible;
+            set => Set(ref this.isListeningVisible, value);
         }
 
         public bool IsPanelVisible
         {
-            get { return isPanelVisible; }
-            set { Set(ref this.isPanelVisible, value); }
+            get => isPanelVisible;
+            set => Set(ref this.isPanelVisible, value);
         }
 
         public string Title
         {
-            get { return title; }
-            set { Set(ref this.title, value); }
+            get => title;
+            set => Set(ref this.title, value);
         }
 
         public float ZoomFactor
         {
-            get { return zoomFactor; }
-            set { Set(ref this.zoomFactor, value); }
-        }
-
-        public int FontSize
-        {
-            get
-            {
-                // FontSize in RichEditBox 0.75 times smaller generally
-                return (int)Math.Ceiling(App.FontSize / 0.75);
-            }
-        }
-
-        public string Font
-        {
-            get
-            {
-                return App.Font;
-            }
-        }
-
-        public string FileName
-        {
-            get
-            {
-                return FileService.FileName;
-            }
+            get => zoomFactor;
+            set => Set(ref this.zoomFactor, value);
         }
 
         public async void Initialize(Frame contentFrame)
@@ -112,7 +94,8 @@
             await FileService.New();
             this.contentFrame = contentFrame;
             RecognizerService.InitializeRecognizerService();
-            IsPanelVisible = false;
+            IsPanelVisible = true;
+            DisplayContent("tools");
             ZoomFactor = 1f;
         }
 

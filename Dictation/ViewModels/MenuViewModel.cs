@@ -19,8 +19,8 @@
 
         public NavigationViewItem Selected
         {
-            get { return selected; }
-            set { Set(ref selected, value); }
+            get => selected;
+            set => Set(ref selected, value);
         }
 
         public ICommand ItemInvokedCommand => itemInvokedCommand ?? (itemInvokedCommand = new RelayCommand<NavigationViewItemInvokedEventArgs>(OnItemInvoked));
