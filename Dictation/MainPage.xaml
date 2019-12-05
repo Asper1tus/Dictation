@@ -10,6 +10,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
+    
     <Page.Resources>
         <ResourceDictionary>
             <convert:ZoomToTextConverter x:Key="ZoomToTextConverter"/>
@@ -19,6 +20,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
+    
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -125,7 +127,6 @@
                     </DropDownButton>
                 </AppBarElementContainer>
             </CommandBar>
-
             <SplitView 
                 PanePlacement="Right" 
                 Grid.Row="1" 
@@ -150,7 +151,6 @@
                         </ScrollViewer>
                     </Grid>
                 </SplitView.Content>
-
                 <SplitView.Pane>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -176,11 +176,19 @@
             <Grid 
                 Grid.Row="2"
                 Background="{ThemeResource AppBarBackgroundThemeBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="243*"/>
+                    <ColumnDefinition Width="13*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    VerticalAlignment="Center"
+                    TextAlignment="Center" 
+                    Text="{x:Bind viewModel.FileName, Mode=OneWay}" Grid.ColumnSpan="2"/>
                 <StackPanel 
                     Orientation="Horizontal"
-                    VerticalAlignment="Bottom"
-                    HorizontalAlignment="Right"
-                    Margin="0 0 10 0">
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="980,0,0,0" Grid.ColumnSpan="2">
                     <Button
                         Content="-"
                         FontSize="12"

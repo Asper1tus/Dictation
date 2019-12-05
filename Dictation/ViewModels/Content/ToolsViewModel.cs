@@ -62,116 +62,104 @@
 
         public ICommand InsertHyperlinkCommand => insertHyperlinkCommand ?? (insertHyperlinkCommand = new RelayCommand(ContentDialogService.ShowHyperLinkDialogAsync));
 
-        public List<string> Fonts
-        {
-            get
-            {
-                return FontService.Fonts;
-            }
-        }
+        public List<string> Fonts => FontService.Fonts;
 
-        public List<int> Sizes
-        {
-            get
-            {
-                return FontService.Sizes;
-            }
-        }
+        public List<int> Sizes => FontService.Sizes;
 
         public bool IsBold
         {
-            get { return isBold; }
-            set { Set(ref this.isBold, value); }
+            get => isBold;
+            set => Set(ref this.isBold, value);
         }
 
         public bool IsItalic
         {
-            get { return isItalic; }
-            set { Set(ref this.isItalic, value); }
+            get => isItalic;
+            set => Set(ref this.isItalic, value);
         }
 
         public bool IsUnderline
         {
-            get { return isUnderline; }
-            set { Set(ref this.isUnderline, value); }
+            get => isUnderline;
+            set => Set(ref this.isUnderline, value);
         }
 
         public bool IsStrikethrough
         {
-            get { return isStrikethrough; }
-            set { Set(ref this.isStrikethrough, value); }
+            get => isStrikethrough;
+            set => Set(ref this.isStrikethrough, value);
         }
 
         public bool IsSuperscript
         {
-            get { return isSuperscript; }
-            set { Set(ref this.isSuperscript, value); }
+            get => isSuperscript;
+            set => Set(ref this.isSuperscript, value);
         }
 
         public bool IsSubscript
         {
-            get { return isSubscript; }
-            set { Set(ref this.isSubscript, value); }
+            get => isSubscript;
+            set => Set(ref this.isSubscript, value);
         }
 
         public bool IsAlignLeft
         {
-            get { return isAlignLeft; }
-            set { Set(ref this.isAlignLeft, value); }
+            get => isAlignLeft;
+            set => Set(ref this.isAlignLeft, value);
         }
 
         public bool IsAlignRight
         {
-            get { return isAlignRight; }
-            set { Set(ref this.isAlignRight, value); }
+            get => isAlignRight;
+            set => Set(ref this.isAlignRight, value);
         }
 
         public bool IsAlignCenter
         {
-            get { return isAlignCenter; }
-            set { Set(ref this.isAlignCenter, value); }
+            get => isAlignCenter;
+            set => Set(ref this.isAlignCenter, value);
         }
 
         public bool IsJustify
         {
-            get { return isJustify; }
-            set { Set(ref this.isJustify, value); }
+            get => isJustify;
+            set => Set(ref this.isJustify, value);
         }
 
         public bool HasBullets
         {
-            get { return hasBullets; }
-            set { Set(ref this.hasBullets, value); }
+            get => hasBullets;
+            set => Set(ref this.hasBullets, value);
         }
 
         public bool HasNumbers
         {
-            get { return hasNumbers; }
-            set { Set(ref this.hasNumbers, value); }
+            get => hasNumbers;
+            set => Set(ref this.hasNumbers, value);
         }
 
         public string Font
         {
-            get { return font; }
-            set { Set(ref this.font, value); }
+            get => font;
+            set => Set(ref this.font, value);
         }
 
         public int Size
         {
-            get { return size; }
-            set { Set(ref this.size, value); }
+            get => size;
+            set => Set(ref this.size, value);
         }
 
         public string ForegroundColor
         {
-            get { return foregroundColor; }
-            set { Set(ref this.foregroundColor, value); }
+            get => foregroundColor;
+            set => Set(ref this.foregroundColor, value);
         }
 
         public string BackgroundColor
         {
-            get { return backgroundColor; }
-            set { Set(ref this.backgroundColor, value); }
+            get => backgroundColor;
+            set => Set(ref this.backgroundColor, value);
         }
 
         public void Update()

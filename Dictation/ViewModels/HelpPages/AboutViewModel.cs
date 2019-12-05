@@ -15,9 +15,9 @@
 
         public string VersionDescription
         {
-            get { return versionDescription; }
+            get => versionDescription;
 
-            set { Set(ref versionDescription, value); }
+            set => Set(ref versionDescription, value);
         }
 
         private string GetVersionDescription()

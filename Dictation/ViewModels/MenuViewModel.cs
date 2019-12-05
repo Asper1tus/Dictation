@@ -19,8 +19,8 @@
 
         public NavigationViewItem Selected
         {
-            get { return selected; }
-            set { Set(ref selected, value); }
+            get => selected;
+            set => Set(ref selected, value);
         }
 
         public ICommand ItemInvokedCommand => itemInvokedCommand ?? (itemInvokedCommand = new RelayCommand<NavigationViewItemInvokedEventArgs>(OnItemInvoked));
@@ -89,7 +89,7 @@
                     NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
                     break;
                 case "new":
-                    FileService.New();
+                    await FileService.New();
                     break;
                 case "save":
                     await FileService.SaveAsync();

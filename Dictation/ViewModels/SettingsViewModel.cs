@@ -40,72 +40,51 @@
 
         public ICommand RestoreDefaultCommand => restoreDefaultCommand ?? (restoreDefaultCommand = new RelayCommand(RestoreDefault));
 
-        public List<string> Fonts
-        {
-            get
-            {
-                return FontService.Fonts;
-            }
-        }
+        public List<string> Fonts => FontService.Fonts;
 
-        public List<int> Sizes
-        {
-            get
-            {
-                return FontService.Sizes;
-            }
-        }
+        public List<int> Sizes => FontService.Sizes;
 
-        public List<string> Languages
-        {
-            get
-            {
-                return RecognizerService.GetSupportedLanguagesNativeName();
-            }
-        }
+        public List<string> Languages => RecognizerService.GetSupportedLanguagesNativeName();
 
         public string Theme
         {
-            get { return theme; }
-            set { Set(ref this.theme, value); }
+            get => theme;
+            set => Set(ref this.theme, value);
         }
 
         public string Font
         {
-            get { return font; }
-            set { Set(ref this.font, value); }
+            get => font;
+            set => Set(ref this.font, value);
         }
 
         public int Size
         {
-            get { return size; }
-            set { Set(ref this.size, value); }
+            get => size;
+            set => Set(ref this.size, value);
         }
 
         public string Language
         {
-            get { return language; }
-            set { Set(ref this.language, value); }
+            get => language;
+            set => Set(ref this.language, value);
         }
 
         public int Minutes
         {
-            get { return minutes; }
-            set { Set(ref this.minutes, value); }
+            get => minutes;
+            set => Set(ref this.minutes, value);
         }
 
         public bool IsSaveEnabled
         {
-            get { return isSaveEnabled; }
-            set { Set(ref this.isSaveEnabled, value); }
+            get => isSaveEnabled;
+            set => Set(ref this.isSaveEnabled, value);
         }
 
         public bool IsValid
         {
-            get
-            {
-                return isValid;
-            }
+            get => isValid;
 
             set
             {

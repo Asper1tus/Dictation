@@ -13,13 +13,12 @@
     <Page.Resources>
         <convert:ThemeConverter x:Key="ThemeConverter" />
     </Page.Resources>
-
+    
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-     
         <ScrollViewer
             Grid.Row="0"
             Padding="20,0,0,0"

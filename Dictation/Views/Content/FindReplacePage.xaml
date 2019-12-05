@@ -48,5 +48,4 @@
                 Command="{x:Bind viewModel.ReplaceAllCommand}"/>
         </StackPanel>
     </StackPanel>
-
 </Page>

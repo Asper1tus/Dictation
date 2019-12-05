@@ -35,16 +35,6 @@
         private ICommand operationCommand;
         private ICommand changeZoomCommand;
 
-        public MainPageViewModel()
-        {
-            RecognizerService.InitializeRecognizerService();
-            IsPanelVisible = false;
-            ZoomFactor = 1f;
-            MessageService.ZoomFactorChanged += ZoomFactorChanged;
-            FileService.FileManipulationStarted += FileOpeningStarted;
-            FileService.FileManipulationEnded += FileOpeningEnded;
-        }
-
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
 
         public ICommand DispalyContentCommand => dispalyContentCommand ?? (dispalyContentCommand = new RelayCommand<string>(DisplayContent));
@@ -59,66 +49,65 @@
 
         public ICommand OperationCommand => operationCommand ?? (operationCommand = new RelayCommand<string>(MessageService.SendOperation));
 
+        // FontSize in RichEditBox 0.75 times smaller generally
+        public int FontSize => (int)Math.Ceiling(App.FontSize / 0.75);
+
+        public string Font => App.Font;
+
+        public string FileName => FileService.FileName;
+
         public bool IsBusy
         {
-            get { return isBusy; }
-            set { Set(ref this.isBusy, value); }
+            get => isBusy;
+            set => Set(ref this.isBusy, value);
         }
 
         public bool IsListening
         {
-            get { return isListeningVisible; }
-            set { Set(ref this.isListeningVisible, value); }
+            get => isListeningVisible;
+            set => Set(ref this.isListeningVisible, value);
         }
 
         public bool IsPanelVisible
         {
-            get { return isPanelVisible; }
-            set { Set(ref this.isPanelVisible, value); }
+            get => isPanelVisible;
+            set => Set(ref this.isPanelVisible, value);
         }
 
         public string Title
         {
-            get { return title; }
-            set { Set(ref this.title, value); }
+            get => title;
+            set => Set(ref this.title, value);
         }
 
         public float ZoomFactor
         {
-            get { return zoomFactor; }
-            set { Set(ref this.zoomFactor, value); }
+            get => zoomFactor;
+            set => Set(ref this.zoomFactor, value);
         }
 
-        public int FontSize
+        public async void Initialize(Frame contentFrame)
         {
-            get
-            {
-                // FontSize in RichEditBox 0.75 times smaller generally
-                return (int)Math.Ceiling(App.FontSize / 0.75);
-            }
-        }
-
-        public string Font
-        {
-            get
-            {
-                return App.Font;
-            }
-        }
-
-        public void Initialize(Frame contentFrame)
-        {
+            MessageService.ZoomFactorChanged += ZoomFactorChanged;
+            FileService.FileManipulationStarted += FileManipulationStarted;
+            FileService.FileManipulationEnded += FileManipulationEnded;
+            await FileService.New();
             this.contentFrame = contentFrame;
+            RecognizerService.InitializeRecognizerService();
+            IsPanelVisible = true;
+            DisplayContent("tools");
+            ZoomFactor = 1f;
         }
 
-        private void FileOpeningEnded()
-        {
-            IsBusy = false;
-        }
-
-        private void FileOpeningStarted()
+        private void FileManipulationStarted()
         {
             IsBusy = true;
+        }
+
+        private void FileManipulationEnded()
+        {
+            IsBusy = false;
+            OnPropertyChanged(nameof(FileName));
         }
 
         private void Close()
@@ -156,7 +145,7 @@
 
         private void OpenShareWindow()
         {
-            FileService.ShareFileAsync();
+            FileService.ShareAsync();
         }
 
         private void GoToMenu()

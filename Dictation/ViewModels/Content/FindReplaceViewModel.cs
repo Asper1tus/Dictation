@@ -26,14 +26,14 @@
 
         public string SearchedWord
         {
-            get { return searchedWord; }
-            set { Set(ref searchedWord, value); }
+            get => searchedWord;
+            set => Set(ref searchedWord, value);
         }
 
         public string ReplacementWord
         {
-            get { return replacementWord; }
-            set { Set(ref replacementWord, value); }
+            get => replacementWord;
+            set => Set(ref replacementWord, value);
         }
 
         public bool IsMatchCase { get; set; }

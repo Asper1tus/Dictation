@@ -13,9 +13,13 @@
     {
         private static StorageFile file;
 
+        private static StorageFile tempFile;
+
         public static event Action FileManipulationStarted;
 
         public static event Action FileManipulationEnded;
+
+        public static string FileName => file.Name;
 
         public static bool IsFileGhanged { get; set; }
 
@@ -39,24 +43,29 @@
                     file = await StorageFile.GetFileFromPathAsync(path);
                 }
 
-                if (file != null)
+                if (file == null)
                 {
-                    FileManipulationStarted();
-                    var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-                    RtfTextHelper.OpenFile(stream);
-                    stream.Dispose();
-                    IsFileGhanged = false;
-
-                    var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
-                    mru.Add(file, "profile pic");
-                    FileManipulationEnded();
+                    file = tempFile;
+                    return;
                 }
+
+                FileManipulationStarted();
+
+                var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+                RtfTextHelper.OpenFile(stream);
+                stream.Dispose();
+
+                var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
+                mru.Add(file, "profile pic");
+
+                IsFileGhanged = false;
+                FileManipulationEnded();
             }
         }
 
         public static async Task<bool> SaveAsync()
         {
-            if (file == null)
+            if (file == tempFile)
             {
                 await SaveAsAsync();
                 return false;
@@ -80,19 +89,22 @@
             await SaveFileAsync();
         }
 
-        public static async void New()
+        public static async Task New()
         {
             if (await IsFileSavedAsync())
             {
-                CreateFileAsync();
+                FileManipulationStarted();
+                await CreateTempFileAsync();
+                file = tempFile;
+                FileManipulationEnded();
             }
         }
 
-        public static async void ShareFileAsync()
+        public static async void ShareAsync()
         {
-            if (file == null)
+            if (file == tempFile)
             {
-                CreateFileAsync();
+               await CreateTempFileAsync();
             }
 
             await IsFileSavedAsync();
@@ -125,16 +137,12 @@
 
         private static async Task SaveFileAsync()
         {
-            if (file != null)
-            {
-                FileManipulationStarted();
-                var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-                RtfTextHelper.SaveFile(stream);
-                stream.Dispose();
-
-                IsFileGhanged = false;
-                FileManipulationEnded();
-            }
+            FileManipulationStarted();
+            var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+            RtfTextHelper.SaveFile(stream);
+            stream.Dispose();
+            IsFileGhanged = false;
+            FileManipulationEnded();
         }
 
         private static void DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -145,11 +153,11 @@
             request.Data.Properties.Description = "Shared from Dictation";
         }
 
-        private static async void CreateFileAsync()
+        private static async Task CreateTempFileAsync()
         {
-            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-            file = await storageFolder.CreateFileAsync("Document.rtf", CreationCollisionOption.ReplaceExisting);
-            var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+            StorageFolder storageFolder = ApplicationData.Current.TemporaryFolder;
+            tempFile = await storageFolder.CreateFileAsync("Document.rtf", CreationCollisionOption.ReplaceExisting);
+            var stream = await tempFile.OpenAsync(FileAccessMode.ReadWrite);
             RtfTextHelper.OpenFile(stream);
             stream.Dispose();
             IsFileGhanged = false;
