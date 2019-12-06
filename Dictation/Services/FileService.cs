@@ -19,7 +19,17 @@
 
         public static event Action FileManipulationEnded;
 
-        public static string FileName => file.Name;
+        public static string FileName
+        {
+            get
+            {
+                if (file != null)
+                {
+                    return file.Name;
+                }
+                return "New Document";
+            }
+        }
 
         public static bool IsFileGhanged { get; set; }
 
