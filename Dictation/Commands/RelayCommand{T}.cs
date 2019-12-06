@@ -28,7 +28,10 @@
 
         public void Execute(object parameter)
         {
-            execute((T)parameter);
+            if (parameter != null)
+            {
+                execute((T)parameter);
+            }
         }
 
         public void RaiseCanExecuteChanged()

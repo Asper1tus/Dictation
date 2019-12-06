@@ -9,7 +9,7 @@
 
         public FindReplacePage()
         {
-            viewModel = App.Locator.FindReplaceViewModel;
+            viewModel = new FindReplaceViewModel();
             this.InitializeComponent();
         }
     }

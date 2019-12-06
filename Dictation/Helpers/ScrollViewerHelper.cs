@@ -13,6 +13,11 @@
 
         public static float GetZoomValue(ScrollViewer scrollViewer)
         {
+            if (scrollViewer is null)
+            {
+                throw new System.ArgumentNullException(nameof(scrollViewer));
+            }
+
             return (float)scrollViewer.GetValue(ZoomValueProperty);
         }
 

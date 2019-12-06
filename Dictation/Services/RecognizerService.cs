@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using Dictation.Helpers;
     using Windows.Globalization;
     using Windows.Media.SpeechRecognition;
@@ -38,22 +39,32 @@
             InitializeSpeechRecognizer(language);
         }
 
-        public static async void Listening(bool isListening)
+        public static async Task<bool> Listening(bool isListening)
         {
             if (isListening)
             {
                 await speechRecognizer.ContinuousRecognitionSession.StartAsync();
                 dictatedTextBuilder.Append(RtfTextHelper.Text);
                 richText = RtfTextHelper.FormattedText;
+                return true;
             }
             else
             {
-                await speechRecognizer.ContinuousRecognitionSession.CancelAsync();
+                try
+                {
+                    await speechRecognizer.ContinuousRecognitionSession.CancelAsync();
 
-                dictatedTextBuilder.Clear();
-                RtfTextHelper.FormattedText = richText;
-                RtfTextHelper.AddRtf(recognizedText);
-                recognizedText = string.Empty;
+                    dictatedTextBuilder.Clear();
+                    RtfTextHelper.FormattedText = richText;
+                    RtfTextHelper.AddRtf(recognizedText);
+                    recognizedText = string.Empty;
+                    return false;
+                }
+                catch (System.InvalidOperationException)
+                {
+                    await speechRecognizer.ContinuousRecognitionSession.StartAsync();
+                    return true;
+                }
             }
         }
 

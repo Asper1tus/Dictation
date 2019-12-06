@@ -9,10 +9,8 @@
     using Microsoft.Toolkit.Uwp.Extensions;
     using Windows.ApplicationModel;
     using Windows.ApplicationModel.Activation;
-    using Windows.Globalization;
     using Windows.Storage;
     using Windows.UI.Core.Preview;
-    using Windows.UI.Popups;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Navigation;
@@ -23,15 +21,12 @@
     public sealed partial class App : Application
     {
         private const string SelectedAppThemeKey = "SelectedAppTheme";
-        private static Locator locator;
 
         public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
-
-        public static Locator Locator => locator ?? (locator = new Locator());
 
         public static string RecognitionLanguage
         {

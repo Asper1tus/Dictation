@@ -11,6 +11,11 @@
 
         public static Type GetNavigateTo(NavigationViewItem item)
         {
+            if (item is null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
             return (Type)item.GetValue(NavigateToProperty);
         }
 

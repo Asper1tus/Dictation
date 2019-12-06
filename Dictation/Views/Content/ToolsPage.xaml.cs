@@ -1,5 +1,6 @@
 ﻿namespace Dictation.Views.Content
 {
+    using Dictation.ViewModels;
     using Dictation.ViewModels.Content;
     using Windows.UI.Xaml.Controls;
 
@@ -9,7 +10,7 @@
 
         public ToolsPage()
         {
-            viewModel = App.Locator.ToolsViewModel;
+            viewModel = new ToolsViewModel();
             this.InitializeComponent();
         }
     }

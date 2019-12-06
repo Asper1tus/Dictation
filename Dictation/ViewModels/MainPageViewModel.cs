@@ -35,6 +35,13 @@
         private ICommand operationCommand;
         private ICommand changeZoomCommand;
 
+        // FontSize in RichEditBox 0.75 times smaller generally
+        public static int FontSize => (int)Math.Ceiling(App.FontSize / 0.75);
+
+        public static string Font => App.Font;
+
+        public static string FileName => FileService.FileName;
+
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
 
         public ICommand DispalyContentCommand => dispalyContentCommand ?? (dispalyContentCommand = new RelayCommand<string>(DisplayContent));
@@ -48,13 +55,6 @@
         public ICommand ChangeZoomCommand => changeZoomCommand ?? (changeZoomCommand = new RelayCommand<string>(ChangeZoom));
 
         public ICommand OperationCommand => operationCommand ?? (operationCommand = new RelayCommand<string>(MessageService.SendOperation));
-
-        // FontSize in RichEditBox 0.75 times smaller generally
-        public int FontSize => (int)Math.Ceiling(App.FontSize / 0.75);
-
-        public string Font => App.Font;
-
-        public string FileName => FileService.FileName;
 
         public bool IsBusy
         {
@@ -123,7 +123,7 @@
                 IsListening = false;
             }
 
-            RecognizerService.Listening(IsListening);
+            IsListening = await RecognizerService.Listening(IsListening).ConfigureAwait(false);
         }
 
         private void DisplayContent(object tag)

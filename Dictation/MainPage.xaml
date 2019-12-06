@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:vm="using:Dictation.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
     
@@ -146,8 +147,8 @@
                                 Width="794"
                                 Margin="50" IsSpellCheckEnabled ="True"
                                 helpers:RtfTextHelper.RichText =""
-                                FontFamily="{x:Bind viewModel.Font, Mode=OneTime}"
-                                FontSize="{x:Bind viewModel.FontSize, Mode=OneTime}" />
+                                FontFamily="{x:Bind vm:MainPageViewModel.Font, Mode=OneTime}"
+                                FontSize="{x:Bind vm:MainPageViewModel.FontSize, Mode=OneTime}" />
                         </ScrollViewer>
                     </Grid>
                 </SplitView.Content>
@@ -183,7 +184,7 @@
                 <TextBlock 
                     VerticalAlignment="Center"
                     TextAlignment="Center" 
-                    Text="{x:Bind viewModel.FileName, Mode=OneWay}" Grid.ColumnSpan="2"/>
+                    Text="{x:Bind vm:MainPageViewModel.FileName, Mode=OneWay}" Grid.ColumnSpan="2"/>
                 <StackPanel 
                     Orientation="Horizontal"
                     VerticalAlignment="Center"

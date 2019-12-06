@@ -10,7 +10,7 @@
 
         public OpenPage()
         {
-            viewModel = App.Locator.OpenViewModel;
+            viewModel = new OpenViewModel();
             this.InitializeComponent();
         }
 

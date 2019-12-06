@@ -9,7 +9,7 @@
 
         public Menu()
         {
-            viewModel = App.Locator.MenuViewModel;
+            viewModel = new MenuViewModel();
             InitializeComponent();
             viewModel.Initialize(ContentFrame, NavView);
         }

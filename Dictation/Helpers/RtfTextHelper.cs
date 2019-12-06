@@ -71,11 +71,21 @@
 
         public static string GetRichText(RichEditBox richEditBox)
         {
+            if (richEditBox is null)
+            {
+                throw new ArgumentNullException(nameof(richEditBox));
+            }
+
             return (string)richEditBox.GetValue(RichTextProperty);
         }
 
         public static void SetRichText(RichEditBox richEditBox, string value)
         {
+            if (richEditBox is null)
+            {
+                throw new ArgumentNullException(nameof(richEditBox));
+            }
+
             if (RtfTextHelper.richEditBox == null)
             {
                 RtfTextHelper.richEditBox = richEditBox;

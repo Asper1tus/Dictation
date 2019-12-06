@@ -34,17 +34,17 @@
             InitializeTimer();
         }
 
+        public static List<string> Fonts => FontService.Fonts;
+
+        public static List<int> Sizes => FontService.Sizes;
+
+        public static List<string> Languages => RecognizerService.GetSupportedLanguagesNativeName();
+
         public ICommand ChooseThemeCommand => chooseThemeCommand ?? (chooseThemeCommand = new RelayCommand<string>(ChooseTheme));
 
         public ICommand SaveCommand => saveCommand ?? (saveCommand = new RelayCommand(SaveSettings));
 
         public ICommand RestoreDefaultCommand => restoreDefaultCommand ?? (restoreDefaultCommand = new RelayCommand(RestoreDefault));
-
-        public List<string> Fonts => FontService.Fonts;
-
-        public List<int> Sizes => FontService.Sizes;
-
-        public List<string> Languages => RecognizerService.GetSupportedLanguagesNativeName();
 
         public string Theme
         {
