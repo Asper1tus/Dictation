@@ -1,6 +1,7 @@
 ﻿namespace Dictation.Extensions
 {
     using System;
+    using System.Globalization;
     using Windows.Storage.Streams;
     using Windows.UI;
     using Windows.UI.Xaml.Controls;
@@ -32,7 +33,7 @@
         {
             int lenght = richEditBox.GetLenght();
             richEditBox.Document.Selection.StartPosition = lenght;
-            if (rtf != null && rtf != string.Empty)
+            if (rtf != null && !string.IsNullOrEmpty(rtf))
             {
                 richEditBox.Document.Selection.TypeText(rtf);
             }
@@ -312,7 +313,7 @@
             }
 
             // To highlight the searched word in turn
-            if (string.Compare(richEditBox.Document.Selection.Text, searchedWord, true) != 0)
+            if (string.Compare(richEditBox.Document.Selection.Text, searchedWord, true, CultureInfo.CurrentCulture) != 0)
             {
                 // Set selection to start of document
                 richEditBox.Document.Selection.SetRange(0, 0);
@@ -326,7 +327,7 @@
 
         public static void ReplaceSelectedWord(this RichEditBox richEditBox, string replacementWord)
         {
-            if (richEditBox.Document.Selection.Text != string.Empty)
+            if (!string.IsNullOrEmpty(richEditBox.Document.Selection.Text))
             {
                 richEditBox.Document.Selection.Text = replacementWord;
             }
@@ -337,7 +338,7 @@
         public static void ReplaceAllWords(this RichEditBox richEditBox, string replacementWord, string searchedWord, bool isMatchCase)
         {
             // Avoids infinite lool
-            if (replacementWord != searchedWord && searchedWord != string.Empty)
+            if (replacementWord != searchedWord && !string.IsNullOrEmpty(searchedWord))
             {
                 richEditBox.FindWord(searchedWord, isMatchCase);
                 do
@@ -345,7 +346,7 @@
                     richEditBox.ReplaceSelectedWord(replacementWord);
                     richEditBox.FindWord(searchedWord, isMatchCase);
                 }
-                while (string.Compare(richEditBox.Document.Selection.Text, searchedWord, isMatchCase) == 0);
+                while (string.Compare(richEditBox.Document.Selection.Text, searchedWord, isMatchCase, CultureInfo.CurrentCulture) == 0);
             }
         }
 
@@ -373,7 +374,7 @@
             richEditBox.Document.Selection.Text = text;
             string hyperlink = link;
 
-            if (!link.StartsWith("http://"))
+            if (!link.StartsWith("http://", StringComparison.CurrentCultureIgnoreCase))
             {
                 hyperlink = "http://" + hyperlink;
             }

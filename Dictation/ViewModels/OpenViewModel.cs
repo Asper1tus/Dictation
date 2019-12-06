@@ -12,7 +12,6 @@
 
     public class OpenViewModel : Observable
     {
-        private List<FileModel> items;
         private ICommand openFileCommand;
         private ICommand openRecentFileCommand;
 
@@ -27,13 +26,12 @@
 
         public List<FileModel> Items
         {
-            get => items;
-            set => Set(ref this.items, value);
+            get;
         }
 
         public async Task InitializeAsync()
         {
-            await RecentlyFilesAsync();
+            await RecentlyFilesAsync().ConfigureAwait(true);
         }
 
         private async Task RecentlyFilesAsync()
@@ -53,13 +51,13 @@
                         OnPropertyChanged(nameof(Items));
                     }
                 }
-                catch
+                catch (System.IO.FileNotFoundException)
                 {
                     mru.Remove(mruToken);
                 }
             }
 
-            await Task.CompletedTask;
+            await Task.CompletedTask.ConfigureAwait(true);
         }
 
         private void OpenFile()

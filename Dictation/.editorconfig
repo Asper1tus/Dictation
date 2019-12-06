@@ -26,3 +26,6 @@ csharp_using_directive_placement = inside_namespace:silent
 
 # SA1633: File should have header
 dotnet_diagnostic.SA1633.severity = silent
+
+# CA1062: Проверить аргументы или открытые методы
+dotnet_diagnostic.CA1062.severity = silent

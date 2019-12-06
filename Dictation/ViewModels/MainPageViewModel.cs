@@ -91,7 +91,7 @@
             MessageService.ZoomFactorChanged += ZoomFactorChanged;
             FileService.FileManipulationStarted += FileManipulationStarted;
             FileService.FileManipulationEnded += FileManipulationEnded;
-            await FileService.New();
+            await FileService.New().ConfigureAwait(true);
             this.contentFrame = contentFrame;
             RecognizerService.InitializeRecognizerService();
             IsPanelVisible = true;
@@ -117,7 +117,8 @@
 
         private async void Listening()
         {
-            if (!await AudioCapturePermissionsService.RequestMicrophonePermission())
+            bool microfonePermission = await AudioCapturePermissionsService.RequestMicrophonePermission().ConfigureAwait(true);
+            if (!microfonePermission)
             {
                 IsListening = false;
             }
@@ -128,7 +129,7 @@
         private void DisplayContent(object tag)
         {
             NavigationService.ContentFrame = contentFrame;
-            var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag));
+            var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag, StringComparison.OrdinalIgnoreCase));
             var page = item.page;
             if (NavigationService.ContentFrame.CurrentSourcePageType != page)
             {

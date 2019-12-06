@@ -34,14 +34,7 @@
 
         public static void Notify()
         {
-            // Throws an NullReferenceException at startup
-            try
-            {
-                NotifyEvent();
-            }
-            catch
-            {
-            }
+            NotifyEvent();
         }
 
         public static void SendImage()

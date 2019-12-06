@@ -44,14 +44,14 @@
             {
                 await speechRecognizer.ContinuousRecognitionSession.StartAsync();
                 dictatedTextBuilder.Append(RtfTextHelper.Text);
-                richText = RtfTextHelper.RichText;
+                richText = RtfTextHelper.FormattedText;
             }
             else
             {
                 await speechRecognizer.ContinuousRecognitionSession.CancelAsync();
 
                 dictatedTextBuilder.Clear();
-                RtfTextHelper.RichText = richText;
+                RtfTextHelper.FormattedText = richText;
                 RtfTextHelper.AddRtf(recognizedText);
                 recognizedText = string.Empty;
             }
@@ -59,7 +59,7 @@
 
         private static Language GetLanguageByNativeName(string name)
         {
-            var language = SpeechRecognizer.SupportedTopicLanguages.First((c) => c.NativeName.Equals(name));
+            var language = SpeechRecognizer.SupportedTopicLanguages.First((c) => c.NativeName.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             return DefaultSettings.Language;
         }
 

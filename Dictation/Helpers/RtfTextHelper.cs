@@ -10,14 +10,14 @@
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Input;
 
-    public class RtfTextHelper
+    public static class RtfTextHelper
     {
         public static readonly DependencyProperty RichTextProperty =
             DependencyProperty.RegisterAttached("RichText", typeof(string), typeof(RtfTextHelper), new PropertyMetadata(string.Empty, Callback));
 
         private static RichEditBox richEditBox;
 
-        public static string RichText
+        public static string FormattedText
         {
             get => richEditBox.GetRtf();
             set => richEditBox.SetRtf(value);
@@ -139,7 +139,7 @@
             {
                 if (args.Key == Windows.System.VirtualKey.S)
                 {
-                    await FileService.SaveAsync();
+                    await FileService.SaveAsync().ConfigureAwait(true);
                 }
 
                 if (args.Key == Windows.System.VirtualKey.O)
@@ -149,7 +149,7 @@
 
                 if (args.Key == Windows.System.VirtualKey.N)
                 {
-                    await FileService.New();
+                    await FileService.New().ConfigureAwait(true);
                 }
 
                 if (args.Key == Windows.System.VirtualKey.K)
@@ -160,7 +160,7 @@
 
             if (args.Modifiers == (Windows.System.VirtualKeyModifiers.Control | Windows.System.VirtualKeyModifiers.Shift) && args.Key == Windows.System.VirtualKey.S)
             {
-                await FileService.SaveAsAsync();
+                await FileService.SaveAsAsync().ConfigureAwait(true);
             }
 
             MessageService.Notify();
@@ -272,8 +272,10 @@
 
         private static async void InsertImage()
         {
-            Windows.Storage.Pickers.FileOpenPicker open = new Windows.Storage.Pickers.FileOpenPicker();
-            open.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            Windows.Storage.Pickers.FileOpenPicker open = new Windows.Storage.Pickers.FileOpenPicker
+            {
+                SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary,
+            };
             open.FileTypeFilter.Add(".png");
             open.FileTypeFilter.Add(".jpg");
             open.FileTypeFilter.Add(".jpeg");

@@ -16,7 +16,7 @@
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await viewModel.InitializeAsync();
+            await viewModel.InitializeAsync().ConfigureAwait(true);
         }
     }
 }

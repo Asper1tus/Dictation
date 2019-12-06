@@ -4,7 +4,7 @@
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
 
-    public class ScrollViewerHelper
+    public static class ScrollViewerHelper
     {
         public static readonly DependencyProperty ZoomValueProperty =
                DependencyProperty.RegisterAttached("ZoomValue", typeof(float), typeof(ScrollViewerHelper), new PropertyMetadata(0, Callback));
@@ -18,10 +18,13 @@
 
         public static void SetZoomValue(ScrollViewer scrollViewer, float value)
         {
-            viewer = scrollViewer;
-            viewer.ViewChanging += ViewChanging;
+            if (scrollViewer != null)
+            {
+                viewer = scrollViewer;
+                viewer.ViewChanging += ViewChanging;
 
-            scrollViewer.SetValue(ZoomValueProperty, value);
+                scrollViewer.SetValue(ZoomValueProperty, value);
+            }
         }
 
         private static void ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)

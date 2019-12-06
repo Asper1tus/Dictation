@@ -118,7 +118,7 @@
 
         private async void TimerTickAsync(object sender, object e)
         {
-            await FileService.SaveAsync();
+            await FileService.SaveAsync().ConfigureAwait(true);
         }
 
         private void RestoreDefault()
