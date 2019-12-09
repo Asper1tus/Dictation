@@ -43,10 +43,10 @@
         {
             if (isListening)
             {
-                await speechRecognizer.ContinuousRecognitionSession.StartAsync();
-                dictatedTextBuilder.Append(RtfTextHelper.Text);
-                richText = RtfTextHelper.FormattedText;
-                return true;
+                    await speechRecognizer.ContinuousRecognitionSession.StartAsync();
+                    dictatedTextBuilder.Append(RtfTextHelper.Text);
+                    richText = RtfTextHelper.FormattedText;
+                    return true;
             }
             else
             {

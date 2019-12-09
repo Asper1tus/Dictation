@@ -123,7 +123,14 @@
                 IsListening = false;
             }
 
-            IsListening = await RecognizerService.Listening(IsListening).ConfigureAwait(false);
+            try
+            {
+                IsListening = await RecognizerService.Listening(IsListening).ConfigureAwait(true);
+            }
+            catch (InvalidOperationException)
+            {
+                IsListening = false;
+            }
         }
 
         private void DisplayContent(object tag)
