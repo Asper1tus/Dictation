@@ -117,28 +117,35 @@
 
         private async void Listening()
         {
-            bool microfonePermission = await AudioCapturePermissionsService.RequestMicrophonePermission().ConfigureAwait(true);
-
-            if (!microfonePermission)
+            if (LicenseService.IsFeaturePurchased("Recognition"))
             {
-                IsListening = false;
-                await ContentDialogService.ShowRecognitionSettingsDialog().ConfigureAwait(true);
+                bool microfonePermission = await AudioCapturePermissionsService.RequestMicrophonePermission().ConfigureAwait(true);
+
+                if (!microfonePermission)
+                {
+                    IsListening = false;
+                    await ContentDialogService.ShowRecognitionSettingsDialog().ConfigureAwait(true);
+                }
+                else
+                {
+                    try
+                    {
+                        await RecognizerService.Listening(IsListening).ConfigureAwait(true);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        IsListening = false;
+                    }
+                    catch (System.Exception e) when (e.HResult == unchecked((int)0x80045509))
+                    {
+                        IsListening = false;
+                        ContentDialogService.ShowRecognitionPrivacyDialog();
+                    }
+                }
             }
             else
             {
-                try
-                {
-                    await RecognizerService.Listening(IsListening).ConfigureAwait(true);
-                }
-                catch (InvalidOperationException)
-                {
-                    IsListening = false;
-                }
-                catch (System.Exception e) when (e.HResult == unchecked((int)0x80045509))
-                {
-                    IsListening = false;
-                    ContentDialogService.ShowRecognitionPrivacyDialog();
-                }
+                IsListening = false;
             }
         }
 

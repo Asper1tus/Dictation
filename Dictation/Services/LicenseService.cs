@@ -30,7 +30,7 @@
                     // show the purchase dialog.
                     await CurrentAppSimulator.RequestProductPurchaseAsync(feature, false);
 
-                    //Check the license state to determine if the in-app purchase was successful.
+                    // Check the license state to determine if the in-app purchase was successful.
                 }
                 catch (Exception)
                 {
