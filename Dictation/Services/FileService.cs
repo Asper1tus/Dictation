@@ -19,13 +19,24 @@
 
         public static event Action FileManipulationEnded;
 
-        public static string FileName => file.Name;
+        public static string FileName
+        {
+            get
+            {
+                if (file != null)
+                {
+                    return file.Name;
+                }
+
+                return "New Document";
+            }
+        }
 
         public static bool IsFileGhanged { get; set; }
 
         public static async void OpenAsync(string path = null)
         {
-            if (await IsFileSavedAsync())
+            if (await IsFileSavedAsync().ConfigureAwait(true))
             {
                 if (path == null)
                 {
@@ -46,20 +57,21 @@
                 if (file == null)
                 {
                     file = tempFile;
-                    return;
                 }
+                else
+                {
+                    FileManipulationStarted();
 
-                FileManipulationStarted();
+                    var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+                    RtfTextHelper.OpenFile(stream);
+                    stream.Dispose();
 
-                var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-                RtfTextHelper.OpenFile(stream);
-                stream.Dispose();
+                    var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
+                    mru.Add(file, "profile pic");
 
-                var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
-                mru.Add(file, "profile pic");
-
-                IsFileGhanged = false;
-                FileManipulationEnded();
+                    IsFileGhanged = false;
+                    FileManipulationEnded();
+                }
             }
         }
 
@@ -67,11 +79,11 @@
         {
             if (file == tempFile)
             {
-                await SaveAsAsync();
+                await SaveAsAsync().ConfigureAwait(true);
                 return false;
             }
 
-            await SaveFileAsync();
+            await SaveFileAsync().ConfigureAwait(true);
             return true;
         }
 
@@ -86,15 +98,16 @@
             savePicker.SuggestedFileName = "New Document";
 
             file = await savePicker.PickSaveFileAsync();
-            await SaveFileAsync();
+            await SaveFileAsync().ConfigureAwait(true);
         }
 
         public static async Task New()
         {
-            if (await IsFileSavedAsync())
+            bool isFileSaved = await IsFileSavedAsync().ConfigureAwait(true);
+            if (isFileSaved)
             {
                 FileManipulationStarted();
-                await CreateTempFileAsync();
+                await CreateTempFileAsync().ConfigureAwait(true);
                 file = tempFile;
                 FileManipulationEnded();
             }
@@ -104,10 +117,10 @@
         {
             if (file == tempFile)
             {
-               await CreateTempFileAsync();
+                await CreateTempFileAsync().ConfigureAwait(true);
             }
 
-            await IsFileSavedAsync();
+            await IsFileSavedAsync().ConfigureAwait(true);
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataRequested;
             DataTransferManager.ShowShareUI();
@@ -117,7 +130,7 @@
         {
             if (IsFileGhanged)
             {
-                var result = await ContentDialogService.ShowSaveDocumentDialogAsync();
+                var result = await ContentDialogService.ShowSaveDocumentDialogAsync().ConfigureAwait(true);
 
                 if (result == ContentDialogResult.None)
                 {
@@ -125,10 +138,8 @@
                 }
                 else if (result == ContentDialogResult.Primary)
                 {
-                    if (!await SaveAsync())
-                    {
-                        return false;
-                    }
+                    bool isFileSaved = await SaveAsync().ConfigureAwait(true);
+                    return isFileSaved;
                 }
             }
 

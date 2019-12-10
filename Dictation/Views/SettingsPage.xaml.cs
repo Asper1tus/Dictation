@@ -9,7 +9,7 @@
 
         public SettingsPage()
         {
-            viewModel = App.Locator.SettingsViewModel;
+            viewModel = new SettingsViewModel();
             this.InitializeComponent();
         }
     }

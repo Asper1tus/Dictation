@@ -10,13 +10,13 @@
 
         public OpenPage()
         {
-            viewModel = App.Locator.OpenViewModel;
+            viewModel = new OpenViewModel();
             this.InitializeComponent();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await viewModel.InitializeAsync();
+            await viewModel.InitializeAsync().ConfigureAwait(true);
         }
     }
 }

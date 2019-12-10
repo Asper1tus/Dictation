@@ -125,4 +125,7 @@
     <value>Dictation</value>
     <comment>Application display name</comment>
   </data>
+  <data name="TEnum" xml:space="preserve">
+    <value>Generic parameter 'TEnum' must be an enum.</value>
+  </data>
 </root>

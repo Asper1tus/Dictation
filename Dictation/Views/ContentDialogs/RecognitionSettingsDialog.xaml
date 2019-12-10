@@ -1,0 +1,26 @@
+﻿<ContentDialog
+    x:Class="Dictation.Views.ContentDialogs.RecognitionSettingsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Dictation.Views.ContentDialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    CloseButtonText="Cancel">
+
+    <StackPanel>
+        <TextBlock>
+            <Run  Text="Dictation needs to use your microphone for dictating text."/>
+            <LineBreak/>
+            <Run Text="It seems you have denied the access."/>
+            <LineBreak/>
+            <LineBreak/>
+            <Run Text="Click"/>
+               <Hyperlink NavigateUri="ms-settings:privacy-microphone">
+                   <Run Text="'Go to Settings'"/>
+               </Hyperlink>
+            <Run Text="and turn on microphone access for Dictation"/>
+        </TextBlock>
+    </StackPanel>
+
+</ContentDialog>

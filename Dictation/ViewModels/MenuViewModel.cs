@@ -34,6 +34,33 @@
             NavigationService.NavigateContent(typeof(OpenPage));
         }
 
+        private static bool IsMenuItemForPageType(NavigationViewItem menuItem, Type sourcePageType)
+        {
+            var pageType = menuItem.GetValue(NavHelper.NavigateToProperty) as Type;
+            return pageType == sourcePageType;
+        }
+
+        private static async void ChooseItem(string tag)
+        {
+            switch (tag)
+            {
+                case "back":
+                    NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+                    break;
+                case "new":
+                    await FileService.New().ConfigureAwait(true);
+                    break;
+                case "save":
+                    await FileService.SaveAsync().ConfigureAwait(true);
+                    break;
+                case "saveas":
+                    await FileService.SaveAsAsync().ConfigureAwait(true);
+                    break;
+            }
+
+            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+        }
+
         private void OnItemInvoked(NavigationViewItemInvokedEventArgs args)
         {
             if (args.IsSettingsInvoked)
@@ -73,33 +100,6 @@
             Selected = navigationView.MenuItems
                             .OfType<NavigationViewItem>()
                             .FirstOrDefault(menuItem => IsMenuItemForPageType(menuItem, sourcePageType));
-        }
-
-        private bool IsMenuItemForPageType(NavigationViewItem menuItem, Type sourcePageType)
-        {
-            var pageType = menuItem.GetValue(NavHelper.NavigateToProperty) as Type;
-            return pageType == sourcePageType;
-        }
-
-        private async void ChooseItem(string tag)
-        {
-            switch (tag)
-            {
-                case "back":
-                    NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
-                    break;
-                case "new":
-                    await FileService.New();
-                    break;
-                case "save":
-                    await FileService.SaveAsync();
-                    break;
-                case "saveas":
-                    await FileService.SaveAsAsync();
-                    break;
-            }
-
-            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
     }
 }

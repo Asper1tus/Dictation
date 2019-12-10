@@ -8,7 +8,7 @@
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             string selectedTheme, currentheme;
-            if (parameter != null)
+            if (parameter != null && value != null)
             {
                 selectedTheme = value.ToString();
                 currentheme = parameter.ToString();

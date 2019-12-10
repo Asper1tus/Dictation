@@ -1,16 +1,17 @@
 ﻿namespace Dictation
 {
     using System;
+    using System.Globalization;
     using System.Reflection;
     using Dictation.Helpers;
     using Dictation.Services;
     using Dictation.ViewModels;
+    using Microsoft.Toolkit.Uwp.Extensions;
     using Windows.ApplicationModel;
     using Windows.ApplicationModel.Activation;
-    using Windows.Globalization;
+    using Windows.ApplicationModel.Store;
     using Windows.Storage;
     using Windows.UI.Core.Preview;
-    using Windows.UI.Popups;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Navigation;
@@ -21,15 +22,13 @@
     public sealed partial class App : Application
     {
         private const string SelectedAppThemeKey = "SelectedAppTheme";
-        private static Locator locator;
 
         public App()
         {
             this.InitializeComponent();
+            LicenseService.LicenseInformation = CurrentAppSimulator.LicenseInformation;
             this.Suspending += OnSuspending;
         }
-
-        public static Locator Locator => locator ?? (locator = new Locator());
 
         public static string RecognitionLanguage
         {
@@ -81,7 +80,10 @@
 
             set
             {
-                ApplicationData.Current.LocalSettings.Values["Font"] = value.ToString();
+                if (value != null)
+                {
+                    ApplicationData.Current.LocalSettings.Values["Font"] = value.ToString(CultureInfo.CurrentCulture);
+                }
             }
         }
 
@@ -149,7 +151,7 @@
         {
             if (!typeof(TEnum).GetTypeInfo().IsEnum)
             {
-                throw new InvalidOperationException("Generic parameter 'TEnum' must be an enum.");
+                throw new InvalidOperationException("TEnum".GetLocalized());
             }
 
             return (TEnum)Enum.Parse(typeof(TEnum), text);
@@ -163,53 +165,55 @@
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
-            // Не повторяйте инициализацию приложения, если в окне уже имеется содержимое,
-            // только обеспечьте активность окна
-            if (rootFrame == null)
+            if (e != null)
             {
-                // Создание фрейма, который станет контекстом навигации, и переход к первой странице
-                rootFrame = new Frame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                // Не повторяйте инициализацию приложения, если в окне уже имеется содержимое,
+                // только обеспечьте активность окна
+                if (rootFrame == null)
                 {
-                    // TODO: Загрузить состояние из ранее приостановленного приложения
+                    // Создание фрейма, который станет контекстом навигации, и переход к первой странице
+                    rootFrame = new Frame();
+
+                    rootFrame.NavigationFailed += OnNavigationFailed;
+
+                    if (e.PreviousExecutionState != ApplicationExecutionState.Terminated)
+                    {
+                        // TODO: Загрузить состояние из ранее приостановленного приложения
+                    }
+
+                    // Размещение фрейма в текущем окне
+                    Window.Current.Content = rootFrame;
                 }
 
-                // Размещение фрейма в текущем окне
-                Window.Current.Content = rootFrame;
-            }
-
-            if (e.PrelaunchActivated == false)
-            {
-                if (rootFrame.Content == null)
+                if (e.PrelaunchActivated == false)
                 {
-                    // Если стек навигации не восстанавливается для перехода к первой странице,
-                    // настройка новой страницы путем передачи необходимой информации в качестве параметра
-                    // навигации
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    if (rootFrame.Content == null)
+                    {
+                        // Если стек навигации не восстанавливается для перехода к первой странице,
+                        // настройка новой страницы путем передачи необходимой информации в качестве параметра
+                        // навигации
+                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    }
+
+                    SystemNavigationManagerPreview.GetForCurrentView().CloseRequested += CloseRequested;
+
+                    // Обеспечение активности текущего окна
+                    Window.Current.Activate();
                 }
 
-                SystemNavigationManagerPreview.GetForCurrentView().CloseRequested += CloseRequested;
+                string savedTheme = ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey]?.ToString();
 
-                // Обеспечение активности текущего окна
-                Window.Current.Activate();
-            }
-
-            string savedTheme = ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey]?.ToString();
-
-            if (savedTheme != null)
-            {
-                RootTheme = GetEnum<ElementTheme>(savedTheme);
+                if (savedTheme != null)
+                {
+                    RootTheme = GetEnum<ElementTheme>(savedTheme);
+                }
             }
         }
 
         private async void CloseRequested(object sender, SystemNavigationCloseRequestedPreviewEventArgs e)
         {
             var deferral = e.GetDeferral();
-            e.Handled = !await FileService.IsFileSavedAsync();
+            e.Handled = !await FileService.IsFileSavedAsync().ConfigureAwait(true);
             deferral.Complete();
         }
 

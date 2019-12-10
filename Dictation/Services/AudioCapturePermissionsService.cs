@@ -4,11 +4,11 @@
     using System.Threading.Tasks;
     using Windows.Media.Capture;
 
-    public class AudioCapturePermissionsService
+    public static class AudioCapturePermissionsService
     {
         // If no recording device is attached, attempting to get access to audio capture devices will throw
         // a System.Exception object, with this HResult set.
-        private static readonly int NoCaptureDevicesHResult = -1072845856;
+        private const int NoCaptureDevicesHResult = -1072845856;
 
         public static async Task<bool> RequestMicrophonePermission()
         {
@@ -22,6 +22,7 @@
                 MediaCapture capture = new MediaCapture();
 
                 await capture.InitializeAsync(settings);
+                capture.Dispose();
             }
             catch (TypeLoadException)
             {

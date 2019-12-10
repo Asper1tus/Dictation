@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <LangVersion>8.0</LangVersion>
+    <DocumentationFile>
+    </DocumentationFile>
+    <CodeAnalysisRuleSet>Dictation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -43,6 +46,7 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
     <LangVersion>8.0</LangVersion>
+    <CodeAnalysisRuleSet>Dictation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +59,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <LangVersion>8.0</LangVersion>
+    <CodeAnalysisRuleSet>Dictation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <OutputPath>bin\ARM\Release\</OutputPath>
@@ -68,6 +73,7 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
     <LangVersion>8.0</LangVersion>
+    <CodeAnalysisRuleSet>Dictation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
     <DebugSymbols>true</DebugSymbols>
@@ -81,6 +87,7 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
     <LangVersion>8.0</LangVersion>
+    <CodeAnalysisRuleSet>Dictation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
     <OutputPath>bin\ARM64\Release\</OutputPath>
@@ -94,6 +101,7 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
     <LangVersion>8.0</LangVersion>
+    <CodeAnalysisRuleSet>Dictation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -106,6 +114,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <LangVersion>8.0</LangVersion>
+    <CodeAnalysisRuleSet>Dictation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -119,6 +128,7 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
     <LangVersion>8.0</LangVersion>
+    <CodeAnalysisRuleSet>Dictation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
@@ -128,6 +138,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Commands\RelayCommand{T}.cs" />
     <Compile Include="Converetrs\ZoomToSliderConverter.cs" />
     <Compile Include="Converetrs\ThemeConverter.cs" />
     <Compile Include="Converetrs\ZoomToTextConverter.cs" />
@@ -141,6 +152,7 @@
     <Compile Include="Services\ContentDialogService.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\FontService.cs" />
+    <Compile Include="Services\LicenseService.cs" />
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\RecognizerService.cs" />
     <Compile Include="Helpers\RtfTextHelper.cs" />
@@ -149,7 +161,6 @@
     <Compile Include="ViewModels\ContentDialogs\HyperLinkViewModel.cs" />
     <Compile Include="ViewModels\Content\ToolsViewModel.cs" />
     <Compile Include="ViewModels\HelpPages\AboutViewModel.cs" />
-    <Compile Include="ViewModels\Locator.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -158,6 +169,9 @@
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\OpenViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Views\ContentDialogs\RecognitionSettingsDialog.xaml.cs">
+      <DependentUpon>RecognitionSettingsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContentDialogs\SaveDocumentContentDialog.xaml.cs">
       <DependentUpon>SaveDocumentContentDialog.xaml</DependentUpon>
     </Compile>
@@ -229,6 +243,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ContentDialogs\RecognitionSettingsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ContentDialogs\SaveDocumentContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -279,6 +297,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
+      <Version>2.9.7</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.9</Version>
     </PackageReference>
@@ -312,6 +335,7 @@
   <ItemGroup />
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="Dictation.ruleset" />
     <PRIResource Include="Strings\en-us\Resources.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

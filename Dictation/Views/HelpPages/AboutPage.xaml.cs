@@ -1,5 +1,6 @@
 ﻿namespace Dictation.Views.HelpPages
 {
+    using Dictation.ViewModels;
     using Dictation.ViewModels.HelpPages;
     using Windows.UI.Xaml.Controls;
 
@@ -9,7 +10,7 @@
 
         public AboutPage()
         {
-            viewModel = App.Locator.AboutViewModel;
+            viewModel = new AboutViewModel();
             this.InitializeComponent();
         }
     }

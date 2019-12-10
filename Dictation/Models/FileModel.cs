@@ -10,7 +10,7 @@
         {
             get
             {
-                return Path.Replace(Name, string.Empty);
+                return Path.Replace(Name, string.Empty, System.StringComparison.OrdinalIgnoreCase);
             }
         }
 

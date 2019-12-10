@@ -35,6 +35,13 @@
         private ICommand operationCommand;
         private ICommand changeZoomCommand;
 
+        // FontSize in RichEditBox 0.75 times smaller generally
+        public static int FontSize => (int)Math.Ceiling(App.FontSize / 0.75);
+
+        public static string Font => App.Font;
+
+        public static string FileName => FileService.FileName;
+
         public ICommand ListeningCommand => listeningCommand ?? (listeningCommand = new RelayCommand(Listening));
 
         public ICommand DispalyContentCommand => dispalyContentCommand ?? (dispalyContentCommand = new RelayCommand<string>(DisplayContent));
@@ -48,13 +55,6 @@
         public ICommand ChangeZoomCommand => changeZoomCommand ?? (changeZoomCommand = new RelayCommand<string>(ChangeZoom));
 
         public ICommand OperationCommand => operationCommand ?? (operationCommand = new RelayCommand<string>(MessageService.SendOperation));
-
-        // FontSize in RichEditBox 0.75 times smaller generally
-        public int FontSize => (int)Math.Ceiling(App.FontSize / 0.75);
-
-        public string Font => App.Font;
-
-        public string FileName => FileService.FileName;
 
         public bool IsBusy
         {
@@ -91,7 +91,7 @@
             MessageService.ZoomFactorChanged += ZoomFactorChanged;
             FileService.FileManipulationStarted += FileManipulationStarted;
             FileService.FileManipulationEnded += FileManipulationEnded;
-            await FileService.New();
+            await FileService.New().ConfigureAwait(true);
             this.contentFrame = contentFrame;
             RecognizerService.InitializeRecognizerService();
             IsPanelVisible = true;
@@ -117,18 +117,42 @@
 
         private async void Listening()
         {
-            if (!await AudioCapturePermissionsService.RequestMicrophonePermission())
+            if (LicenseService.IsFeaturePurchased("Recognition"))
+            {
+                bool microfonePermission = await AudioCapturePermissionsService.RequestMicrophonePermission().ConfigureAwait(true);
+
+                if (!microfonePermission)
+                {
+                    IsListening = false;
+                    await ContentDialogService.ShowRecognitionSettingsDialog().ConfigureAwait(true);
+                }
+                else
+                {
+                    try
+                    {
+                        await RecognizerService.Listening(IsListening).ConfigureAwait(true);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        IsListening = false;
+                    }
+                    catch (System.Exception e) when (e.HResult == unchecked((int)0x80045509))
+                    {
+                        IsListening = false;
+                        ContentDialogService.ShowRecognitionPrivacyDialog();
+                    }
+                }
+            }
+            else
             {
                 IsListening = false;
             }
-
-            RecognizerService.Listening(IsListening);
         }
 
         private void DisplayContent(object tag)
         {
             NavigationService.ContentFrame = contentFrame;
-            var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag));
+            var item = pages.FirstOrDefault(p => p.tag.Equals((string)tag, StringComparison.OrdinalIgnoreCase));
             var page = item.page;
             if (NavigationService.ContentFrame.CurrentSourcePageType != page)
             {

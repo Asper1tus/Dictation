@@ -44,6 +44,10 @@
             MessageService.NotifyEvent += Update;
         }
 
+        public static List<string> Fonts => FontService.Fonts;
+
+        public static List<int> Sizes => FontService.Sizes;
+
         public ICommand ChangeStyleCommand => changeStyleCommand ?? (changeStyleCommand = new RelayCommand<string>(MessageService.SendStyle));
 
         public ICommand ChangeFontCommand => changeFontCommand ?? (changeFontCommand = new RelayCommand<string>(MessageService.SendFont));
@@ -61,10 +65,6 @@
         public ICommand InsertImageCommand => insertImageCommand ?? (insertImageCommand = new RelayCommand(MessageService.SendImage));
 
         public ICommand InsertHyperlinkCommand => insertHyperlinkCommand ?? (insertHyperlinkCommand = new RelayCommand(ContentDialogService.ShowHyperLinkDialogAsync));
-
-        public List<string> Fonts => FontService.Fonts;
-
-        public List<int> Sizes => FontService.Sizes;
 
         public bool IsBold
         {

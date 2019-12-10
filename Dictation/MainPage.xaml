@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:vm="using:Dictation.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
     
@@ -146,8 +147,8 @@
                                 Width="794"
                                 Margin="50" IsSpellCheckEnabled ="True"
                                 helpers:RtfTextHelper.RichText =""
-                                FontFamily="{x:Bind viewModel.Font, Mode=OneTime}"
-                                FontSize="{x:Bind viewModel.FontSize, Mode=OneTime}" />
+                                FontFamily="{x:Bind vm:MainPageViewModel.Font, Mode=OneTime}"
+                                FontSize="{x:Bind vm:MainPageViewModel.FontSize, Mode=OneTime}" />
                         </ScrollViewer>
                     </Grid>
                 </SplitView.Content>
@@ -173,22 +174,22 @@
                     </Grid>
                 </SplitView.Pane>
             </SplitView>
-            <Grid 
+            <Grid
                 Grid.Row="2"
                 Background="{ThemeResource AppBarBackgroundThemeBrush}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="243*"/>
-                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock 
                     VerticalAlignment="Center"
                     TextAlignment="Center" 
-                    Text="{x:Bind viewModel.FileName, Mode=OneWay}" Grid.ColumnSpan="2"/>
+                    Text="{x:Bind vm:MainPageViewModel.FileName, Mode=OneWay}"/>
                 <StackPanel 
                     Orientation="Horizontal"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    Margin="980,0,0,0" Grid.ColumnSpan="2">
+                    HorizontalAlignment="Right"
+                    Grid.Column="1">
                     <Button
                         Content="-"
                         FontSize="12"

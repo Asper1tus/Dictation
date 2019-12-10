@@ -4,19 +4,27 @@
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
 
-    public class NavHelper
+    public static class NavHelper
     {
         public static readonly DependencyProperty NavigateToProperty =
             DependencyProperty.RegisterAttached("NavigateTo", typeof(Type), typeof(NavHelper), new PropertyMetadata(null));
 
         public static Type GetNavigateTo(NavigationViewItem item)
         {
+            if (item is null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
             return (Type)item.GetValue(NavigateToProperty);
         }
 
         public static void SetNavigateTo(NavigationViewItem item, Type value)
         {
-            item.SetValue(NavigateToProperty, value);
+            if (item != null)
+            {
+                item.SetValue(NavigateToProperty, value);
+            }
         }
     }
 }
