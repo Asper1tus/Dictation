@@ -121,15 +121,18 @@
             if (!microfonePermission)
             {
                 IsListening = false;
+                await ContentDialogService.ShowRecognitionSettingsDialog().ConfigureAwait(true);
             }
-
-            try
+            else
             {
-                IsListening = await RecognizerService.Listening(IsListening).ConfigureAwait(true);
-            }
-            catch (InvalidOperationException)
-            {
-                IsListening = false;
+                try
+                {
+                    IsListening = await RecognizerService.Listening(IsListening).ConfigureAwait(true);
+                }
+                catch (InvalidOperationException)
+                {
+                    IsListening = false;
+                }
             }
         }
 

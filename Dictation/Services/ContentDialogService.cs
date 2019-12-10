@@ -18,5 +18,11 @@
             SaveDocumentContentDialog saveDocument = new SaveDocumentContentDialog();
             return await saveDocument.ShowAsync();
         }
+
+        public static async Task<ContentDialogResult> ShowRecognitionSettingsDialog()
+        {
+            RecognitionSettingsDialog recognitionSettings = new RecognitionSettingsDialog();
+            return await recognitionSettings.ShowAsync();
+        }
     }
 }

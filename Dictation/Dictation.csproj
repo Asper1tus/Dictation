@@ -168,6 +168,9 @@
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\OpenViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Views\ContentDialogs\RecognitionSettingsDialog.xaml.cs">
+      <DependentUpon>RecognitionSettingsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContentDialogs\SaveDocumentContentDialog.xaml.cs">
       <DependentUpon>SaveDocumentContentDialog.xaml</DependentUpon>
     </Compile>
@@ -236,6 +239,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ToolsStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentDialogs\RecognitionSettingsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
