@@ -9,6 +9,7 @@
     using Microsoft.Toolkit.Uwp.Extensions;
     using Windows.ApplicationModel;
     using Windows.ApplicationModel.Activation;
+    using Windows.ApplicationModel.Store;
     using Windows.Storage;
     using Windows.UI.Core.Preview;
     using Windows.UI.Xaml;
@@ -25,6 +26,7 @@
         public App()
         {
             this.InitializeComponent();
+            LicenseService.LicenseInformation = CurrentAppSimulator.LicenseInformation;
             this.Suspending += OnSuspending;
         }
 

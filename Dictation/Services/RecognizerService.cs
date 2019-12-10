@@ -23,6 +23,7 @@
             dictatedTextBuilder = new StringBuilder();
             dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             Language language = GetLanguageByNativeName(App.RecognitionLanguage);
+
             InitializeSpeechRecognizer(language);
         }
 
@@ -39,33 +40,28 @@
             InitializeSpeechRecognizer(language);
         }
 
-        public static async Task<bool> Listening(bool isListening)
+        public static async Task Listening(bool isListening)
         {
-            if (isListening)
-            {
-                    await speechRecognizer.ContinuousRecognitionSession.StartAsync();
-                    dictatedTextBuilder.Append(RtfTextHelper.Text);
-                    richText = RtfTextHelper.FormattedText;
-                    return true;
-            }
-            else
-            {
-                try
+                if (isListening)
                 {
-                    await speechRecognizer.ContinuousRecognitionSession.CancelAsync();
-
-                    dictatedTextBuilder.Clear();
-                    RtfTextHelper.FormattedText = richText;
-                    RtfTextHelper.AddRtf(recognizedText);
-                    recognizedText = string.Empty;
-                    return false;
+                    if (speechRecognizer.State == SpeechRecognizerState.Idle)
+                    {
+                        await speechRecognizer.ContinuousRecognitionSession.StartAsync();
+                        dictatedTextBuilder.Append(RtfTextHelper.Text);
+                        richText = RtfTextHelper.FormattedText;
+                    }
                 }
-                catch (System.InvalidOperationException)
+                else
                 {
-                    await speechRecognizer.ContinuousRecognitionSession.StartAsync();
-                    return true;
+                    if (speechRecognizer.State != SpeechRecognizerState.Idle)
+                    {
+                        await speechRecognizer.ContinuousRecognitionSession.CancelAsync();
+                        dictatedTextBuilder.Clear();
+                        RtfTextHelper.FormattedText = richText;
+                        RtfTextHelper.AddRtf(recognizedText);
+                        recognizedText = string.Empty;
+                    }
                 }
-            }
         }
 
         private static Language GetLanguageByNativeName(string name)

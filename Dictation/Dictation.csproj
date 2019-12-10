@@ -152,6 +152,7 @@
     <Compile Include="Services\ContentDialogService.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\FontService.cs" />
+    <Compile Include="Services\LicenseService.cs" />
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\RecognizerService.cs" />
     <Compile Include="Helpers\RtfTextHelper.cs" />
