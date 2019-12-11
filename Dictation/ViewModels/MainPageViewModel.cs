@@ -117,35 +117,29 @@
 
         private async void Listening()
         {
-            if (LicenseService.IsFeaturePurchased("Recognition"))
-            {
-                bool microfonePermission = await AudioCapturePermissionsService.RequestMicrophonePermission().ConfigureAwait(true);
+            bool microfonePermission = await AudioCapturePermissionsService.RequestMicrophonePermission().ConfigureAwait(true);
 
-                if (!microfonePermission)
-                {
-                    IsListening = false;
-                    await ContentDialogService.ShowRecognitionSettingsDialog().ConfigureAwait(true);
-                }
-                else
-                {
-                    try
-                    {
-                        await RecognizerService.Listening(IsListening).ConfigureAwait(true);
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        IsListening = false;
-                    }
-                    catch (System.Exception e) when (e.HResult == unchecked((int)0x80045509))
-                    {
-                        IsListening = false;
-                        ContentDialogService.ShowRecognitionPrivacyDialog();
-                    }
-                }
+            if (!microfonePermission)
+            {
+                IsListening = false;
+                await ContentDialogService.ShowRecognitionSettingsDialog().ConfigureAwait(true);
             }
             else
             {
-                IsListening = false;
+                try
+                {
+                    await RecognizerService.Listening(IsListening).ConfigureAwait(true);
+                }
+                catch (InvalidOperationException)
+                {
+                    IsListening = false; 
+                    await RecognizerService.Listening(IsListening).ConfigureAwait(true);
+                }
+                catch (System.Exception e) when (e.HResult == unchecked((int)0x80045509))
+                {
+                    IsListening = false;
+                    ContentDialogService.ShowRecognitionPrivacyDialog();
+                }
             }
         }
 
