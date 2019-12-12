@@ -29,35 +29,36 @@
             VerticalScrollMode="Auto">
             <StackPanel HorizontalAlignment="Left">
                 <TextBlock
+                    x:Uid="Settings_Theme"
                     Style="{StaticResource TitleTextBlockStyle}"
                     Margin="0,5,0,0"
-                    FontWeight="Normal"
-                    Text="Theme Mode" />
+                    FontWeight="Normal"/>
                 <StackPanel Margin="0,10,0,0">
                     <RadioButton 
-                        Content="Light" 
+                        x:Uid="Settings_Light"
                         Command="{x:Bind viewModel.ChooseThemeCommand}" 
                         CommandParameter="Light"
                         IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Light, Mode=OneWay}"/>
                     <RadioButton 
-                        Content="Dark" 
+                        x:Uid="Settings_Dark"
                         Command="{x:Bind viewModel.ChooseThemeCommand}" 
                         CommandParameter="Dark"
                         IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Dark, Mode=OneWay}"/>
                     <RadioButton 
-                        Content="Use system setting" 
+                        x:Uid="Settings_Default"
                         Command="{x:Bind viewModel.ChooseThemeCommand}" 
                         CommandParameter="Default"
                         IsChecked="{x:Bind viewModel.Theme, Converter={StaticResource ThemeConverter}, ConverterParameter=Default, Mode=OneWay}"/>
                 </StackPanel>
                 <TextBlock
+                    x:Uid="Settings_General"
                     Style="{StaticResource TitleTextBlockStyle}"
                     Margin="0,5,0,0"
-                    FontWeight="Normal"
-                    Text="General" />
-                <TextBlock Margin="0,10,0,0"
-                    FontWeight="Normal"
-                    Text="Default font and size"/>
+                    FontWeight="Normal"/>
+                <TextBlock 
+                    x:Uid="Settings_DefaultFont"
+                    Margin="0,10,0,0"
+                    FontWeight="Normal"/>
                 <StackPanel 
                     Orientation="Horizontal" 
                     Margin="0 5 0 0">
@@ -71,7 +72,7 @@
                         SelectedItem="{x:Bind viewModel.Size, Mode=TwoWay}"/>
                 </StackPanel>
                 <ComboBox 
-                    Header="Dictation language"
+                    x:Uid="Settings_DictationLanguage"
                     Margin="0,5,0,0" 
                     Width="200" 
                     ItemsSource="{x:Bind vm:SettingsViewModel.Languages}" 
@@ -80,30 +81,30 @@
                     FontStyle="Italic"
                     Margin="0,15,0,0" 
                     TextWrapping="Wrap">
-                        <Run Text="You can add more dictation languages. Go to "/>
+                        <Run x:Uid="Settings_Advice1"/>
                         <Hyperlink NavigateUri="ms-settings:regionlanguage">
-                            <Run Text="Region and Languages"/>
+                            <Run x:Uid="Settings_RegionAndLanguages"/>
                         </Hyperlink>
-                        <Run Text=" to add language."/>
+                        <Run x:Uid="Settings_Advice2"/>
                 </TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock 
-                        Text="Be careful, only languages ​​with an icon" 
+                        x:Uid="Settings_Advice3"
                         FontWeight="Bold"/>
                     <FontIcon 
                         FontFamily="Segoe MDL2 Assets" 
                         Glyph="&#xE720;" 
                         FontSize="18"/>
                     <TextBlock 
-                        Text="supports Speech Recognition."  
+                        x:Uid="Settings_Advice4"
                         FontWeight="Bold"/>
                 </StackPanel>
                 <StackPanel 
                     Orientation="Horizontal" 
                     Margin="0 5 0 0">
                     <CheckBox
-                        IsChecked="{x:Bind viewModel.IsSaveEnabled, Mode=TwoWay}"
-                        Content="Auto save file every"/>
+                        x:Uid="Settings_AutoSave"
+                        IsChecked="{x:Bind viewModel.IsSaveEnabled, Mode=TwoWay}"/>
                     <TextBox 
                         extensions:TextBoxRegex.ValidationType="Number"
                         extensions:TextBoxRegex.IsValid="{x:Bind viewModel.IsValid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -111,8 +112,8 @@
                         Text="{x:Bind viewModel.Minutes, Mode=TwoWay}"
                         Margin="10 0 10 0"/>
                     <TextBlock 
-                        VerticalAlignment="Center" 
-                        Text="minutes"/>
+                        x:Uid="Settings_Minutes"
+                        VerticalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
@@ -121,13 +122,13 @@
             Grid.Row="1" 
             Orientation="Horizontal">
             <Button 
+                x:Uid="Settings_Restore"
                 Width="150" 
-                Content="Restore Default" 
                 Command="{x:Bind viewModel.RestoreDefaultCommand}"/>
             <Button 
+                x:Uid="Settings_Save"
                 Width="150" 
                 Margin="20 0 0 0" 
-                Content="Save" 
                 Command="{x:Bind viewModel.SaveCommand}"/>
         </StackPanel>
     </Grid>

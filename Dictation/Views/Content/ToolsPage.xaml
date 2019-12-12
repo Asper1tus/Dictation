@@ -24,10 +24,10 @@
         Margin="10" 
         Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}">
         <TextBlock 
+            x:Uid="Tools_SelectFont"
             Margin="5" 
             FontSize="20" 
-            FontWeight="SemiBold"
-            Text="Select font style"/>
+            FontWeight="SemiBold"/>
         <StackPanel 
             Orientation="Horizontal" 
             Height="40">
@@ -61,20 +61,20 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <ToggleButton 
+                x:Uid="Tools_Bold"
                 Content="&#xE8DD;" 
-                ToolTipService.ToolTip="Bold (Ctrl + B)"  
                 IsChecked="{x:Bind viewModel.IsBold, Mode=OneWay}" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
                 CommandParameter="Bold"/>
             <ToggleButton 
+                x:Uid="Tools_Italic"
                 Content="&#xE8DB;" 
-                ToolTipService.ToolTip="Italic (Ctrl + I)"  
                 IsChecked="{x:Bind viewModel.IsItalic, Mode=OneWay}" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
                 CommandParameter="Italic"/>
             <ToggleButton 
+                x:Uid="Tools_Underline"
                 Content="&#xE8DC;" 
-                ToolTipService.ToolTip="Underline (Ctrl + U)"  
                 IsChecked="{x:Bind viewModel.IsUnderline, Mode=OneWay}" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
                 CommandParameter="Underline"/>
@@ -294,11 +294,11 @@
                 <DropDownButton.Flyout>
                     <MenuFlyout Placement="Bottom">
                         <MenuFlyoutItem
-                            Text="TO UPPER CASE"
+                            x:Uid="Tools_Upper"
                             Command="{x:Bind viewModel.ChangeStyleCommand}"
                             CommandParameter="ToUpper" />
                         <MenuFlyoutItem
-                            Text="to lower case"
+                            x:Uid="Tools_Lower"
                             Command="{x:Bind viewModel.ChangeStyleCommand}"
                             CommandParameter="ToLower" />
                     </MenuFlyout>
@@ -306,31 +306,31 @@
             </DropDownButton>
         </StackPanel>
         <TextBlock
+            x:Uid="Tools_Aligment"
             Margin="5"
             FontSize="20"
-            FontWeight="SemiBold"
-            Text="Set alignment"/>
+            FontWeight="SemiBold"/>
         <StackPanel Orientation="Horizontal">
             <ToggleButton 
+                x:Uid="Tools_AlignLeft"
                 Content="&#xE8E4;" 
-                ToolTipService.ToolTip="Align left (Ctrl + L)"  
                 IsChecked="{x:Bind viewModel.IsAlignLeft, Mode=OneWay}"  
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
-                CommandParameter="AlignLeft"></ToggleButton>
+                CommandParameter="AlignLeft"/>
             <ToggleButton 
+                x:Uid="Tools_AlignCenter"
                 Content="&#xE8E3;" 
-                ToolTipService.ToolTip="Align center (Ctrl + E)"  
                 IsChecked="{x:Bind viewModel.IsAlignCenter, Mode=OneWay}"  
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
-                CommandParameter="AlignCenter"></ToggleButton>
+                CommandParameter="AlignCenter"/>
             <ToggleButton 
+                x:Uid="Tools_AlignRight"
                 Content="&#xE8E2;" 
-                ToolTipService.ToolTip="Align right (Ctrl + R)"  
                 IsChecked="{x:Bind viewModel.IsAlignRight, Mode=OneWay}"  
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
-                CommandParameter="AlignRight"></ToggleButton>
+                CommandParameter="AlignRight"/>
             <ToggleButton 
-                ToolTipService.ToolTip="Align justify (Ctrl + J)"  
+                x:Uid="Tools_AlignJustify"
                 IsChecked="{x:Bind viewModel.IsJustify, Mode=OneWay}" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
                 CommandParameter="Justify">
@@ -340,15 +340,19 @@
                 </Grid>
             </ToggleButton>
         </StackPanel>
-        <TextBlock Margin="5" FontSize="20" FontWeight="SemiBold">Bullets and Numbering</TextBlock>
+        <TextBlock 
+            x:Uid="Tools_Lists"
+            Margin="5" 
+            FontSize="20" 
+            FontWeight="SemiBold"/>
         <StackPanel Orientation="Horizontal">
             <ToggleButton 
-                ToolTipService.ToolTip="Bullets (Ctrl + Shift + L)"  
+                x:Uid="Tools_Bullets"
                 IsChecked="{x:Bind viewModel.HasBullets, Mode=OneWay}" 
                 FontFamily="Segoe MDL2 Assets" 
                 Content="&#xE8FD;" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
-                CommandParameter="Bullets"></ToggleButton>
+                CommandParameter="Bullets"/>
             <ToggleButton 
                 IsChecked="{x:Bind viewModel.HasNumbers, Mode=OneWay}" 
                 Command="{x:Bind viewModel.ChangeStyleCommand}" 
@@ -360,10 +364,10 @@
             </ToggleButton>
         </StackPanel>
         <TextBlock
+            x:Uid="Tools_Insert"
             Margin="5"
             FontSize="20"
-            FontWeight="SemiBold"
-            Text="Insert"/>
+            FontWeight="SemiBold"/>
         <StackPanel Orientation="Horizontal">
             <Button 
                 Height="40" Width="40" 
@@ -372,12 +376,12 @@
                 Command="{x:Bind viewModel.InsertImageCommand}"
                 Padding="0"/>
             <Button 
+                x:Uid="Tools_Hyperlink"
                 Height="40"
                 Width="40" 
                 FontSize="35"
                 Content="&#xE71B;" 
                 Padding="0"
-                ToolTipService.ToolTip="Insert Hyperlink (Ctrl + K)" 
                 Command="{x:Bind viewModel.InsertHyperlinkCommand}">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator 

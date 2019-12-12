@@ -113,6 +113,7 @@
         private void Close()
         {
             IsPanelVisible = false;
+            Title = null;
         }
 
         private async void Listening()
@@ -132,7 +133,7 @@
                 }
                 catch (InvalidOperationException)
                 {
-                    IsListening = false; 
+                    IsListening = false;
                     await RecognizerService.Listening(IsListening).ConfigureAwait(true);
                 }
                 catch (System.Exception e) when (e.HResult == unchecked((int)0x80045509))
@@ -158,6 +159,7 @@
             {
                 IsPanelVisible = !IsPanelVisible;
                 NavigationService.ContentFrame = null;
+                Title = null;
             }
         }
 

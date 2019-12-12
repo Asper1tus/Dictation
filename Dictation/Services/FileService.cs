@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Dictation.Helpers;
+    using Microsoft.Toolkit.Uwp.Extensions;
     using Windows.ApplicationModel.DataTransfer;
     using Windows.Storage;
     using Windows.Storage.Pickers;
@@ -44,7 +45,7 @@
                     {
                         ViewMode = PickerViewMode.Thumbnail,
                         SuggestedStartLocation = PickerLocationId.Desktop,
-                        CommitButtonText = "Open",
+                        CommitButtonText = "FileService_Open".GetLocalized(),
                     };
                     openPicker.FileTypeFilter.Add(".rtf");
                     file = await openPicker.PickSingleFileAsync();
@@ -97,7 +98,7 @@
             savePicker.FileTypeChoices.Add("Rich Text Format", new List<string>() { ".rtf" });
             savePicker.SuggestedFileName = "New Document";
 
-            file = await savePicker.PickSaveFileAsync();
+            await savePicker.PickSaveFileAsync();
             await SaveFileAsync().ConfigureAwait(true);
         }
 

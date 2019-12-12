@@ -22,17 +22,16 @@
             SelectedItem="{x:Bind viewModel.Selected, Mode=TwoWay}">
             <NavigationView.MenuItems>
                 <NavigationViewItem 
+                    x:Uid="Menu_Back"
                     Icon="Back"
-                    Content="Back" 
-                    AccessKey="B"
-                    ToolTipService.ToolTip="Back to home (Alt + B)"  
-                    Tag="back" helpers:NavHelper.NavigateTo="local:MainPage"/>
+                    AccessKey="B" 
+                    Tag="back" 
+                    helpers:NavHelper.NavigateTo="local:MainPage"/>
                 <NavigationViewItemSeparator/>
                 <NavigationViewItem 
+                    x:Uid="Menu_New"
                     Icon="Page2" 
-                    Content="New" 
-                    Tag="new"
-                    ToolTipService.ToolTip="New file (Ctrl + N)">
+                    Tag="new">
                     <NavigationViewItem.KeyboardAccelerators>
                         <KeyboardAccelerator 
                         Modifiers="Control" 
@@ -40,11 +39,10 @@
                     </NavigationViewItem.KeyboardAccelerators>
                 </NavigationViewItem>
                 <NavigationViewItem 
+                    x:Uid="Menu_Open"
                     Icon="OpenFile" 
                     IsSelected="True" 
-                    Content="Open" 
-                    helpers:NavHelper.NavigateTo="views:OpenPage"
-                    ToolTipService.ToolTip="Open file (Ctrl + O)">
+                    helpers:NavHelper.NavigateTo="views:OpenPage">
                     <NavigationViewItem.KeyboardAccelerators>
                         <KeyboardAccelerator 
                         Modifiers="Control" 
@@ -52,10 +50,9 @@
                     </NavigationViewItem.KeyboardAccelerators>
                 </NavigationViewItem>
                 <NavigationViewItem 
+                    x:Uid="Menu_Save"
                     Icon="Save" 
-                    Content="Save"
-                    Tag="save"
-                    ToolTipService.ToolTip="Save file (Ctrl + S)">
+                    Tag="save">
                     <NavigationViewItem.KeyboardAccelerators>
                         <KeyboardAccelerator 
                         Modifiers="Control" 
@@ -63,10 +60,9 @@
                     </NavigationViewItem.KeyboardAccelerators>
                 </NavigationViewItem>
                 <NavigationViewItem 
+                    x:Uid="Menu_SaveAs"
                     Icon="SaveLocal" 
-                    Content="Save as" 
-                    Tag="saveas"
-                    ToolTipService.ToolTip="Save as file (Ctrl + Shift + S)">
+                    Tag="saveas">
                     <NavigationViewItem.KeyboardAccelerators>
                         <KeyboardAccelerator 
                             Modifiers="Control,Shift"   
@@ -75,12 +71,12 @@
                 </NavigationViewItem>
                 <NavigationViewItemSeparator/>
                 <NavigationViewItem 
+                    x:Uid="Menu_Print"
                     Icon="Print" 
-                    Content="Print" 
                     Tag="print"/>
                 <NavigationViewItem 
+                    x:Uid="Menu_Help"
                     Icon="Help" 
-                    Content="Help"  
                     helpers:NavHelper.NavigateTo="views:HelpPage"/>
                 <NavigationViewItemSeparator/>
             </NavigationView.MenuItems>

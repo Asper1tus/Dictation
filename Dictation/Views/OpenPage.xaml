@@ -16,11 +16,10 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Button 
-            Content="Browse Document"
+            x:Uid="Open_Open"
             FontSize="20" 
             Command="{x:Bind viewModel.OpenFileCommand}" 
             CommandParameter="Open"
-            ToolTipService.ToolTip="Open file (Ctrl + N)" 
             Margin="10">
             <Button.KeyboardAccelerators>
                 <KeyboardAccelerator 
@@ -29,12 +28,14 @@
             </Button.KeyboardAccelerators>
         </Button>
         <StackPanel Grid.Row="1" >
-            <TextBlock Text="Recent Documents"
-                       FontSize="30" 
-                       Margin="10"/>
-            <ListView x:Name="listItem"
-                      ItemsSource="{x:Bind viewModel.Items, Mode=OneWay}"
-                      Height="500">
+            <TextBlock
+                x:Uid="Open_RecentDocuments"
+                FontSize="30" 
+                Margin="10"/>
+            <ListView 
+                x:Name="listItem"
+                ItemsSource="{x:Bind viewModel.Items, Mode=OneWay}"
+                Height="500">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel 

@@ -17,7 +17,7 @@
         <ResourceDictionary>
             <convert:ZoomToTextConverter x:Key="ZoomToTextConverter"/>
             <convert:ZoomToSliderConverter x:Key="ZoomToSliderConverter"/>
-            <convert:ButtonConverter x:Key="ButtonConverter"/>
+            <convert:ColorConverter x:Key="ColorConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/MainStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -34,31 +34,29 @@
             <CommandBar DefaultLabelPosition="Right">
                 <CommandBar.Content>
                     <AppBarButton
+                        x:Uid="Main_Menu"
                         FontFamily="Segoe MDL2 Assets"  
                         Content="&#xE700;" 
                         AccessKey="M"
-                        ToolTipService.ToolTip="Menu (Alt + M)"  
                         Command="{x:Bind viewModel.GoToMenuCommand }"/>
                 </CommandBar.Content>
                 <AppBarToggleButton 
+                    x:Uid="Main_StartDictation"
                     Icon="Microphone" 
-                    Label="Start Dictation" 
                     AccessKey="D"  
-                    ToolTipService.ToolTip="Dictate (Alt + D)"  
                     IsChecked="{x:Bind viewModel.IsListening, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                     Command="{x:Bind viewModel.ListeningCommand}"/>
                 <AppBarButton 
-                    Background="{x:Bind viewModel.Title, Converter={StaticResource ButtonConverter}, ConverterParameter='Vocabulary Training', Mode=OneWay}"
+                    x:Uid="Main_VocabularyTraining"
+                    Background="{x:Bind viewModel.Title, Converter={StaticResource ColorConverter}, ConverterParameter='Vocabulary Training', Mode=OneWay}"
                     Icon="Library" 
-                    Label="Vocabulary Training" 
                     Tag="vocabulary" 
                     Command="{x:Bind viewModel.DispalyContentCommand}" 
                     CommandParameter="vocabulary"/>
                 <AppBarButton  
-                    Background="{x:Bind viewModel.Title, Converter={StaticResource ButtonConverter}, ConverterParameter='Formating Tools', Mode=OneWay}"
+                    x:Uid="Main_FormatingTools"
+                    Background="{x:Bind viewModel.Title, Converter={StaticResource ColorConverter}, ConverterParameter='Formating Tools', Mode=OneWay}"
                     Icon="Font" 
-                    Label="Formating Tools" 
-                    ToolTipService.ToolTip="Open Tools (Ctrl + T)"
                     Command="{x:Bind viewModel.DispalyContentCommand}" 
                     CommandParameter="tools">
                     <AppBarButton.KeyboardAccelerators>
@@ -67,11 +65,10 @@
                             Key="T"/>
                     </AppBarButton.KeyboardAccelerators>
                 </AppBarButton>
-                <AppBarButton 
-                     Background="{x:Bind viewModel.Title, Converter={StaticResource ButtonConverter}, ConverterParameter='Find and Replace', Mode=OneWay}"
+                <AppBarButton  
+                    x:Uid="Main_FindAndReplace"
+                    Background="{x:Bind viewModel.Title, Converter={StaticResource ColorConverter}, ConverterParameter='Find and Replace', Mode=OneWay}"
                     Icon="Rename" 
-                    Label="Find and Replace" 
-                    ToolTipService.ToolTip="Find text (Ctrl + F)"
                     Command="{x:Bind viewModel.DispalyContentCommand}" 
                     CommandParameter="findreplace">
                     <AppBarButton.KeyboardAccelerators>
@@ -81,8 +78,8 @@
                     </AppBarButton.KeyboardAccelerators>
                 </AppBarButton>
                 <AppBarButton 
+                    x:Uid="Main_Share"
                     Icon="Share" 
-                    Label="Share"
                     Command="{x:Bind viewModel.OpenShareWindowCommand}" 
                     CommandParameter="share"/>
                 <AppBarElementContainer>
@@ -94,38 +91,34 @@
                                 FontSize="16"
                                 FontFamily="Segoe MDL2 Assets"
                                 Glyph="&#xE70F;" />
-                            <TextBlock Text="  Editing Tools"/>
+                            <TextBlock
+                                x:Uid="Main_EditingTools"/>
                         </StackPanel>
                         <DropDownButton.Flyout>
                             <CommandBarFlyout ShowMode="Transient">
                                 <AppBarButton 
-                                    Icon="Undo" 
-                                    Label="Undo" 
-                                    ToolTipService.ToolTip="Undo (Ctrl + Z)"  
+                                    x:Uid="Main_Undo"
+                                    Icon="Undo"  
                                     Command="{x:Bind viewModel.OperationCommand}" 
                                     CommandParameter="Undo" />
                                 <AppBarButton 
-                                    Icon="Redo" 
-                                    Label="Redo" 
-                                    ToolTipService.ToolTip="Redo (Ctrl + Y)"  
+                                    x:Uid="Main_Redo"
+                                    Icon="Redo"  
                                     Command="{x:Bind viewModel.OperationCommand}" 
                                     CommandParameter="Redo" />
                                 <AppBarButton 
+                                    x:Uid="Main_Cut"
                                     Icon="Cut" 
-                                    Label="Cut" 
-                                    ToolTipService.ToolTip="Cut (Ctrl + X)"  
                                     Command="{x:Bind viewModel.OperationCommand}" 
                                     CommandParameter="Cut" />
                                 <AppBarButton 
-                                    Icon="Copy" 
-                                    Label="Copy" 
-                                    ToolTipService.ToolTip="Copy (Ctrl + C)"  
+                                    x:Uid="Main_Copy"
+                                    Icon="Copy"  
                                     Command="{x:Bind viewModel.OperationCommand}" 
                                     CommandParameter="Copy" />
                                 <AppBarButton 
-                                    Icon="Paste" 
-                                    Label="Paste" 
-                                    ToolTipService.ToolTip="Paste (Ctrl + V)"  
+                                    x:Uid="Main_Paste"
+                                    Icon="Paste"  
                                     Command="{x:Bind viewModel.OperationCommand}" 
                                     CommandParameter="Paste" />
                             </CommandBarFlyout>

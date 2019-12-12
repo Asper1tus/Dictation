@@ -11,15 +11,15 @@
 
     <Pivot>
         <PivotItem
-            Header="FAQ">
+            x:Uid="Help_FAQ">
             <Frame x:Name="FAQ"/>
         </PivotItem>
         <PivotItem
-            Header="Shortcut Keys">
+            x:Uid="Help_Shortcut">
             <Frame x:Name="Shortcut"/>
         </PivotItem>
         <PivotItem
-            Header="About">
+            x:Uid="Help_About">
             <Frame x:Name="About"/>
         </PivotItem>
     </Pivot>

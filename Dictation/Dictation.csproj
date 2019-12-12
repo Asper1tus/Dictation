@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dictation</RootNamespace>
     <AssemblyName>Dictation</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>ru-ru</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
@@ -139,7 +139,7 @@
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommand{T}.cs" />
-    <Compile Include="Converetrs\ButtonConverter.cs" />
+    <Compile Include="Converetrs\ColorConverter.cs" />
     <Compile Include="Converetrs\ZoomToSliderConverter.cs" />
     <Compile Include="Converetrs\ThemeConverter.cs" />
     <Compile Include="Converetrs\ZoomToTextConverter.cs" />
@@ -345,6 +345,7 @@
     <Content Include="AnimatedVisuals\VoiceRecognitionAnimation.json" />
     <None Include="Dictation.ruleset" />
     <PRIResource Include="Strings\en-us\Resources.resw" />
+    <PRIResource Include="Strings\ru-ru\Resources.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

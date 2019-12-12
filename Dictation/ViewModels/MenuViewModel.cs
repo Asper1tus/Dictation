@@ -42,11 +42,10 @@
 
         private static async void ChooseItem(string tag)
         {
+            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+
             switch (tag)
             {
-                case "back":
-                    NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
-                    break;
                 case "new":
                     await FileService.New().ConfigureAwait(true);
                     break;
@@ -57,8 +56,6 @@
                     await FileService.SaveAsAsync().ConfigureAwait(true);
                     break;
             }
-
-            NavigationService.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
         private void OnItemInvoked(NavigationViewItemInvokedEventArgs args)

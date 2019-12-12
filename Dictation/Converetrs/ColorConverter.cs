@@ -3,9 +3,8 @@
     using System;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Data;
-    using Windows.UI.Xaml.Media;
 
-    public class ButtonConverter : IValueConverter
+    public class ColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
@@ -19,11 +18,11 @@
                 {
                     if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
                     {
-                        return (Application.Current.Resources["SystemControlPageBackgroundChromeLowBrush"] as SolidColorBrush);
+                        return Application.Current.Resources["SystemControlPageTextChromeBlackMediumLowBrush"];
                     }
                     else
                     {
-                        return (Application.Current.Resources["SystemControlPageTextChromeBlackMediumLowBrush"] as SolidColorBrush);
+                        return Application.Current.Resources["SystemControlPageBackgroundChromeLowBrush"];
                     }
                 }
             }

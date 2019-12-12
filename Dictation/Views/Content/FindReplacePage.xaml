@@ -11,40 +11,40 @@
 
     <StackPanel Margin="10">
         <TextBlock 
+            x:Uid="FindReplace_Description"
             TextWrapping="Wrap" 
-            Margin="0 0 30 10" 
-            Text="Find every instance of a word in your document and replace it with another word."/>
+            Margin="0 0 30 10"/>
         <TextBlock 
+            x:Uid="FindReplace_Find"
             FontSize="20" 
-            FontWeight="SemiBold"
-            Text="Find what:"/>
+            FontWeight="SemiBold"/>
         <TextBox 
             Margin="5" 
             Text="{x:Bind viewModel.SearchedWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <CheckBox 
+            x:Uid="FindReplace_MatchCase"
             Margin="5 0 0 0" 
-            Content="Match case"
             IsChecked="{x:Bind viewModel.IsMatchCase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Button 
+            x:Uid="FindReplace_FindNext"
             Height="30"
-            Content="Find Next"
             Command="{x:Bind viewModel.FindNextCommand}"/>
         <TextBlock 
+            x:Uid="FindReplace_ReplaceWith"
             FontSize="20" 
-            FontWeight="SemiBold"
-            Text="Replace with:"/>
+            FontWeight="SemiBold"/>
         <TextBox 
             Margin="5" 
             Text="{x:Bind viewModel.ReplacementWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <StackPanel Orientation="Horizontal">
             <Button 
+                x:Uid="FindReplace_Replace"
                 Height="30" 
-                Content="Replace"
                 Command="{x:Bind viewModel.ReplaceCommand}"/>
             <Button 
+                x:Uid="FindReplace_ReplaceAll"
                 Height="30" 
                 Margin="20 0 0 0" 
-                Content="Replace All"
                 Command="{x:Bind viewModel.ReplaceAllCommand}"/>
         </StackPanel>
     </StackPanel>

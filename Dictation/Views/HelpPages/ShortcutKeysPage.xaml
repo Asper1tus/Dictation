@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </Page.Resources>
     <StackPanel>
-        <TextBlock Text="Use the following keyboard shortcut to get quick access to freqently used options"/>
+        <TextBlock x:Uid="Shortcut_Description"/>
         <ScrollViewer 
             VerticalScrollMode="Enabled"
             Height="600" 
@@ -29,64 +29,65 @@
                 <StackPanel Grid.Column="0">
                     <TextBlock HorizontalAlignment="Left">
                         <Run 
-                            FontWeight="Bold" 
-                            Text="Frequent Actions"/>
+                            x:Uid="Shortcut_Frequent"
+                            FontWeight="Bold"/>
                         <LineBreak/>
-                        <Run Text="Start/Stop Dictation"/>
+                        <Run x:Uid="Shortcut_Dictation"/>
                         <LineBreak/>
-                        <Run Text="Menu"/>
+                        <Run x:Uid="Shortcut_Menu"/>
                         <LineBreak/>
-                        <Run Text="New Document"/>
+                        <Run x:Uid="Shortcut_New"/>
                         <LineBreak/>
-                        <Run Text="Open Document"/>
+                        <Run x:Uid="Shortcut_Open"/>
                         <LineBreak/>
-                        <Run Text="Save Document"/>
+                        <Run x:Uid="Shortcut_Save"/>
                         <LineBreak/>
-                        <Run Text="SaveAs Document"/>
+                        <Run x:Uid="Shortcut_SaveAs"/>
                     </TextBlock>
                     <TextBlock>
                         <Run 
-                            FontWeight="Bold" 
-                            Text="Active Document"/>
+                            x:Uid="Shortcut_ActiveDocument"
+                            FontWeight="Bold" />
                         <LineBreak/>
-                        <Run Text="Undo"/>
+                        <Run x:Uid="Shortcut_Undo"/>
                         <LineBreak/>
-                        <Run Text="Redo"/>
+                        <Run x:Uid="Shortcut_Redo"/>
                         <LineBreak/>
-                        <Run Text="Cut"/>
+                        <Run x:Uid="Shortcut_Cut"/>
                         <LineBreak/>
-                        <Run Text="Copy"/>
+                        <Run x:Uid="Shortcut_Copy"/>
                         <LineBreak/>
-                        <Run Text="Paste"/>
+                        <Run x:Uid="Shortcut_Paste"/>
                         <LineBreak/>
-                        <Run Text="Find and Replace"/>
+                        <Run x:Uid="Shortcut_FindAndReplace"/>
                     </TextBlock>
                     <TextBlock>
                         <Run 
+                            x:Uid="Shortcut_Formatting"
                             FontWeight="Bold" 
                             Text="Formatting"/>
                         <LineBreak/>
-                        <Run Text="Bold"/>
+                        <Run x:Uid="Shortcut_Bold"/>
                         <LineBreak/>
-                        <Run Text="Italic"/>
+                        <Run x:Uid="Shortcut_Italic"/>
                         <LineBreak/>
-                        <Run Text="Underline"/>
+                        <Run x:Uid="Shortcut_Underline"/>
                         <LineBreak/>
-                        <Run Text="Align Left"/>
+                        <Run x:Uid="Shortcut_AlignLeft"/>
                         <LineBreak/>
-                        <Run Text="Align Right"/>
+                        <Run x:Uid="Shortcut_AlignRight"/>
                         <LineBreak/>
-                        <Run Text="Align Center"/>
+                        <Run x:Uid="Shortcut_AlignCenter"/>
                         <LineBreak/>  
-                        <Run Text="Align Justify"/>
+                        <Run x:Uid="Shortcut_AlignJustify"/>
                         <LineBreak/>
-                        <Run Text="Increase Font Size"/>
+                        <Run x:Uid="Shortcut_Increase"/>
                         <LineBreak/>
-                        <Run Text="Decrease Font Size"/>
+                        <Run x:Uid="Shortcut_Decrease"/>
                         <LineBreak/>
-                        <Run Text="Insert Hyperlink"/>
+                        <Run x:Uid="Shortcut_Hyperlink"/>
                         <LineBreak/>
-                        <Run Text="Bullets"/>
+                        <Run x:Uid="Shortcut_Bullets" />
                         <LineBreak/>
                     </TextBlock>
                 </StackPanel>
