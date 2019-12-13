@@ -89,7 +89,7 @@
         private void Frame_Navigated(object sender, NavigationEventArgs e)
         {
             var sourcePageType = e.SourcePageType;
-            if (sourcePageType == typeof(Menu))
+            if (sourcePageType == typeof(MenuPage))
             {
                 sourcePageType = typeof(OpenPage);
             }

@@ -128,6 +128,9 @@
   <data name="FileService_Open" xml:space="preserve">
     <value>Открыть</value>
   </data>
+  <data name="Find And Replace" xml:space="preserve">
+    <value>Найти и Заменить</value>
+  </data>
   <data name="FindReplace_Description.Text" xml:space="preserve">
     <value>Найдите каждый экземпляр слова в своем документе и замените его другим словом.</value>
   </data>
@@ -149,6 +152,9 @@
   <data name="FindReplace_ReplaceWith.Text" xml:space="preserve">
     <value>Заменить на:</value>
   </data>
+  <data name="Formating Tools" xml:space="preserve">
+    <value>Форматирование</value>
+  </data>
   <data name="Help_About.Header" xml:space="preserve">
     <value>О нас</value>
   </data>
@@ -157,6 +163,18 @@
   </data>
   <data name="Help_Shortcut.Header" xml:space="preserve">
     <value>Горячие клавиши</value>
+  </data>
+  <data name="HyperLinkContentDialog.CloseButtonText" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="HyperLinkContentDialog.PrimaryButtonText" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="HyperLinkContentDialog.Title" xml:space="preserve">
+    <value>Вставить Гиперссылку</value>
+  </data>
+  <data name="HyperLinkContentDialog_DisplayText.Header" xml:space="preserve">
+    <value>Отображаемый тект:</value>
   </data>
   <data name="Main_Copy.Label" xml:space="preserve">
     <value>Копировать</value>
@@ -171,16 +189,16 @@
     <value>Вставить (Ctrl + X)</value>
   </data>
   <data name="Main_EditingTools.Text" xml:space="preserve">
-    <value>Интсрументы для редактирования</value>
+    <value>Редактирование</value>
   </data>
   <data name="Main_FindAndReplace.Label" xml:space="preserve">
     <value>Найти и заменить</value>
   </data>
   <data name="Main_FindAndReplace.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Find text (Ctrl + F)</value>
+    <value>Найти текст (Ctrl + F)</value>
   </data>
   <data name="Main_FormatingTools.Label" xml:space="preserve">
-    <value>  Интсрументы для форматирования</value>
+    <value>Форматирование</value>
   </data>
   <data name="Main_FormatingTools.ToolTipService.ToolTip" xml:space="preserve">
     <value>Открыть инструменты (Ctrl + T)</value>
@@ -263,6 +281,33 @@
   <data name="Open_RecentDocuments.Text" xml:space="preserve">
     <value>Недавние документы</value>
   </data>
+  <data name="RecognitionSettingsDialog.CloseButtonText" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="RecognitionSettingsDialog_Advice1.Text" xml:space="preserve">
+    <value>Dictation нужно использовать микрофон для диктовки текста.</value>
+  </data>
+  <data name="RecognitionSettingsDialog_Advice2.Text" xml:space="preserve">
+    <value>Кажется, вы отсказали в доступею.</value>
+  </data>
+  <data name="RecognitionSettingsDialog_Advice3.Text" xml:space="preserve">
+    <value>и включите микрофонный доступ для Dictation</value>
+  </data>
+  <data name="RecognitionSettingsDialog_GoToSettings.Text" xml:space="preserve">
+    <value>'Перейдите в настройки'</value>
+  </data>
+  <data name="SaveDocumentContentDialog.CloseButtonText" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="SaveDocumentContentDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="SaveDocumentContentDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Не Сохранять</value>
+  </data>
+  <data name="SaveDocumentContentDialog.Title" xml:space="preserve">
+    <value>Сохранить Документ?</value>
+  </data>
   <data name="Settings_Advice1.Text" xml:space="preserve">
     <value>Вы можете добавить больше языков диктовки. Перейдите на страницу</value>
   </data>
@@ -292,6 +337,9 @@
   </data>
   <data name="Settings_General.Text" xml:space="preserve">
     <value>Основное</value>
+  </data>
+  <data name="Settings_Language.Header" xml:space="preserve">
+    <value>Язык</value>
   </data>
   <data name="Settings_Light.Content" xml:space="preserve">
     <value>Светлая</value>
@@ -439,5 +487,8 @@
   </data>
   <data name="Tools_Upper.Text" xml:space="preserve">
     <value>ВЕРХНИЙ РЕГИСТР</value>
+  </data>
+  <data name="Vocabulary Training" xml:space="preserve">
+    <value>Тренировка Словаря</value>
   </data>
 </root>

@@ -48,14 +48,14 @@
                     Command="{x:Bind viewModel.ListeningCommand}"/>
                 <AppBarButton 
                     x:Uid="Main_VocabularyTraining"
-                    Background="{x:Bind viewModel.Title, Converter={StaticResource ColorConverter}, ConverterParameter='Vocabulary Training', Mode=OneWay}"
+                    Background="{x:Bind viewModel.SelectedPanel, Converter={StaticResource ColorConverter}, ConverterParameter='Vocabulary Training', Mode=OneWay}"
                     Icon="Library" 
                     Tag="vocabulary" 
                     Command="{x:Bind viewModel.DispalyContentCommand}" 
                     CommandParameter="vocabulary"/>
                 <AppBarButton  
                     x:Uid="Main_FormatingTools"
-                    Background="{x:Bind viewModel.Title, Converter={StaticResource ColorConverter}, ConverterParameter='Formating Tools', Mode=OneWay}"
+                    Background="{x:Bind viewModel.SelectedPanel, Converter={StaticResource ColorConverter}, ConverterParameter='Formating Tools', Mode=OneWay}"
                     Icon="Font" 
                     Command="{x:Bind viewModel.DispalyContentCommand}" 
                     CommandParameter="tools">
@@ -67,7 +67,7 @@
                 </AppBarButton>
                 <AppBarButton  
                     x:Uid="Main_FindAndReplace"
-                    Background="{x:Bind viewModel.Title, Converter={StaticResource ColorConverter}, ConverterParameter='Find and Replace', Mode=OneWay}"
+                    Background="{x:Bind viewModel.SelectedPanel, Converter={StaticResource ColorConverter}, ConverterParameter='Find and Replace', Mode=OneWay}"
                     Icon="Rename" 
                     Command="{x:Bind viewModel.DispalyContentCommand}" 
                     CommandParameter="findreplace">

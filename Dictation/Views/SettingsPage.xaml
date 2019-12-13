@@ -14,7 +14,7 @@
     <Page.Resources>
         <convert:ThemeConverter x:Key="ThemeConverter" />
     </Page.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -71,12 +71,23 @@
                         ItemsSource="{x:Bind vm:SettingsViewModel.Sizes}" 
                         SelectedItem="{x:Bind viewModel.Size, Mode=TwoWay}"/>
                 </StackPanel>
-                <ComboBox 
-                    x:Uid="Settings_DictationLanguage"
-                    Margin="0,5,0,0" 
-                    Width="200" 
-                    ItemsSource="{x:Bind vm:SettingsViewModel.Languages}" 
-                    SelectedItem="{x:Bind viewModel.Language, Mode=TwoWay}"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox 
+                        x:Uid="Settings_Language"
+                        Margin="0,5,0,0" 
+                        Width="150"   
+                        DisplayMemberPath="DisplayName"
+                        SelectedValuePath="LanguageTag"
+                        ItemsSource="{x:Bind vm:SettingsViewModel.Languages}" 
+                        SelectedItem="{x:Bind viewModel.Language, Mode=TwoWay}"/>
+                    <ComboBox 
+                        x:Uid="Settings_DictationLanguage"
+                        Margin="20,5,0,0" 
+                        Width="150" 
+                        ItemsSource="{x:Bind vm:SettingsViewModel.DictationLanguages}" 
+                        SelectedItem="{x:Bind viewModel.DictationLanguage, Mode=TwoWay}"/>
+                </StackPanel>
                 <TextBlock 
                     FontStyle="Italic"
                     Margin="0,15,0,0" 

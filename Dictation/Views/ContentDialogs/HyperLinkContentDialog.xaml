@@ -6,11 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="Insert HyperLink"
-    PrimaryButtonText="Ok"
+    x:Uid="HyperLinkContentDialog"
     PrimaryButtonCommand="{x:Bind viewModel.InsertHypelinkCommand}"
-    IsPrimaryButtonEnabled="{x:Bind viewModel.IsEnabledOkButton, Mode=OneWay}"
-    CloseButtonText="Cancel">
+    IsPrimaryButtonEnabled="{x:Bind viewModel.IsEnabledOkButton, Mode=OneWay}">
     
     <StackPanel 
         VerticalAlignment="Stretch" 
@@ -21,7 +19,7 @@
             Text="{x:Bind viewModel.Link, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
             TextChanged="{x:Bind viewModel.OkButtonSwitch}"/>
         <TextBox 
-            Header="Display text:" 
+            x:Uid="HyperLinkContentDialog_DisplayText"
             Text="{x:Bind viewModel.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
             TextChanged="{x:Bind viewModel.OkButtonSwitch}"/>
     </StackPanel>

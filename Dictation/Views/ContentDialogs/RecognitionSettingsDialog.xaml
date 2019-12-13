@@ -6,20 +6,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    CloseButtonText="Cancel">
+    x:Uid="RecognitionSettingsDialog">
 
     <StackPanel>
         <TextBlock>
-            <Run  Text="Dictation needs to use your microphone for dictating text."/>
+            <Run x:Uid="RecognitionSettingsDialog_Advice1"/>
             <LineBreak/>
-            <Run Text="It seems you have denied the access."/>
+            <Run x:Uid="RecognitionSettingsDialog_Advice2"/>
             <LineBreak/>
             <LineBreak/>
-            <Run Text="Click"/>
-               <Hyperlink NavigateUri="ms-settings:privacy-microphone">
-                   <Run Text="'Go to Settings'"/>
-               </Hyperlink>
-            <Run Text="and turn on microphone access for Dictation"/>
+            <Hyperlink NavigateUri="ms-settings:privacy-microphone">
+                <Run x:Uid="RecognitionSettingsDialog_GoToSettings"/>
+            </Hyperlink>
+            <Run x:Uid="RecognitionSettingsDialog_Advice3"/>
         </TextBlock>
     </StackPanel>
 

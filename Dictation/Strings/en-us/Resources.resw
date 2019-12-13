@@ -128,6 +128,9 @@
   <data name="FileService_Open" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="Find And Replace" xml:space="preserve">
+    <value>Find And Replace</value>
+  </data>
   <data name="FindReplace_Description.Text" xml:space="preserve">
     <value>Find every instance of a word in your document and replace it with another word.</value>
   </data>
@@ -149,6 +152,9 @@
   <data name="FindReplace_ReplaceWith.Text" xml:space="preserve">
     <value>Replace with:</value>
   </data>
+  <data name="Formating Tools" xml:space="preserve">
+    <value>Formating Tools</value>
+  </data>
   <data name="Help_About.Header" xml:space="preserve">
     <value>About</value>
   </data>
@@ -157,6 +163,18 @@
   </data>
   <data name="Help_Shortcut.Header" xml:space="preserve">
     <value>Shortcut Keys</value>
+  </data>
+  <data name="HyperLinkContentDialog.CloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="HyperLinkContentDialog.PrimaryButtonText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="HyperLinkContentDialog.Title" xml:space="preserve">
+    <value>Insert HyperLink</value>
+  </data>
+  <data name="HyperLinkContentDialog_DisplayText.Header" xml:space="preserve">
+    <value>Display text:</value>
   </data>
   <data name="Main_Copy.Label" xml:space="preserve">
     <value>Copy</value>
@@ -263,6 +281,33 @@
   <data name="Open_RecentDocuments.Text" xml:space="preserve">
     <value>Recent Documents</value>
   </data>
+  <data name="RecognitionSettingsDialog.CloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="RecognitionSettingsDialog_Advice1.Text" xml:space="preserve">
+    <value>Dictation needs to use your microphone for dictating text.</value>
+  </data>
+  <data name="RecognitionSettingsDialog_Advice2.Text" xml:space="preserve">
+    <value>It seems you have denied the access.</value>
+  </data>
+  <data name="RecognitionSettingsDialog_Advice3.Text" xml:space="preserve">
+    <value>and turn on microphone access for Dictation</value>
+  </data>
+  <data name="RecognitionSettingsDialog_GoToSettings.Text" xml:space="preserve">
+    <value>'Go to Settings'</value>
+  </data>
+  <data name="SaveDocumentContentDialog.CloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SaveDocumentContentDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SaveDocumentContentDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Don't Save</value>
+  </data>
+  <data name="SaveDocumentContentDialog.Title" xml:space="preserve">
+    <value>Do you want to save document?</value>
+  </data>
   <data name="Settings_Advice1.Text" xml:space="preserve">
     <value>You can add more dictation languages. Go to</value>
   </data>
@@ -292,6 +337,9 @@
   </data>
   <data name="Settings_General.Text" xml:space="preserve">
     <value>General</value>
+  </data>
+  <data name="Settings_Language.Header" xml:space="preserve">
+    <value>Language</value>
   </data>
   <data name="Settings_Light.Content" xml:space="preserve">
     <value>Light</value>
@@ -439,5 +487,8 @@
   </data>
   <data name="Tools_Upper.Text" xml:space="preserve">
     <value>TO UPPER CASE</value>
+  </data>
+  <data name="Vocabulary Training" xml:space="preserve">
+    <value>Vocabulary Training</value>
   </data>
 </root>

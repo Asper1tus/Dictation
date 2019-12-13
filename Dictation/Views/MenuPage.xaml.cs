@@ -3,11 +3,11 @@
     using Dictation.ViewModels;
     using Windows.UI.Xaml.Controls;
 
-    public sealed partial class Menu : Page
+    public sealed partial class MenuPage : Page
     {
         private MenuViewModel viewModel;
 
-        public Menu()
+        public MenuPage()
         {
             viewModel = new MenuViewModel();
             InitializeComponent();

@@ -9,6 +9,7 @@
     using Dictation.Services;
     using Dictation.Views;
     using Dictation.Views.Content;
+    using Microsoft.Toolkit.Uwp.Extensions;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Media.Animation;
 
@@ -16,7 +17,7 @@
     {
         private readonly List<(string tag, Type page, string title)> pages = new List<(string tag, Type page, string title)>
 {
-    ("findreplace",  typeof(FindReplacePage), "Find and Replace"),
+    ("findreplace",  typeof(FindReplacePage), "Find And Replace"),
     ("tools", typeof(ToolsPage), "Formating Tools"),
     ("vocabulary", typeof(VocabularyPage), "Vocabulary Training"),
 };
@@ -86,6 +87,8 @@
             set => Set(ref this.zoomFactor, value);
         }
 
+        public string SelectedPanel { get; set; }
+
         public async void Initialize(Frame contentFrame)
         {
             MessageService.ZoomFactorChanged += ZoomFactorChanged;
@@ -113,7 +116,7 @@
         private void Close()
         {
             IsPanelVisible = false;
-            Title = null;
+            SelectedPanel = null;
         }
 
         private async void Listening()
@@ -153,13 +156,14 @@
             {
                 IsPanelVisible = true;
                 NavigationService.NavigateContent(page, null, new SuppressNavigationTransitionInfo());
-                Title = item.title;
+                Title = item.title.GetLocalized();
+                SelectedPanel = item.title;
             }
             else
             {
                 IsPanelVisible = !IsPanelVisible;
                 NavigationService.ContentFrame = null;
-                Title = null;
+                SelectedPanel = null;
             }
         }
 
@@ -170,7 +174,7 @@
 
         private void GoToMenu()
         {
-            NavigationService.Navigate(typeof(Menu), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
+            NavigationService.Navigate(typeof(MenuPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
         }
 
         private void ChangeZoom(string operation)

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Dictation.Views.Menu"
+    x:Class="Dictation.Views.MenuPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:helpers="using:Dictation.Helpers"
