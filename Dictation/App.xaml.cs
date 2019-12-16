@@ -5,7 +5,6 @@
     using System.Reflection;
     using Dictation.Helpers;
     using Dictation.Services;
-    using Dictation.ViewModels;
     using Microsoft.Toolkit.Uwp.Extensions;
     using Windows.ApplicationModel;
     using Windows.ApplicationModel.Activation;
@@ -16,9 +15,6 @@
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Navigation;
 
-    /// <summary>
-    /// Обеспечивает зависящее от конкретного приложения поведение, дополняющее класс Application по умолчанию.
-    /// </summary>
     public sealed partial class App : Application
     {
         private const string SelectedAppThemeKey = "SelectedAppTheme";

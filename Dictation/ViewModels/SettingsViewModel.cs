@@ -19,12 +19,13 @@
         private ICommand restoreDefaultCommand;
         private string dictationLanguage;
         private string font;
-        private Language language;
-        private int size;
         private string theme;
+        private int size;
         private int minutes;
+        private int languageIndex;
         private bool isSaveEnabled;
         private bool isValid;
+        private Language language;
         private DispatcherTimer timer;
 
         public SettingsViewModel()
@@ -36,7 +37,7 @@
             Minutes = App.Minutes;
             Theme = currentTheme;
             DictationLanguage = App.RecognitionLanguage;
-            Language = Languages.First((c) => c.LanguageTag.Equals(CultureInfo.CurrentCulture.IetfLanguageTag, StringComparison.InvariantCultureIgnoreCase));
+            LanguageIndex = Languages.FindIndex((c) => c.LanguageTag.Equals(CultureInfo.CurrentCulture.IetfLanguageTag, StringComparison.InvariantCultureIgnoreCase));
             InitializeTimer();
         }
 
@@ -88,6 +89,12 @@
         {
             get => minutes;
             set => Set(ref this.minutes, value);
+        }
+
+        public int LanguageIndex
+        {
+            get => languageIndex;
+            set => Set(ref this.languageIndex, value);
         }
 
         public bool IsSaveEnabled

@@ -40,28 +40,31 @@
             InitializeSpeechRecognizer(language);
         }
 
-        public static async Task Listening(bool isListening)
+        public static async Task<bool> Listening(bool isListening)
         {
-                if (isListening)
+            if (isListening)
+            {
+                if (speechRecognizer.State == SpeechRecognizerState.Idle)
                 {
-                    if (speechRecognizer.State == SpeechRecognizerState.Idle)
-                    {
-                        await speechRecognizer.ContinuousRecognitionSession.StartAsync();
-                        dictatedTextBuilder.Append(RtfTextHelper.Text);
-                        richText = RtfTextHelper.FormattedText;
-                    }
+                    await speechRecognizer.ContinuousRecognitionSession.StartAsync();
+                    dictatedTextBuilder.Append(RtfTextHelper.Text);
+                    richText = RtfTextHelper.FormattedText;
+                    return true;
                 }
-                else
+            }
+            else
+            {
+                if (speechRecognizer.State != SpeechRecognizerState.Idle)
                 {
-                    if (speechRecognizer.State != SpeechRecognizerState.Idle)
-                    {
-                        await speechRecognizer.ContinuousRecognitionSession.CancelAsync();
-                        dictatedTextBuilder.Clear();
-                        RtfTextHelper.FormattedText = richText;
-                        RtfTextHelper.AddRtf(recognizedText);
-                        recognizedText = string.Empty;
-                    }
+                    await speechRecognizer.ContinuousRecognitionSession.CancelAsync();
+                    dictatedTextBuilder.Clear();
+                    RtfTextHelper.FormattedText = richText;
+                    RtfTextHelper.AddRtf(recognizedText);
+                    recognizedText = string.Empty;
                 }
+            }
+
+            return false;
         }
 
         private static Language GetLanguageByNativeName(string name)

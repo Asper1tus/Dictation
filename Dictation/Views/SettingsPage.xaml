@@ -79,6 +79,7 @@
                         Width="150"   
                         DisplayMemberPath="DisplayName"
                         SelectedValuePath="LanguageTag"
+                        SelectedIndex="{x:Bind viewModel.LanguageIndex, Mode=OneWay}"
                         ItemsSource="{x:Bind vm:SettingsViewModel.Languages}" 
                         SelectedItem="{x:Bind viewModel.Language, Mode=TwoWay}"/>
                     <ComboBox 

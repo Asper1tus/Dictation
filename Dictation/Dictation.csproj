@@ -139,7 +139,7 @@
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommand{T}.cs" />
-    <Compile Include="Converetrs\ColorConverter.cs" />
+    <Compile Include="Converetrs\ActivePanelConverter.cs" />
     <Compile Include="Converetrs\ZoomToSliderConverter.cs" />
     <Compile Include="Converetrs\ThemeConverter.cs" />
     <Compile Include="Converetrs\ZoomToTextConverter.cs" />

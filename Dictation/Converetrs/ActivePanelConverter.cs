@@ -4,7 +4,7 @@
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Data;
 
-    public class ColorConverter : IValueConverter
+    public class ActivePanelConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

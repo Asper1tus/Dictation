@@ -26,6 +26,7 @@
         private bool isBusy;
         private bool isPanelVisible;
         private bool isListeningVisible;
+        private bool isVoiceRecognitionAnimationVisible;
         private string title;
         private float zoomFactor;
         private ICommand listeningCommand;
@@ -35,6 +36,7 @@
         private ICommand goToMenuCommand;
         private ICommand operationCommand;
         private ICommand changeZoomCommand;
+        private string selectedPanelTag;
 
         // FontSize in RichEditBox 0.75 times smaller generally
         public static int FontSize => (int)Math.Ceiling(App.FontSize / 0.75);
@@ -69,6 +71,12 @@
             set => Set(ref this.isListeningVisible, value);
         }
 
+        public bool IsVoiceRecognitionAnimationVisible
+        {
+            get => isVoiceRecognitionAnimationVisible;
+            set => Set(ref this.isVoiceRecognitionAnimationVisible, value);
+        }
+
         public bool IsPanelVisible
         {
             get => isPanelVisible;
@@ -87,14 +95,18 @@
             set => Set(ref this.zoomFactor, value);
         }
 
-        public string SelectedPanel { get; set; }
+        public string SelectedPanelTag
+        {
+            get => selectedPanelTag;
+            set => Set(ref this.selectedPanelTag, value);
+        }
 
         public async void Initialize(Frame contentFrame)
         {
-            MessageService.ZoomFactorChanged += ZoomFactorChanged;
             FileService.FileManipulationStarted += FileManipulationStarted;
             FileService.FileManipulationEnded += FileManipulationEnded;
             await FileService.New().ConfigureAwait(true);
+            MessageService.ZoomFactorChanged += ZoomFactorChanged;
             this.contentFrame = contentFrame;
             RecognizerService.InitializeRecognizerService();
             IsPanelVisible = true;
@@ -116,7 +128,7 @@
         private void Close()
         {
             IsPanelVisible = false;
-            SelectedPanel = null;
+            SelectedPanelTag = null;
         }
 
         private async void Listening()
@@ -132,16 +144,17 @@
             {
                 try
                 {
-                    await RecognizerService.Listening(IsListening).ConfigureAwait(true);
+                    IsVoiceRecognitionAnimationVisible = await RecognizerService.Listening(IsListening).ConfigureAwait(true);
                 }
                 catch (InvalidOperationException)
                 {
                     IsListening = false;
-                    await RecognizerService.Listening(IsListening).ConfigureAwait(true);
+                    IsVoiceRecognitionAnimationVisible = await RecognizerService.Listening(IsListening).ConfigureAwait(true);
                 }
                 catch (System.Exception e) when (e.HResult == unchecked((int)0x80045509))
                 {
                     IsListening = false;
+                    IsVoiceRecognitionAnimationVisible = false;
                     ContentDialogService.ShowRecognitionPrivacyDialog();
                 }
             }
@@ -157,13 +170,13 @@
                 IsPanelVisible = true;
                 NavigationService.NavigateContent(page, null, new SuppressNavigationTransitionInfo());
                 Title = item.title.GetLocalized();
-                SelectedPanel = item.title;
+                SelectedPanelTag = item.tag;
             }
             else
             {
                 IsPanelVisible = !IsPanelVisible;
                 NavigationService.ContentFrame = null;
-                SelectedPanel = null;
+                SelectedPanelTag = null;
             }
         }
 
